@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,6 +16,13 @@ class Settings(BaseSettings):
     # BGE models are trained with this instruction on the query side only.
     embedding_query_prefix: str = "Represent this sentence for searching relevant passages: "
     model_cache_dir: str = "data/models"
+
+    # Any OpenAI-compatible chat completions endpoint (most hosted free tiers offer one).
+    llm_base_url: str = ""
+    llm_model: str = ""  # pin an exact model version where the provider allows it
+    llm_api_key: SecretStr = SecretStr("")
+    llm_requests_per_minute: float = 10
+    llm_cache_dir: str = "data/llm_cache"  # empty string disables the response cache
 
     @property
     def sync_database_url(self) -> str:

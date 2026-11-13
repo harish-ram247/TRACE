@@ -50,3 +50,15 @@ Short weekly notes: what worked, what broke, what changed.
   it must be re-checked on the held-out evaluation set.
 - Vector-only beats hybrid at rank 1 on this set. Not tuned further: 20 queries is too few to choose
   fusion weights without overfitting.
+
+## Week 4 (started)
+
+- LLM provider decision (plan O3): a free-tier hosted API, reached through any OpenAI-compatible
+  `/chat/completions` endpoint. Provider and model are configuration (`LLM_BASE_URL`, `LLM_MODEL`,
+  `LLM_API_KEY`). Ollama was ruled out as the main option: no discrete GPU, so a full evaluation run
+  would take hours, and small local models are weak at JSON claim extraction.
+- `app/core/llm.py`: client with request spacing (requests per minute), retries with backoff on 429/5xx
+  (honours Retry-After), JSON mode, disk response cache (`data/llm_cache`), and a fake for tests.
+- `python -m app.core.llm_check` sends two tiny live requests to verify a configured provider.
+- Fixed a test that compared approximate and exact vector search across the whole dev database; it now
+  only looks at its own fixture repository.

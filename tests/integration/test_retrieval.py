@@ -5,7 +5,7 @@ import pytest
 from app.ingest.service import ingest_repo
 from app.retrieval.backfill import embed_missing
 from app.retrieval.embeddings import HashEmbedder
-from app.retrieval.search import search, vector_candidates
+from app.retrieval.search import _filters, search, vector_candidates
 from tests.fixtures.repo_builder import RepoBuilder, day
 
 pytestmark = pytest.mark.integration
@@ -82,7 +82,9 @@ def test_single_branches_work_and_report_their_rank(pg, corpus):
 
 def test_vector_modes_agree_on_a_tiny_corpus(pg, corpus):
     qv = EMB.embed_query("dev server port")
-    where, params = " AND c.valid @> %(as_of)s::timestamptz", {"as_of": day(2023, 1, 1)}
+    # Scoped to this test's repo: other corpora in the dev database (embedded with a different
+    # model) would make approximate and exact search legitimately disagree.
+    where, params = _filters(day(2023, 1, 1), corpus, time_filter=True)
     exact = vector_candidates(pg, qv, where, params, 10, mode="exact")
     iterative = vector_candidates(pg, qv, where, params, 10, mode="iterative")
     assert iterative == exact
