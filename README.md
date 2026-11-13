@@ -47,6 +47,19 @@ python -m scripts.retrieval_check https://github.com/vitejs/vite
 Corpus: [Vite documentation](https://github.com/vitejs/vite), MIT License,
 Copyright (c) 2019-present, VoidZero Inc. and Vite contributors.
 
+## Asking questions
+
+With an LLM configured in `.env` (see `.env.example`; check it with `python -m app.core.llm_check`):
+
+```bash
+uvicorn app.main:app --reload
+curl -X POST http://localhost:8000/ask -H "Content-Type: application/json"   -d '{"question": "What port did vite preview use by default in December 2021?"}'
+```
+
+The response includes the date the question was resolved to, the answer with `[S1]`-style citations,
+and each cited source's validity interval. `"variant": "plain"` runs the no-time-filter baseline and
+`"as_of"` overrides the parsed date.
+
 ## Project layout
 
 See section 6 of [project_plan.md](project_plan.md).

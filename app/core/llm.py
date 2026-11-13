@@ -18,6 +18,7 @@ import hashlib
 import json
 import logging
 import ssl
+import threading
 import time
 from collections.abc import Callable
 from dataclasses import asdict, dataclass
@@ -77,13 +78,15 @@ class RateLimiter:
         self.interval = 60.0 / per_minute if per_minute > 0 else 0.0
         self._clock, self._sleep = clock, sleep
         self._next = 0.0
+        self._lock = threading.Lock()
 
     def wait(self) -> None:
-        now = self._clock()
-        if now < self._next:
-            self._sleep(self._next - now)
-            now = self._next
-        self._next = now + self.interval
+        with self._lock:  # the API serves requests from several threads
+            now = self._clock()
+            if now < self._next:
+                self._sleep(self._next - now)
+                now = self._next
+            self._next = now + self.interval
 
 
 class OpenAICompatibleClient:

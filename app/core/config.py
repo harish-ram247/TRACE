@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     embedding_query_prefix: str = "Represent this sentence for searching relevant passages: "
     model_cache_dir: str = "data/models"
 
+    # Which ingested repository the API answers from.
+    corpus_repo_id: str = "https://github.com/vitejs/vite"
+
     # Any OpenAI-compatible chat completions endpoint (most hosted free tiers offer one).
     llm_base_url: str = ""
     llm_model: str = ""  # pin an exact model version where the provider allows it

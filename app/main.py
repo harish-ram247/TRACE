@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api import health
+from app.api import ask, health
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 
@@ -12,3 +12,4 @@ app = FastAPI(
     version="0.1.0",
 )
 app.include_router(health.router)
+app.include_router(ask.router)

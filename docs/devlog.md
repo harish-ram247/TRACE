@@ -51,7 +51,7 @@ Short weekly notes: what worked, what broke, what changed.
 - Vector-only beats hybrid at rank 1 on this set. Not tuned further: 20 queries is too few to choose
   fusion weights without overfitting.
 
-## Week 4 (started)
+## Week 4
 
 - LLM provider decision (plan O3): a free-tier hosted API, reached through any OpenAI-compatible
   `/chat/completions` endpoint. Provider and model are configuration (`LLM_BASE_URL`, `LLM_MODEL`,
@@ -62,3 +62,26 @@ Short weekly notes: what worked, what broke, what changed.
 - `python -m app.core.llm_check` sends two tiny live requests to verify a configured provider.
 - Fixed a test that compared approximate and exact vector search across the whole dev database; it now
   only looks at its own fixture repository.
+- Temporal parser (`app/temporal/parser.py`): rules for explicit dates, months, quarters, years,
+  relative phrases, Vite versions and "current" words, plus change questions ("between X and Y");
+  optional LLM fallback only for vague phrases ("previously", "used to"). 60+ labelled phrases in
+  `tests/unit/test_temporal.py`. They show the rules are consistent; real accuracy is measured later on
+  the evaluation questions.
+- Vite release dates come from the corpus's git tags (`scripts/export_releases.py` ->
+  `app/temporal/vite_releases.json`, committed so the API needs no clone).
+- Finding: "before Vite 3" first resolved to the v3 release date (2022-07-13), but the docs on main already
+  described v3 during its alpha (Node 14.18 requirement landed 2022-06-19; first v3 prerelease 2022-05-13).
+  The answer cited v3 docs for a "before v3" question. Fixed: "before Vite N" now means before N's first
+  prerelease.
+- Answer generation (`app/generation/answer.py`): sources as `<source label="S1" ...>` blocks, citations
+  mapped back to chunk ids, unknown labels flagged, `NOT_FOUND` when unanswerable, no LLM call when nothing
+  is retrieved. Temporal prompt states the as-of date and source validity; plain baseline prompt has no
+  dates.
+- Second finding: with the right source at rank 1, Gemini still answered `NOT_FOUND` to "before Vite 3",
+  apparently because no source mentions Vite 3. Prompt `answer-v2` says the time phrase has been resolved to
+  the date and the sources need not mention it. After that the answer was correct (">=14.6.0").
+- Pipeline (`app/pipeline.py`) and `POST /ask` (time info, answer, citations, sources with validity, model,
+  prompt version, cache flag, per-stage timings). Sync endpoint on a psycopg connection pool.
+- Live check on Gemini (5 questions): temporal variant correct on all three dated/current questions; the
+  plain baseline answered `NOT_FOUND` to both dated questions. Five questions prove nothing statistically;
+  this is a smoke test.
