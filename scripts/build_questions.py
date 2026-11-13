@@ -76,6 +76,34 @@ def _verify(conn, repo_id: str, q) -> None:
             q.flags.append("gold_not_in_source")
 
 
+# Suggestions for the human reviewer, from a first pass by the assistant (see docs/devlog.md).
+# They are only suggestions: the `decision` column is left blank for the reviewer.
+_GENERIC_TOKENS = {"build", "assets", "dev", "client", "server"}
+_WORDING_ONLY_FACTS = {
+    "default:build.ssr": "undefined -> false is a wording change with the same behaviour",
+}
+
+
+def suggest(q) -> tuple[str, str]:
+    if any(f.startswith(("gold_", "mentioned_elsewhere", "parser_")) for f in q.flags):
+        return "reject", "failed an automatic check: " + "; ".join(q.flags)
+    if q.fact_key in _WORDING_ONLY_FACTS and q.type != "unanswerable":
+        return "reject", _WORDING_ONLY_FACTS[q.fact_key]
+    if q.answerable and not q.gold_tokens:
+        return "reject", "gold value has no checkable token (e.g. '/')"
+    if any(t.lower() in _GENERIC_TOKENS for t in q.gold_tokens) and q.type != "change":
+        return "reject", "gold value is a common word, so unrelated answers would pass"
+    if "short_value" in q.flags:
+        return "accept", "short value (true/false/0/[]): check these answers by hand when scoring"
+    if "stale_undetectable" in q.flags:
+        return "accept", "older value is a subset; a stale answer shows up as missing gold tokens"
+    if q.type == "change":
+        return "accept", "checks that both the old and new value are mentioned"
+    if q.type == "unanswerable":
+        return "accept", "option not documented anywhere on that date (verified)"
+    return "accept", "evidence supports the gold value; tokens look specific"
+
+
 def _select(candidates, rng: random.Random):
     by_type: dict[str, list] = {}
     for q in candidates:
@@ -119,16 +147,18 @@ def main(argv: list[str] | None = None) -> int:
         REVIEW.parent.mkdir(parents=True, exist_ok=True)
         with REVIEW.open("w", newline="", encoding="utf-8-sig") as fh:
             w = csv.writer(fh)
-            w.writerow(["id", "decision", "note", "split", "type", "question", "as_of",
-                        "gold_answer", "gold_tokens", "stale_tokens", "flags", "source",
-                        "evidence"])  # fmt: skip
+            w.writerow(["id", "decision", "note", "suggested", "why", "split", "type",
+                        "question", "as_of", "gold_answer", "gold_tokens", "stale_tokens",
+                        "flags", "source", "evidence"])  # fmt: skip
             for q in chosen:
                 ref = q.gold_refs[-1] if q.gold_refs else None
                 source = f"{ref['source_path']} | {ref['section_path']}" if ref else ""
                 evidence = _evidence(conn, ref["chunk_id"], q.gold_answer) if ref else ""
-                w.writerow([q.id, "", "", q.split, q.type, q.question, q.as_of[:10],
-                            q.gold_answer, " | ".join(q.gold_tokens), " | ".join(q.stale_tokens),
-                            "; ".join(q.flags), source, re.sub(r"\s+", " ", evidence)])  # fmt: skip
+                suggested, why = suggest(q)
+                w.writerow([q.id, "", "", suggested, why, q.split, q.type, q.question,
+                            q.as_of[:10], q.gold_answer, " | ".join(q.gold_tokens),
+                            " | ".join(q.stale_tokens), "; ".join(q.flags), source,
+                            re.sub(r"\s+", " ", evidence)])  # fmt: skip
 
     changed = sum(f.changed for f in facts)
     print(f"facts: {len(facts)} ({changed} changed) | candidates: {len(candidates)}", end=" ")

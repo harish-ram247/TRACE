@@ -28,7 +28,7 @@ _LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")
 _BACKTICK = re.compile(r"`([^`]+)`")
 _NODE = re.compile(
     r"Node\.js\]\([^)]*\)\s+(?:version\s+)?"
-    r"((?:>=\s*)?\d+(?:\.\d+)*\+?(?:(?:,\s*|\s+or\s+)(?:>=\s*)?\d+(?:\.\d+)*\+?)*)"
+    r"((?:>=\s*)?\d+(?:\.\d+)*\+?(?:(?:,\s*|\s+or\s+|\.\s+(?=\d))(?:>=\s*)?\d+(?:\.\d+)*\+?)*)"
 )
 
 
@@ -94,7 +94,7 @@ def key_tokens(value: str) -> list[str]:
     quoted = re.findall(r"['\"]([^'\"]+)['\"]", value)
     tokens += quoted
     rest = re.sub(r"['\"][^'\"]*['\"]", " ", value)
-    for num in re.findall(r"\d+(?:\.\d+)*", rest):
+    for num in re.findall(r"(?<![A-Za-z_\d.])\d+(?:\.\d+)*", rest):  # not "2020" in "es2020"
         tokens.append(_strip_zeros(num))
     for word in re.findall(r"[A-Za-z_][\w.@/-]*", rest):
         if word.lower() not in {"or", "and", "for", "the"}:
@@ -138,7 +138,7 @@ def _option_name(section_path: str) -> str:
     last = section_path.split(" > ")[-1]
     last = re.sub(r"\s*\[part \d+\]$", "", last)
     last = re.sub(r"\s*#\d+$", "", last)
-    last = re.sub(r"\s*<Badge.*$", "", last)
+    last = re.sub(r"\s*<[A-Za-z][^>]*>.*$", "", last)  # <Badge ...>, <NonInheritBadge />
     return last.strip().strip("`")
 
 

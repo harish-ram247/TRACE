@@ -6,6 +6,9 @@ Reads eval/datasets/review/questions_review.csv. For each row, `decision` must b
   accept  keep as generated
   edit    keep, using the (edited) question / gold_answer / gold_tokens / stale_tokens columns
   reject  drop (write the reason in `note`)
+With --use-suggestions, rows whose `decision` is blank take the `suggested` column instead. Only
+use it after reading the suggestions; such rows are recorded with review_source =
+"suggestion_confirmed" so the write-up can say how many decisions were made that way.
 Writes eval/datasets/questions_v1.jsonl with reviewed = true and the reviewer's note, and prints
 the rejection rate. Once results have been computed on v1, do not change it; fix errors in a v2
 and record why in docs/devlog.md (plan 10.3).
@@ -32,6 +35,7 @@ def _tokens(cell: str) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--allow-undecided", action="store_true")
+    parser.add_argument("--use-suggestions", action="store_true")
     args = parser.parse_args(argv)
 
     candidates = {
@@ -41,11 +45,17 @@ def main(argv: list[str] | None = None) -> int:
         rows = list(csv.DictReader(fh))
 
     decisions = Counter()
+    sources = Counter()
     kept = []
     undecided = []
     for row in rows:
         decision = row["decision"].strip().lower()
+        source = "reviewer"
+        if not decision and args.use_suggestions and row.get("suggested"):
+            decision, source = row["suggested"].strip().lower(), "suggestion_confirmed"
+            row["note"] = row["note"] or row.get("why", "")
         decisions[decision or "undecided"] += 1
+        sources[source] += 1
         if decision not in ("accept", "edit", "reject"):
             undecided.append(row["id"])
             continue
@@ -60,6 +70,7 @@ def main(argv: list[str] | None = None) -> int:
         q["reviewed"] = True
         q["review_decision"] = decision
         q["review_note"] = row["note"].strip()
+        q["review_source"] = source
         kept.append(q)
 
     if undecided and not args.allow_undecided:
@@ -70,6 +81,7 @@ def main(argv: list[str] | None = None) -> int:
     reviewed = sum(decisions[d] for d in ("accept", "edit", "reject"))
     rate = decisions["reject"] / reviewed if reviewed else 0
     print(f"decisions: {dict(decisions)} | rejection rate {rate:.0%}")
+    print(f"decided by: {dict(sources)}")
     print(f"kept {len(kept)}: {dict(Counter(q['type'] for q in kept))}")
     print(f"wrote {OUT}")
     return 0

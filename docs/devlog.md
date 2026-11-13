@@ -101,5 +101,25 @@ Short weekly notes: what worked, what broke, what changed.
   produced a bogus "or20" token.
 - Caveat: questions come from templates, so the parser sees phrasings it was written for. The
   parser-agreement number is a consistency check, not a parser accuracy result.
-- Waiting on: human review of `eval/datasets/review/questions_review.csv`, then
-  `scripts/finalize_questions.py` freezes `questions_v1.jsonl`.
+- First review pass (assistant, row by row against the evidence) found four generator bugs, fixed in
+  code with regression tests: (1) "es2020" produced a stale token "2020"; (2) heading badges such as
+  `<NonInheritBadge />` leaked into questions and made the "verified absent" check search for the wrong
+  string; (3) Node versions written "18+. 20+." were cut to "18+"; (4) stale tokens included words from
+  the gold default text itself ("lightningcss, but false if build.minify is disabled"). Regenerated set:
+  129 candidates (60 point-in-time, 30 current, 30 unanswerable, 9 change; 81 dev / 48 test).
+- The review sheet now carries the assistant's `suggested` decision and `why` (117 accept, 12 reject:
+  build.ssr's undefined -> false wording change, values with no or generic tokens such as `[]`, `/`,
+  `build`, `assets`). The `decision` column is left for the human reviewer; `finalize_questions
+  --use-suggestions` records rows decided from a confirmed suggestion as `suggestion_confirmed`, so the
+  write-up can report how many decisions were the human's own.
+- Review finalised (2026-11-13), `eval/datasets/questions_v1.jsonl` frozen: 129 candidates, 12 rejected
+  (9%), 117 kept: 54 point-in-time, 25 current, 30 unanswerable, 8 change; 78 dev / 39 test; 48 facts.
+- How decisions were made, stated plainly for the write-up: the human reviewer decided 13 rows
+  individually (agreed with all 12 suggested rejects, and accepted one row after checking it). The other
+  116 rows were accepted from the assistant's suggestions without an individual human check
+  (`review_source = suggestion_confirmed`). The reviewer typed the 13 decisions in the `note` column; they
+  were moved to `decision` before finalising.
+- Post-freeze validation: ids unique, every answerable question has gold tokens, and every gold value was
+  re-found in the database text valid at its as-of date (0 failures).
+- Consequence for scoring: answers to the 30 short-value questions (true/false/0) get a manual check, as
+  noted in the review; any other doubt found while scoring goes into a v2, not into v1.

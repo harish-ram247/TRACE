@@ -20,7 +20,7 @@ import random
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime, timedelta
 
-from app.evaluation.facts import Fact, Span, key_tokens
+from app.evaluation.facts import Fact, Span, contains_token, key_tokens
 from app.temporal.releases import Releases
 
 GENERATOR_VERSION = "questions-v1"
@@ -164,12 +164,16 @@ def _ref(span: Span, when: datetime) -> dict:
     }
 
 
-def _stale(fact: Fact, gold: str) -> list[str]:
-    gold_tokens = {t.lower() for t in key_tokens(gold)}
+def _stale(fact: Fact, gold_span: Span) -> list[str]:
+    """Tokens of values valid at other times, minus any the gold default text itself mentions
+    (e.g. "'lightningcss', but false if build.minify is disabled" must not make build.minify
+    a stale token)."""
+    gold_tokens = {t.lower() for t in key_tokens(gold_span.core)}
     stale: list[str] = []
     for span in fact.spans:
-        if span.core != gold:
+        if span.core != gold_span.core:
             stale += [t for t in key_tokens(span.core) if t.lower() not in gold_tokens]
+    stale = [t for t in stale if not contains_token(gold_span.raw, t)]
     return list(dict.fromkeys(stale))
 
 
@@ -220,7 +224,7 @@ def generate(
                 options = phrase_options(span, now, releases, prereleases, rng)
                 rng.shuffle(options)
                 for phrase, as_of in options[:2]:
-                    stale = _stale(fact, span.core)
+                    stale = _stale(fact, span)
                     add(fact, "point_in_time", _fill(rng.choice(past), fact.subject, phrase), as_of,
                         answerable=True, gold_answer=span.core, gold_tokens=key_tokens(span.core),
                         stale_tokens=stale, gold_refs=[_ref(span, as_of)], time_phrase=phrase,
@@ -229,7 +233,7 @@ def generate(
         # current
         last = fact.spans[-1]
         if last.end is None and now - last.start >= timedelta(days=30):
-            stale = _stale(fact, last.core)
+            stale = _stale(fact, last)
             add(fact, "current", _fill(rng.choice(current), fact.subject), now,
                 answerable=True, gold_answer=last.core, gold_tokens=key_tokens(last.core),
                 stale_tokens=stale, gold_refs=[_ref(last, now)], time_phrase="now",

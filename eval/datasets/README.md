@@ -41,6 +41,10 @@ Things to check:
 3. For `unanswerable` rows: is it fair that the answer is "not documented then"?
 4. For `short_value` rows: could a correct answer accidentally contain a stale token, or the reverse?
 
+The `suggested` and `why` columns are a first pass by the assistant. They are not decisions: either
+fill `decision` for every row, or fill it only where you disagree and finalize with
+`--use-suggestions` (those rows are recorded as `suggestion_confirmed`).
+
 Then save the CSV (keep the CSV format and the column names) and run:
 
 ```bash

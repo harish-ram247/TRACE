@@ -109,3 +109,33 @@ def test_generate_is_deterministic_and_typed():
     assert current.gold_tokens == ["5173"] and current.stale_tokens == ["3000"]
     unanswerable = next(q for q in a if q.type == "unanswerable")
     assert not unanswerable.answerable and datetime.fromisoformat(unanswerable.as_of) < d(2021, 8)
+
+
+# ---- regressions found in the first review pass ------------------------------------------
+def test_numbers_inside_identifiers_are_not_tokens():
+    assert key_tokens("es2020") == ["es2020"]
+
+
+def test_heading_badges_are_stripped_from_option_names():
+    from app.evaluation.facts import _option_name
+
+    name = _option_name("Dep Optimization Options > optimizeDeps.disabled <NonInheritBadge />")
+    assert name == "optimizeDeps.disabled"
+
+
+def test_node_versions_separated_by_a_period_are_kept():
+    from app.evaluation.facts import _NODE
+
+    text = "Vite requires [Node.js](https://nodejs.org/en/) version 18+. 20+. However, some"
+    assert key_tokens(_NODE.search(text).group(1)) == ["18", "20"]
+
+
+def test_tokens_in_the_gold_default_text_are_not_stale():
+    from app.evaluation.questions import _stale
+
+    old = Span("build.minify", "the same as `build.minify`", d(2023), d(2026), [])
+    new = Span("lightningcss", "`'lightningcss'`, but `false` if `build.minify` is disabled",
+               d(2026), None, [])  # fmt: skip
+    fact = Fact("default:build.cssMinify", "default", "build.cssMinify", [old, new], d(2023))
+    assert _stale(fact, new) == []
+    assert _stale(fact, old) == ["lightningcss"]
