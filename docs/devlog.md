@@ -85,3 +85,21 @@ Short weekly notes: what worked, what broke, what changed.
 - Live check on Gemini (5 questions): temporal variant correct on all three dated/current questions; the
   plain baseline answered `NOT_FOUND` to both dated questions. Five questions prove nothing statistically;
   this is a smoke test.
+
+## Week 5
+
+- Fact mining (`app/evaluation/facts.py`): 80 facts from documented config defaults and the Node.js
+  requirement; 19 with a real value change once cosmetic edits (link targets, "4kb" vs "4 KiB", quote
+  style) are ignored. Values that token matching cannot check reliably (regexes, functions, globs,
+  objects) are excluded.
+- Question generation (`app/evaluation/questions.py`, `scripts/build_questions.py`): 131 candidates
+  (60 point-in-time, 30 current, 30 unanswerable, 11 change), split 86 dev / 45 test by fact so the
+  same fact never appears in both. Gold answers come from the documentation text, never an LLM.
+- Automatic checks on every candidate: the parser resolves all 131 questions to the generator's as-of
+  (0 disagreements); all 30 unanswerable questions verified absent from every document valid then; every
+  gold value found in its source. One bug found and fixed on the way: Node values stored without spaces
+  produced a bogus "or20" token.
+- Caveat: questions come from templates, so the parser sees phrasings it was written for. The
+  parser-agreement number is a consistency check, not a parser accuracy result.
+- Waiting on: human review of `eval/datasets/review/questions_review.csv`, then
+  `scripts/finalize_questions.py` freezes `questions_v1.jsonl`.
