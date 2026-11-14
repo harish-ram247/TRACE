@@ -1,0 +1,75 @@
+﻿question_id,variant,category,type,question,as_of,gold_answer,answer,gold_retrieved,parsed_as_of
+q_5e4c4ce578,plain,"F9 over-abstention, gold not retrieved",point_in_time,"On February 9, 2022, which Node.js versions did Vite support?",2022-02-09,>=12.2.0,NOT_FOUND,False,
+q_c8bfd0a4a6,plain,F9 over-abstention despite gold retrieved,point_in_time,What was the default value of `preview.port` at the end of 2021?,2021-12-31,5000,NOT_FOUND,True,
+q_820f431c77,plain,"F9 over-abstention, gold not retrieved",point_in_time,"In Vite 5, what did `json.stringify` default to?",2023-11-16,false,NOT_FOUND,False,
+q_ea37c1131c,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `build.target` have before Vite 8?,2025-12-03,baseline-widely-available,NOT_FOUND,False,
+q_ea37c1131c,temporal,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `build.target` have before Vite 8?,2025-12-03,baseline-widely-available,NOT_FOUND,False,2025-12-03
+q_33788da05e,plain,F9 over-abstention despite gold retrieved,point_in_time,"Before Vite 3, what did `server.host` default to?",2022-05-13,127.0.0.1,NOT_FOUND,True,
+q_33788da05e,temporal,F9 over-abstention despite gold retrieved,point_in_time,"Before Vite 3, what did `server.host` default to?",2022-05-13,127.0.0.1,NOT_FOUND,True,2022-05-13
+q_675a76551f,plain,F9 over-abstention despite gold retrieved,point_in_time,What was the default value of `server.port` in Vite 8?,2026-03-12,5173,NOT_FOUND,True,
+q_675a76551f,temporal,F9 over-abstention despite gold retrieved,point_in_time,What was the default value of `server.port` in Vite 8?,2026-03-12,5173,NOT_FOUND,True,2026-03-12
+q_d6d037d3a8,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `json.stringify` have before Vite 4?,2022-11-07,false,NOT_FOUND,False,
+q_d6d037d3a8,temporal,F9 over-abstention despite gold retrieved,point_in_time,Which default did `json.stringify` have before Vite 4?,2022-11-07,false,NOT_FOUND,True,2022-11-07
+q_c7a5a4f49b,plain,F9 over-abstention despite gold retrieved,point_in_time,"On June 5, 2024, what did `css.preprocessorMaxWorkers` default to?",2024-06-05,0,NOT_FOUND,True,
+q_0add0907a5,plain,"F9 over-abstention, gold not retrieved",point_in_time,What was the default value of `json.stringify` before Vite 8?,2025-12-03,auto,NOT_FOUND,False,
+q_0add0907a5,temporal,F9 over-abstention despite gold retrieved,point_in_time,What was the default value of `json.stringify` before Vite 8?,2025-12-03,auto,NOT_FOUND,True,2025-12-03
+q_6cfda57b6d,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `build.target` have before Vite 4?,2022-11-07,modules,NOT_FOUND,False,
+q_6cfda57b6d,temporal,F9 over-abstention despite gold retrieved,point_in_time,Which default did `build.target` have before Vite 4?,2022-11-07,modules,NOT_FOUND,True,2022-11-07
+q_ab779a5ba2,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require as of March 2022?,2022-03-31,>=12.2.0,NOT_FOUND,False,
+q_ba5931f07d,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require in Vite 8?,2026-03-12,"20.19+, 22.12+",NOT_FOUND,False,
+q_ba5931f07d,temporal,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require in Vite 8?,2026-03-12,"20.19+, 22.12+",NOT_FOUND,False,2026-03-12
+q_f894edb3b5,plain,"F9 over-abstention, gold not retrieved",point_in_time,What was the default value of `server.port` at the end of 2021?,2021-12-31,3000,NOT_FOUND,False,
+q_3efb9c0d31,plain,"F9 over-abstention, gold not retrieved",point_in_time,"What was the default value of `server.port` on March 22, 2022?",2022-03-22,3000,NOT_FOUND,False,
+q_b334712ea1,plain,"F9 over-abstention, gold not retrieved",point_in_time,"In Vite 3, what did `build.target` default to?",2022-07-13,modules,NOT_FOUND,False,
+q_2e9c482954,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `server.host` have in Vite 7?,2025-06-24,localhost,NOT_FOUND,False,
+q_2e9c482954,temporal,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `server.host` have in Vite 7?,2025-06-24,localhost,NOT_FOUND,False,2025-06-24
+q_6a5fb910b3,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `json.stringify` have at the end of 2025?,2025-12-31,auto,NOT_FOUND,False,
+q_cdab180d0c,plain,"F9 over-abstention, gold not retrieved",point_in_time,"On June 11, 2021, what did `build.target` default to?",2021-06-11,modules,NOT_FOUND,False,
+q_cdab180d0c,temporal,"F9 over-abstention, gold not retrieved",point_in_time,"On June 11, 2021, what did `build.target` default to?",2021-06-11,modules,NOT_FOUND,False,2021-06-11
+q_0c99d2ed38,temporal,F9 over-abstention despite gold retrieved,point_in_time,Which Node.js version did Vite require before Vite 4?,2022-11-07,"14.18+, 16+",NOT_FOUND,True,2022-11-07
+q_72d1a40330,plain,F9 over-abstention despite gold retrieved,point_in_time,"On June 7, 2023, what did `server.port` default to?",2023-06-07,5173,NOT_FOUND,True,
+q_b231d95adb,plain,"F9 over-abstention, gold not retrieved",point_in_time,"Which Node.js version did Vite require on January 28, 2023?",2023-01-28,"14.18+, 16+",NOT_FOUND,False,
+q_53a41e54a9,plain,F9 over-abstention despite gold retrieved,point_in_time,Which default did `server.fs.strict` have in Vite 8?,2026-03-12,true,NOT_FOUND,True,
+q_53a41e54a9,temporal,F9 over-abstention despite gold retrieved,point_in_time,Which default did `server.fs.strict` have in Vite 8?,2026-03-12,true,NOT_FOUND,True,2026-03-12
+q_0d4c934305,plain,F9 over-abstention despite gold retrieved,point_in_time,"What was the default value of `server.fs.strict` on April 20, 2023?",2023-04-20,true,NOT_FOUND,True,
+q_3ebab4162e,plain,F9 over-abstention despite gold retrieved,point_in_time,Which default did `css.preprocessorMaxWorkers` have as of July 2024?,2024-07-31,0,NOT_FOUND,True,
+q_e294632767,plain,"F9 over-abstention, gold not retrieved",point_in_time,"In October 2024, which Node.js versions did Vite support?",2024-10-31,18+ or 20+,NOT_FOUND,False,
+q_e294632767,temporal,"F9 over-abstention, gold not retrieved",point_in_time,"In October 2024, which Node.js versions did Vite support?",2024-10-31,18+ or 20+,NOT_FOUND,False,2024-10-31
+q_6e96d1d579,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `server.host` have at the end of 2024?,2024-12-31,localhost,NOT_FOUND,False,
+q_6e96d1d579,temporal,"F9 over-abstention, gold not retrieved",point_in_time,Which default did `server.host` have at the end of 2024?,2024-12-31,localhost,NOT_FOUND,False,2024-12-31
+q_89ffacb71a,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require in July 2021?,2021-07-31,>=12.0.0,NOT_FOUND,False,
+q_baa86c64ca,plain,F9 over-abstention despite gold retrieved,point_in_time,"On September 19, 2021, what did `server.fs.strict` default to?",2021-09-19,false,NOT_FOUND,True,
+q_8645a9ac11,plain,"F9 over-abstention, gold not retrieved",point_in_time,"Which Node.js version did Vite require on July 18, 2021?",2021-07-18,>=12.0.0,NOT_FOUND,False,
+q_a6163bb0ca,plain,F9 over-abstention despite gold retrieved,point_in_time,"Before Vite 8, what did `preview.port` default to?",2025-12-03,4173,NOT_FOUND,True,
+q_a6163bb0ca,temporal,"F9 over-abstention, gold not retrieved",point_in_time,"Before Vite 8, what did `preview.port` default to?",2025-12-03,4173,NOT_FOUND,False,2025-12-03
+q_a346eb43a4,plain,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require in Vite 6?,2024-11-26,18+ or 20+,NOT_FOUND,False,
+q_a346eb43a4,temporal,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require in Vite 6?,2024-11-26,18+ or 20+,NOT_FOUND,False,2024-11-26
+q_9cd8f7a9a5,plain,"F1 wrong version, answered with a stale value",point_in_time,Which Node.js version did Vite require before Vite 6?,2024-04-05,18+. 20+,"Before Vite 6, specifically when migrating from v4, Vite required Node.js 18 / 20+ because it no longer supported Node.js 14, 16, 17, and 19 which had reached their EOL [S4].",False,
+q_9cd8f7a9a5,temporal,"F9 over-abstention, gold not retrieved",point_in_time,Which Node.js version did Vite require before Vite 6?,2024-04-05,18+. 20+,NOT_FOUND,False,2024-04-05
+q_21c462e9f9,plain,"F2 mixed versions in context, answered with a stale value",point_in_time,"On June 1, 2026, what did `css.preprocessorMaxWorkers` default to?",2026-06-01,true,"The default value for `css.preprocessorMaxWorkers` is `0`, which means it does not create any workers and runs in the main thread [S1, S4].",False,
+q_8509b1d869,plain,F9 over-abstention despite gold retrieved,point_in_time,Which default did `css.preprocessorMaxWorkers` have before Vite 8?,2025-12-03,true,NOT_FOUND,True,
+q_8509b1d869,temporal,F9 over-abstention despite gold retrieved,point_in_time,Which default did `css.preprocessorMaxWorkers` have before Vite 8?,2025-12-03,true,NOT_FOUND,True,2025-12-03
+q_93ecb7220a,plain,"F1 wrong version, answered with a stale value",point_in_time,"Which default did `preview.port` have on December 12, 2021?",2021-12-12,5000,"The default value for `preview.port` is `4173` [S1, S3].",False,
+q_09f2c332d3,plain,"F9 over-abstention, gold not retrieved",point_in_time,"In Vite 5, which Node.js versions did Vite support?",2023-11-16,18+. 20+,NOT_FOUND,False,
+q_09f2c332d3,temporal,"F1 wrong version, answered with a stale value",point_in_time,"In Vite 5, which Node.js versions did Vite support?",2023-11-16,18+. 20+,"Vite requires Node.js 18 or 20+ [S1]. Vite no longer supports Node.js 14, 16, 17, or 19 because they reached their EOL [S1]. Non-LTS Node.js versions (odd-numbered) are not tested as part of Vite's CI, but they should still work before their EOL [S2].",False,2023-11-16
+q_827dcbf164,plain,F9 over-abstention despite gold retrieved,point_in_time,What was the default value of `server.fs.strict` in August 2021?,2021-08-31,false,NOT_FOUND,True,
+q_d8f1a8f5e0,plain,"F9 over-abstention, gold not retrieved",point_in_time,What was the default value of `build.target` as of August 2025?,2025-08-31,baseline-widely-available,NOT_FOUND,False,
+q_56eba920d5,plain,"F9 over-abstention, gold not retrieved",point_in_time,What was the default value of `preview.port` before Vite 3?,2022-05-13,4173,NOT_FOUND,False,
+q_56eba920d5,temporal,F9 over-abstention despite gold retrieved,point_in_time,What was the default value of `preview.port` before Vite 3?,2022-05-13,4173,NOT_FOUND,True,2022-05-13
+q_0700a7e1fa,plain,"F1 wrong version, answered with a stale value",current,What is the current default for `json.stringify`?,2026-11-13,auto,The default for `json.stringify` is `false` [S1].,False,
+q_070ee70c02,plain,"F1 wrong version, answered with a stale value",current,Which Node.js version does Vite require now?,2026-11-13,"20.19+, 22.12+","Vite requires different Node.js versions depending on the migration version: Node.js 14.18+ or 16+ is required for v2 [S2], Node.js 18 / 20+ is required for v4 [S4], and Node.js 20.19+ / 22.12+ is required for v6 [S3].",False,
+q_070ee70c02,temporal,"F9 over-abstention, gold not retrieved",current,Which Node.js version does Vite require now?,2026-11-13,"20.19+, 22.12+",NOT_FOUND,False,2026-11-13
+q_e295adeb1f,plain,"F2 mixed versions in context, answered with a stale value",current,What does `css.preprocessorMaxWorkers` currently default to?,2026-11-13,true,"The `css.preprocessorMaxWorkers` option defaults to `0`, which means it does not create any workers and runs in the main thread [S2, S4].",False,
+q_432c447576,plain,"F9 over-abstention, gold not retrieved",current,What is the current default for `server.host`?,2026-11-13,localhost,NOT_FOUND,False,
+q_432c447576,temporal,"F9 over-abstention, gold not retrieved",current,What is the current default for `server.host`?,2026-11-13,localhost,NOT_FOUND,False,2026-11-13
+q_598e88402d,plain,F9 over-abstention despite gold retrieved,change,How did the default value of `json.stringify` change between July 2023 and March 2025?,2025-03-31,from false to auto,NOT_FOUND,,
+q_46e267631c,plain,F9 over-abstention despite gold retrieved,change,How did the default value of `server.host` change between January 2022 and November 2025?,2025-11-30,from 127.0.0.1 to localhost,NOT_FOUND,,
+q_46e267631c,temporal,F9 over-abstention despite gold retrieved,change,How did the default value of `server.host` change between January 2022 and November 2025?,2025-11-30,from 127.0.0.1 to localhost,NOT_FOUND,,2025-11-30
+q_3a103f2d56,plain,F9 over-abstention despite gold retrieved,change,How did the default value of `preview.port` change between December 2021 and April 2024?,2024-04-30,from 5000 to 4173,NOT_FOUND,,
+q_3a103f2d56,temporal,F9 over-abstention despite gold retrieved,change,How did the default value of `preview.port` change between December 2021 and April 2024?,2024-04-30,from 5000 to 4173,NOT_FOUND,,2024-04-30
+q_be35c0ac35,plain,F9 over-abstention despite gold retrieved,change,How did the default value of `server.port` change between March 2022 and December 2023?,2023-12-31,from 3000 to 5173,NOT_FOUND,,
+q_be35c0ac35,temporal,F9 over-abstention despite gold retrieved,change,How did the default value of `server.port` change between March 2022 and December 2023?,2023-12-31,from 3000 to 5173,NOT_FOUND,,2023-12-31
+q_5f0da7d1e6,plain,F9 over-abstention despite gold retrieved,change,How did Vite's required Node.js version change between August 2022 and April 2024?,2024-04-30,"from 14.18+, 16+ to 18+. 20+",NOT_FOUND,,
+q_5f0da7d1e6,temporal,"F5 generation error (gold retrieved, answer wrong or incomplete)",change,How did Vite's required Node.js version change between August 2022 and April 2024?,2024-04-30,"from 14.18+, 16+ to 18+. 20+","Vite no longer supports Node.js versions 14, 16, 17, and 19, which have reached their end-of-life (EOL) [S1]. Node.js version 18 or 20+ is now required [S1].",,2024-04-30
+q_400e3cd821,plain,F9 over-abstention despite gold retrieved,change,How did the default value of `css.preprocessorMaxWorkers` change between September 2024 and October 2025?,2025-10-31,from 0 to true,NOT_FOUND,,
+q_400e3cd821,temporal,F9 over-abstention despite gold retrieved,change,How did the default value of `css.preprocessorMaxWorkers` change between September 2024 and October 2025?,2025-10-31,from 0 to true,NOT_FOUND,,2025-10-31

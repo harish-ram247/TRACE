@@ -97,6 +97,15 @@ def keyword_candidates(
     return [r[0] for r in rows]
 
 
+def supports_iterative_scan(conn: psycopg.Connection) -> bool:
+    """pgvector >= 0.8 has hnsw.iterative_scan; older versions reject the setting outright."""
+    row = conn.execute("SELECT extversion FROM pg_extension WHERE extname = 'vector'").fetchone()
+    if not row:
+        return False
+    major, minor = (int(x) for x in row[0].split(".")[:2])
+    return (major, minor) >= (0, 8)
+
+
 def vector_candidates(
     conn: psycopg.Connection,
     query_vec: np.ndarray,
@@ -111,8 +120,10 @@ def vector_candidates(
     order = "(c.embedding <=> %(qv)s) + 0" if mode == "exact" else "c.embedding <=> %(qv)s"
     with conn.transaction():
         conn.execute("SELECT set_config('hnsw.ef_search', %s, true)", (str(ef_search),))
-        scan = "relaxed_order" if mode == "iterative" else "off"
-        conn.execute("SELECT set_config('hnsw.iterative_scan', %s, true)", (scan,))
+        if supports_iterative_scan(conn):
+            scan = "relaxed_order" if mode == "iterative" else "off"
+            conn.execute("SELECT set_config('hnsw.iterative_scan', %s, true)", (scan,))
+        # else: pgvector < 0.8 has no iterative scan; "iterative" behaves like "index"
         rows = conn.execute(
             f"""
             SELECT c.id, c.embedding <=> %(qv)s AS dist

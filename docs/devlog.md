@@ -123,3 +123,35 @@ Short weekly notes: what worked, what broke, what changed.
   re-found in the database text valid at its as-of date (0 failures).
 - Consequence for scoring: answers to the 30 short-value questions (true/false/0) get a manual check, as
   noted in the review; any other doubt found while scoring goes into a v2, not into v1.
+
+## Week 6
+
+- Evaluation harness (`app/evaluation/harness.py`): runs variants per question, saves every raw output
+  with provenance (git commit, dataset hash, model, prompt version), resumable after a quota stop, and
+  refuses to continue a run if the dataset changed. Metrics (`app/evaluation/metrics.py`) are computed
+  only from saved files: accuracy by type, stale-answer rate, abstention recall/precision, false
+  abstention, retrieval recall, wrong version at rank 1, cited-gold rate, parse agreement, latency, 95%
+  bootstrap CIs and a paired bootstrap for temporal minus plain; failures are classified with the
+  taxonomy and written to failures.csv; short-value answers get a manual-check sheet.
+- Docker Desktop stopped working on the dev machine: every start crashed because its Unix-socket files
+  (`Docker/run/dockerInference`, then `docker-secrets-engine/engine.sock` under `%LOCALAPPDATA%`)
+  became unreadable
+  ("The file cannot be accessed by the system"), even freshly created ones. Most likely antivirus
+  interference. Windows had not actually rebooted (last boot unchanged), so a restart was not tested.
+- Workaround: `scripts/local_db.py` runs the PostgreSQL 16 + pgvector binaries from the `pgserver`
+  package on localhost:5433. Two portability fixes came out of it: the overlap constraint no longer needs
+  btree_gist (migrations 0001/0004), and `hnsw.iterative_scan` is only set on pgvector >= 0.8. Two
+  Windows gotchas: `pg_ctl start` must not have captured pipes (the server inherits them and the call
+  never returns), and the server must listen on `localhost` (IPv4 and IPv6) or every connection to
+  "localhost" first waits 5 s on IPv6.
+- The corpus was re-ingested and re-embedded into the new database from the same pinned commit.
+- First evaluation run `dev-v1-plain-temporal` (78 dev questions, 156 answers, no quota stop): TRACE
+  temporal accuracy 0.67 vs plain 0.38, paired difference +0.28 [+0.18, +0.38]. Details and caveats in
+  `docs/results.md`.
+- Main finding: date-phrased questions work (0.86), version-phrased ones do not (0.11, 83% NOT_FOUND) even
+  though the parser resolves them correctly. The model refuses when sources do not mention the version named
+  in the question. Next step: do not show the raw time phrase to the generator.
+- Prompt `answer-v3` (remove the resolved time phrase, state the date): run `dev-v1-answer-v3` raised TRACE
+  dev accuracy from 0.67 to 0.76 (paired vs plain +0.37 [+0.26, +0.49]); version-phrased questions went from
+  2/18 to 10/18 correct. 3 of the 4 remaining "stale" failures are checker false negatives (correct Node.js
+  answers that list dropped versions); flagged for the manual check rather than patched in the checker.

@@ -25,10 +25,8 @@ def _chunk(conn, lineage, doc, text, start, end):
 
 
 def test_required_extensions_are_installed(pg):
-    rows = pg.execute(
-        "SELECT extname FROM pg_extension WHERE extname IN ('vector', 'btree_gist')"
-    ).fetchall()
-    assert {r[0] for r in rows} == {"vector", "btree_gist"}
+    rows = pg.execute("SELECT extname FROM pg_extension WHERE extname = 'vector'").fetchall()
+    assert {r[0] for r in rows} == {"vector"}
 
 
 def test_adjacent_versions_of_one_lineage_are_allowed(pg):

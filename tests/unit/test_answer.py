@@ -1,7 +1,14 @@
 from datetime import UTC, datetime
 
+import pytest
+
 from app.core.llm import FakeLLM
-from app.generation.answer import build_messages, generate_answer, parse_answer
+from app.generation.answer import (
+    build_messages,
+    generate_answer,
+    parse_answer,
+    strip_time_phrase,
+)
 from app.retrieval.search import Hit
 
 
@@ -62,10 +69,36 @@ def test_generate_answer_records_model_and_citations():
     answer = generate_answer(llm, "q", HITS, as_of=AS_OF, temporal=True)
     assert answer.model == "fake-model"
     assert [c.chunk_id for c in answer.citations] == [11]
-    assert answer.prompt_version == "answer-v2"
+    assert answer.prompt_version == "answer-v3"
 
 
-def test_temporal_prompt_explains_the_resolved_time_phrase():
-    system, _ = build_messages("q", HITS, AS_OF, temporal=True, time_phrase="vite 3")
-    assert '"vite 3"' in system["content"]
+def test_resolved_time_phrase_is_replaced_by_the_date_in_the_question():
+    q = "Before Vite 3, what did `server.host` default to?"
+    system, user = build_messages(q, HITS, AS_OF, temporal=True, time_phrase="vite 3")
     assert "even if they do not mention" in system["content"]
+    assert user["content"].endswith(
+        "Question: (about the documentation as of 2023-06-01) What did `server.host` default to?"
+    )
+    assert "Vite 3" not in user["content"]
+
+
+def test_plain_prompt_keeps_the_question_as_asked():
+    q = "Before Vite 3, what did `server.host` default to?"
+    _, user = build_messages(q, HITS, None, temporal=False, time_phrase="vite 3")
+    assert user["content"].endswith(f"Question: {q}")
+
+
+@pytest.mark.parametrize(
+    ("question", "phrase", "expected"),
+    [
+        ("Before Vite 3, what did `x` default to?", "vite 3", "What did `x` default to?"),
+        ("What was `x` in Vite 8?", "vite 8", "What was `x`?"),
+        ("Which default did `x` have at the end of 2024?", "2024", "Which default did `x` have?"),
+        ("On June 11, 2021, what was `x`?", "June 11, 2021", "What was `x`?"),
+        ("What was `x` as of May 2021?", "May 2021", "What was `x`?"),
+        ("How was SSR configured pre-Vite 4?", "vite 4", "How was SSR configured?"),
+        ("What is the port?", "2023", "What is the port?"),
+    ],
+)
+def test_strip_time_phrase(question, phrase, expected):
+    assert strip_time_phrase(question, phrase) == expected

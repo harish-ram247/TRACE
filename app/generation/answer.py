@@ -21,7 +21,7 @@ from datetime import datetime
 from app.core.llm import LLMClient
 from app.retrieval.search import Hit
 
-PROMPT_VERSION = "answer-v2"  # v2: tells the model the question's time phrase is resolved
+PROMPT_VERSION = "answer-v3"  # v3: the resolved time phrase is removed from the question
 NOT_FOUND = "NOT_FOUND"
 
 _RULES = """\
@@ -35,16 +35,38 @@ Rules:
 
 SYSTEM_TEMPORAL = (
     "You answer questions about the Vite documentation using only the numbered sources.\n"
-    "The question is about the documentation as it stood on {as_of}.{phrase} Every source "
-    "below is the documentation text that was current on that date, so answer from them even "
-    "if they do not mention that date or version themselves. Describe that state, not later "
-    "or earlier versions.\n" + _RULES
+    "The question is about the documentation as it stood on {as_of}. Every source below is "
+    "the documentation text that was current on that date, so answer from them even if they do "
+    "not mention that date or version themselves. Describe that state, not later or earlier "
+    "versions.\n" + _RULES
 )
 SYSTEM_PLAIN = (
     "You answer questions about the Vite documentation using only the numbered sources.\n" + _RULES
 )
 
 _CITE = re.compile(r"\[(S\d+(?:\s*,\s*S\d+)*)\]")
+_QUALIFIERS = (
+    r"(?:at the end of|the end of|end of|at the start of|start of|beginning of|as of|prior to"
+    r"|before|after|since|during|until|in|on|by|at|around)"
+)
+
+
+def strip_time_phrase(question: str, phrase: str) -> str:
+    """Remove an already-resolved time reference (and its preposition) from a question.
+
+    "Before Vite 3, what did `server.host` default to?" -> "What did `server.host` default to?"
+    The generator then sees the date separately and does not look for "Vite 3" in the sources
+    (run dev-v1-plain-temporal: 83% NOT_FOUND on version-phrased questions with answer-v2).
+    """
+    pattern = rf"(?:\bpre-)?(?:\b{_QUALIFIERS}\s+)?(?:the\s+)?{re.escape(phrase)}"
+    out, n = re.subn(pattern, " ", question, count=1, flags=re.IGNORECASE)
+    if n == 0:
+        return question
+    out = re.sub(r"\s+([?,.])", r"\1", out)
+    out = re.sub(r"^[\s,]+", "", out)
+    out = re.sub(r",\s*\?", "?", out)
+    out = re.sub(r"\s{2,}", " ", out).strip()
+    return out[:1].upper() + out[1:] if out else question
 
 
 @dataclass(frozen=True)
@@ -93,12 +115,12 @@ def build_messages(
     if temporal:
         if as_of is None:
             raise ValueError("as_of is required for the temporal prompt")
-        phrase = (
-            f' The time reference "{time_phrase}" in the question means that date.'
-            if time_phrase
-            else ""
-        )
-        system = SYSTEM_TEMPORAL.format(as_of=as_of.date().isoformat(), phrase=phrase)
+        date = as_of.date().isoformat()
+        system = SYSTEM_TEMPORAL.format(as_of=date)
+        if time_phrase:
+            question = f"(about the documentation as of {date}) " + strip_time_phrase(
+                question, time_phrase
+            )
     else:
         system = SYSTEM_PLAIN
     user = "Sources:\n\n" + "\n\n".join(blocks) + f"\n\nQuestion: {question}"

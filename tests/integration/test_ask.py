@@ -102,7 +102,7 @@ async def test_ask_endpoint_returns_answer_time_and_sources(client):
     assert "3000" in body["answer"] and body["cited_labels"] == ["S1"]
     assert body["time"]["intent"] == "point_in_time"
     assert body["sources"][0]["section_path"] == "Server Options > server.port"
-    assert body["prompt_version"] == "answer-v2"
+    assert body["prompt_version"] == "answer-v3"
 
 
 async def test_ask_endpoint_validates_input(client):

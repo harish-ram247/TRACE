@@ -84,7 +84,8 @@ def ask(
         hits,
         as_of=parsed.as_of if parsed else None,
         temporal=variant == "temporal",
-        time_phrase=parsed.matched if parsed else None,
+        # Only a single resolved date is removed; "now" and change questions keep their wording.
+        time_phrase=parsed.matched if parsed and parsed.intent == "point_in_time" else None,
     )
     lap("generation", t0)
     return AskResult(question, variant, parsed, hits, answer, timings)

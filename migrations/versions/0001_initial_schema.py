@@ -14,7 +14,6 @@ depends_on = None
 
 def upgrade() -> None:
     op.execute("CREATE EXTENSION IF NOT EXISTS vector")
-    op.execute("CREATE EXTENSION IF NOT EXISTS btree_gist")
 
     op.execute(
         """
@@ -49,7 +48,10 @@ def upgrade() -> None:
             removed_commit    TEXT,
             supersedes_id     BIGINT REFERENCES chunks(id),
             -- No two versions of one lineage may be valid at the same time.
-            EXCLUDE USING gist (lineage_id WITH =, valid WITH &&)
+            -- int8range(id, id, '[]') && ... is "same lineage" without the btree_gist extension
+            CONSTRAINT chunks_no_overlapping_versions EXCLUDE USING gist (
+                int8range(lineage_id, lineage_id, '[]') WITH &&, valid WITH &&
+            )
         )
         """
     )

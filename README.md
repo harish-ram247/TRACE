@@ -23,6 +23,14 @@ pytest
 uvicorn app.main:app --reload
 ```
 
+No Docker? Run PostgreSQL + pgvector from Python instead, on the same address (`localhost:5433`):
+
+```bash
+pip install -e ".[localdb]"
+python -m scripts.local_db start      # also: stop, status
+alembic upgrade head
+```
+
 Check it is alive: `GET http://localhost:8000/health` and `GET http://localhost:8000/health/db`.
 
 To run the API inside Docker as well: `docker compose up --build`.
