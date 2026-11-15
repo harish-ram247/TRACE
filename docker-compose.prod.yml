@@ -1,0 +1,85 @@
+# Production stack for a single small server (docs/deploy.md).
+#   docker compose -f docker-compose.prod.yml up -d --build
+# Only Caddy publishes ports (80/443); everything else is reachable only inside this network.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-trace}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-trace}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-trace} -d ${POSTGRES_DB:-trace}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build: { context: ., dockerfile: docker/Dockerfile }
+    image: trace-app:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-trace}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-trace}
+    depends_on:
+      db: { condition: service_healthy }
+    volumes:
+      - appdata:/srv/data
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000
+             --proxy-headers --forwarded-allow-ips='*'"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/db')"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  worker:
+    image: trace-app:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-trace}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-trace}
+      INGEST_ROOT: /srv/corpus
+    depends_on:
+      api: { condition: service_healthy }
+    volumes:
+      - appdata:/srv/data
+      - ./data/corpus:/srv/corpus:ro
+    command: ["python", "-m", "app.jobs.worker"]
+
+  ui:
+    image: trace-app:latest
+    restart: unless-stopped
+    environment:
+      TRACE_API_URL: http://api:8000
+    depends_on:
+      api: { condition: service_healthy }
+    command: >
+      streamlit run ui/app.py --server.port 8501 --server.address 0.0.0.0
+      --server.headless true --browser.gatherUsageStats false
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      TRACE_DOMAIN: ${TRACE_DOMAIN:?set TRACE_DOMAIN in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api, ui]
+
+volumes:
+  pgdata:
+  appdata:
+  caddy_data:
+  caddy_config:

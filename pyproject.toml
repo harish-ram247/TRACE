@@ -26,6 +26,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Demo UI (streamlit run ui/app.py)
+ui = ["streamlit>=1.40"]
 # Local PostgreSQL + pgvector without Docker (python -m scripts.local_db start)
 localdb = ["pgserver>=0.1.4"]
 dev = [

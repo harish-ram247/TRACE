@@ -1,0 +1,21 @@
+# HTTPS is automatic (Let's Encrypt) for the domain in TRACE_DOMAIN.
+#   https://<domain>/        the Streamlit demo
+#   https://<domain>/api/... the HTTP API (prefix stripped), e.g. /api/health, /api/ask
+{$TRACE_DOMAIN} {
+	encode gzip
+
+	handle_path /api/* {
+		reverse_proxy api:8000
+	}
+
+	handle {
+		reverse_proxy ui:8501
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}

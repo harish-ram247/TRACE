@@ -196,3 +196,17 @@ Short weekly notes: what worked, what broke, what changed.
 - CI: `pip-audit` dependency scan. Locally it found 12 advisories, all in the venv's old pip (25.0.1);
   upgrading pip cleared them. No project dependency had a known vulnerability.
 - Tests: 217 (14 new for the queue, worker, endpoints, admin auth, rate limit, error format).
+
+## Week 10
+
+- Demo UI (`ui/app.py`, Streamlit): question + examples, date slider (or the date in the question), TRACE vs
+  plain RAG side by side, cited sources with validity dates, claim verdicts for the verified variant, and a
+  section's full version history. Inputs sit in a form and responses are cached, to save LLM quota.
+- Checked locally in the browser: as of 2022-01-01, "What port does vite preview use by default?" gives
+  5000 citing the 2021-11-06 to 2022-01-16 version; plain RAG answers 4173 and mentions 5000 from another
+  version. History view lists both versions of the section and marks the cited one. No server errors.
+- Production setup: one image for api/worker/ui (non-root user), `docker-compose.prod.yml` with Caddy for
+  automatic HTTPS (only 80/443 public), database dump/restore instead of re-ingesting on the server
+  (`scripts/db_dump.py`, 7.7 MB). New CI job builds the image and starts db, api and ui, then checks health,
+  migrations and the UI, because Docker does not run on the dev laptop.
+- Runbook: `docs/deploy.md` (EC2 with 2 GB RAM, sslip.io hostname, budget alarm, teardown).

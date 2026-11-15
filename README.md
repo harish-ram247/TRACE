@@ -68,6 +68,17 @@ The response includes the date the question was resolved to, the answer with `[S
 and each cited source's validity interval. `"variant": "plain"` runs the no-time-filter baseline and
 `"as_of"` overrides the parsed date.
 
+## Demo
+
+```bash
+pip install -e ".[ui]"
+uvicorn app.main:app &                # the API
+streamlit run ui/app.py               # http://localhost:8501
+```
+
+Ask a question, move the date slider, and compare TRACE with plain RAG side by side. Deployment to a
+single AWS server with HTTPS is described in [docs/deploy.md](docs/deploy.md).
+
 ## API
 
 | Endpoint | What it does |
