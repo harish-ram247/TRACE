@@ -68,6 +68,24 @@ The response includes the date the question was resolved to, the answer with `[S
 and each cited source's validity interval. `"variant": "plain"` runs the no-time-filter baseline and
 `"as_of"` overrides the parsed date.
 
+## API
+
+| Endpoint | What it does |
+|---|---|
+| `POST /ask` | Answer a question. `variant`: `temporal` (default), `plain`, `temporal_verified`, `plain_verified`; optional `as_of`, `top_k`. Rate limited per client (`RATE_LIMIT_PER_MIN`) |
+| `GET /chunks/{id}` | One chunk version with its validity interval and commits |
+| `GET /lineages/{id}` | Every version of one section, oldest first |
+| `POST /ingest` | Queue ingestion of a repository inside `INGEST_ROOT` (admin: `X-Admin-Token`) |
+| `GET /jobs/{id}` | Status of a queued job (admin) |
+| `GET /health`, `GET /health/db` | Liveness and database readiness |
+
+Errors always look like `{"error": {"code", "message", "request_id"}}`, and every response carries an
+`X-Request-ID` header that also appears in the server log. Ingestion runs in a separate worker:
+
+```bash
+python -m app.jobs.worker            # polls the job queue; --once runs a single job
+```
+
 ## Project layout
 
 See section 6 of [project_plan.md](project_plan.md).

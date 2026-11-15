@@ -19,6 +19,10 @@ class Settings(BaseSettings):
 
     # Which ingested repository the API answers from.
     corpus_repo_id: str = "https://github.com/vitejs/vite"
+    # Ingest jobs may only read git repositories inside this folder.
+    ingest_root: str = "data/corpus"
+    # Required in the X-Admin-Token header for admin endpoints (POST /ingest). Empty = disabled.
+    admin_token: SecretStr = SecretStr("")
 
     # Any OpenAI-compatible chat completions endpoint (most hosted free tiers offer one).
     llm_base_url: str = ""

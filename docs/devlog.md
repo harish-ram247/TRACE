@@ -180,3 +180,19 @@ Short weekly notes: what worked, what broke, what changed.
   0.76 -> 0.73); faithful-but-stale claims 0.57 plain / 0.64 plain + entailment check / 0.00 temporal.
 - Honest conclusion: on this dataset the time filter does the work; claim verification adds guarantees (every
   returned claim checked, correct answers always cite the right version) but not accuracy.
+
+## Week 9
+
+- Job queue in PostgreSQL (`jobs` table, migration 0005): `FOR UPDATE SKIP LOCKED` claiming, exponential
+  backoff retries, permanent failure after `max_attempts`, recovery of jobs left running by a dead worker.
+  Worker (`python -m app.jobs.worker`) runs ingest jobs (ingest + embed). Bad input (a path outside
+  `INGEST_ROOT`, not a git repository) fails at once without retries.
+- API: `GET /chunks/{id}`, `GET /lineages/{id}` (a section's full history), admin `POST /ingest` and
+  `GET /jobs/{id}` behind `X-Admin-Token` (disabled when no token is configured; constant-time comparison;
+  `until` restricted to git-ref characters), verified variants on `/ask` with per-claim verdicts (NLI model
+  loaded only when needed), per-client token-bucket rate limit with `Retry-After`.
+- One error shape for every failure, request ids on every response and log line; unexpected exceptions
+  return a generic 500 without internals.
+- CI: `pip-audit` dependency scan. Locally it found 12 advisories, all in the venv's old pip (25.0.1);
+  upgrading pip cleared them. No project dependency had a known vulnerability.
+- Tests: 217 (14 new for the queue, worker, endpoints, admin auth, rate limit, error format).
