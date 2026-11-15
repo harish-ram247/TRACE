@@ -26,7 +26,11 @@ from app.retrieval.search import Hit
 from app.verification.claims import Claim, extract_claims
 from app.verification.nli import NLIModel, entailment_against_chunk
 
-DEFAULT_THRESHOLD = 0.5  # calibrated on hand-labelled claims in Week 8
+# Calibrated in Week 8 on the calib split of the labelled claim set (eval/reports/
+# verifier_calibration.md): best balanced accuracy for nli-deberta-v3-xsmall. The model's
+# entailment scores for correct claims about markdown config entries are often low, so the
+# useful cut-off is far below 0.5.
+DEFAULT_THRESHOLD = 0.027
 
 
 @dataclass

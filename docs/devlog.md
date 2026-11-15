@@ -168,3 +168,15 @@ Short weekly notes: what worked, what broke, what changed.
   correct claims about markdown config entries very low (24 of 59 below 0.5), so 12 correct answers abstained.
   Week 8 calibrates the threshold on hand-labelled claims and compares a larger model and an LLM judge.
 - Bug caught by tests: the sentence fallback left a space before the final period.
+
+## Week 8
+
+- Claim labelling: 112 claim-source pairs, labelled by the reviewer with model scores hidden; 111 supported, 1
+  blank, no unsupported. Negatives built with known labels: 42 value-swapped, 109 wrong-source.
+- Verifier comparison on the eval split: xsmall at 0.5 balanced accuracy 0.89 (accepts only 0.67 of true
+  claims); xsmall calibrated at 0.027: 0.93; nli-deberta-v3-small: 0.88; Gemini judge: 0.94. Default threshold
+  now 0.027.
+- Re-run `dev-v1-verified-calibrated`: verification now costs 2 correct answers instead of 12 (temporal
+  0.76 -> 0.73); faithful-but-stale claims 0.57 plain / 0.64 plain + entailment check / 0.00 temporal.
+- Honest conclusion: on this dataset the time filter does the work; claim verification adds guarantees (every
+  returned claim checked, correct answers always cite the right version) but not accuracy.

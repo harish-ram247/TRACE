@@ -3,6 +3,53 @@
 All numbers are from saved runs in `eval/runs/` and can be recomputed with
 `python -m scripts.run_eval --score-only --run-id <id>`. Values are mean [95% bootstrap CI] (n).
 
+## Verifier calibration (2026-11-15)
+
+Labelled claim set: all 112 unique (claim, cited source) pairs from run `dev-v1-verified`, labelled by the
+human reviewer with model scores hidden: 111 supported, 1 left blank (skipped), 0 unsupported. Because there
+were no human "no" labels, negatives were built from the labelled claims with a known label:
+42 **value-swapped** (the claim's value replaced by the same option's value from another docs version, checked
+against the original source: the stale-value error TRACE must catch) and 109 **wrong-source** (claim paired
+with an unrelated option's section). Thresholds were chosen on the calib split; numbers are on the eval split
+(43 true claims, 13 value-swapped, 43 wrong-source). Details: `eval/reports/verifier_calibration.md`.
+
+| Verifier | Accepts true claims | Rejects value-swapped | Rejects wrong source | Balanced accuracy |
+|---|---|---|---|---|
+| nli-deberta-v3-xsmall, threshold 0.5 | 0.67 | 1.00 | 1.00 | 0.89 |
+| **nli-deberta-v3-xsmall, calibrated 0.027** | **0.95** | 0.92 | 0.91 | **0.93** |
+| nli-deberta-v3-small, best threshold 0.79 | 0.72 | 0.92 | 1.00 | 0.88 |
+| Gemini judge (`gemini-3.5-flash-lite`, batched) | 0.93 | 1.00 | 0.88 | 0.94 |
+
+The 0.5 threshold was the problem, not the model: it rejected a third of true claims. The larger NLI model
+did not help. The calibrated xsmall model matches the Gemini judge while being local, free and deterministic,
+so it is the default (`DEFAULT_THRESHOLD = 0.027`). Caveats: 13 value-swapped claims in the eval split means
+roughly +/-0.15 on that column; synthetic negatives are not human-labelled, and a few wrong-source pairs may be
+loosely supported (two options that both default to `false`).
+
+## Run `dev-v1-verified-calibrated` (2026-11-15), dev split: verification with the calibrated threshold
+
+| Metric | Plain | Plain + verify | Temporal | Temporal + verify |
+|---|---|---|---|---|
+| Answer accuracy | 0.38 [0.27, 0.49] | 0.36 [0.26, 0.46] | **0.76 [0.65, 0.85]** | 0.73 [0.63, 0.82] |
+| False abstention rate (lower is better) | 0.69 | 0.72 | **0.23** | 0.26 |
+| Faithful-but-stale claims (lower is better) | 0.57 [0.32, 0.78] (30) | 0.64 [0.39, 0.86] (28) | **0.00 (70)** | **0.00 (66)** |
+| Unsupported claims | 0.13 [0.03, 0.31] (30) | 0.00 (28) | 0.11 [0.05, 0.19] (70) | 0.00 (66) |
+| Cited the gold version, when correct | 0.54 | 0.64 | 0.90 | **1.00** |
+| Verification actions | - | keep 15, revised 2, abstained 2 | - | keep 39, revised 6, abstained 2 |
+
+### What this shows
+
+1. **Calibration removed most of the cost of verification**: temporal + verify loses 2 correct answers
+   (0.76 -> 0.73) instead of 12 (0.60 before calibration). Both are verifier false rejections of correct claims
+   ("`build.emptyOutDir` defaults to `true` if `outDir` is inside the project root" scored 0.005).
+2. **Verification does not raise accuracy on this dataset.** Once retrieval is time-filtered, answers are
+   already well supported (11% unsupported claims, mostly low-scoring correct ones), so there is little for
+   verification to fix. Its benefits here are guarantees: every returned claim passed the check, and correct
+   answers always cite the right version (1.00).
+3. **The central result holds with the calibrated verifier**: 57% of plain RAG's claims are supported by an
+   outdated source; entailment-only verification keeps them (64% of what remains); time filtering removes them
+   (0.00).
+
 ## Run `dev-v1-verified` (2026-11-15), dev split: claim verification, uncalibrated
 
 All four variants on the 78 dev questions. Same generation as `dev-v1-answer-v3` (answers came from the

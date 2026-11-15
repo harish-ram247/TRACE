@@ -13,6 +13,7 @@ from app.pipeline import ask
 from app.retrieval.backfill import embed_missing
 from app.retrieval.embeddings import HashEmbedder
 from app.verification.nli import KeywordNLI
+from app.verification.verify import DEFAULT_THRESHOLD
 from tests.fixtures.repo_builder import RepoBuilder, day
 
 pytestmark = pytest.mark.integration
@@ -89,7 +90,7 @@ def test_harness_records_claims_and_scores_claim_metrics(pg, corpus, tmp_path):
     assert records["temporal"]["verification"] is None and records["temporal"]["final_claims"]
     assert records["temporal_verified"]["verification"]["action"] == "keep"
     meta = json.loads((run_dir / "meta.json").read_text("utf-8"))
-    assert meta["nli_model"] == "keyword-nli" and meta["threshold"] == 0.5
+    assert meta["nli_model"] == "keyword-nli" and meta["threshold"] == DEFAULT_THRESHOLD
 
     _, results = score_run(run_dir, dataset)
     v = results["variants"]
