@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field
 
 from app.api.ratelimit import rate_limited
 from app.core.config import get_settings
-from app.core.llm import LLMClient, LLMError, get_llm
+from app.core.llm import LLMClient, LLMError, LLMNotConfigured, get_llm
 from app.core.pg import get_conn
 from app.pipeline import ask
 from app.retrieval.embeddings import Embedder, get_embedder
@@ -87,12 +87,15 @@ class AskResponse(BaseModel):
     verification: VerificationOut | None = None
 
 
-def embedder_dep() -> Embedder:
-    return get_embedder()
+# Model dependencies are providers, not instances: they are only created after the request has
+# passed validation, so a bad request never loads a model, and a server without LLM settings
+# answers 503 instead of failing inside dependency resolution.
+def embedder_dep() -> Callable[[], Embedder]:
+    return get_embedder
 
 
-def llm_dep() -> LLMClient:
-    return get_llm()
+def llm_dep() -> Callable[[], LLMClient]:
+    return get_llm
 
 
 def nli_dep() -> Callable[[], NLIModel]:
@@ -103,16 +106,20 @@ def nli_dep() -> Callable[[], NLIModel]:
 def ask_endpoint(
     req: AskRequest,
     conn: Annotated[psycopg.Connection, Depends(get_conn)],
-    embedder: Annotated[Embedder, Depends(embedder_dep)],
-    llm: Annotated[LLMClient, Depends(llm_dep)],
+    embedder: Annotated[Callable[[], Embedder], Depends(embedder_dep)],
+    llm: Annotated[Callable[[], LLMClient], Depends(llm_dep)],
     nli: Annotated[Callable[[], NLIModel], Depends(nli_dep)],
 ) -> AskResponse:
+    try:
+        llm_client = llm()
+    except LLMNotConfigured as exc:
+        raise HTTPException(503, "the language model is not configured on this server") from exc
     try:
         result = ask(
             conn,
             req.question,
-            embedder=embedder,
-            llm=llm,
+            embedder=embedder(),
+            llm=llm_client,
             repo_id=get_settings().corpus_repo_id,
             variant=req.variant,
             as_of=req.as_of,

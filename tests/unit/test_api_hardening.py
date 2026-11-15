@@ -57,3 +57,29 @@ async def test_admin_endpoints_are_closed_without_a_configured_token():
     async with await _client() as c:
         r = await c.post("/ingest", json={"repo_path": "x", "repo_id": "y"})
     assert r.status_code == 403 and r.json()["error"]["code"] == "forbidden"
+
+
+# ---- regression: CI has no .env, so the LLM is not configured ----------------------------
+async def test_without_llm_settings_bad_requests_get_422_and_good_ones_503(monkeypatch):
+    from app.api import ask as ask_api
+    from app.core.llm import LLMNotConfigured
+    from app.core.pg import get_conn
+
+    calls = []
+
+    def unconfigured():
+        calls.append(1)
+        raise LLMNotConfigured("set LLM_BASE_URL, LLM_MODEL and LLM_API_KEY in .env")
+
+    monkeypatch.setattr(ask_api, "get_llm", unconfigured)
+    app.dependency_overrides[get_conn] = lambda: None
+    try:
+        async with await _client() as c:
+            bad = await c.post("/ask", json={"question": "x"})
+            calls_after_bad = len(calls)
+            good = await c.post("/ask", json={"question": "What is the default port now?"})
+    finally:
+        app.dependency_overrides.clear()
+    assert bad.status_code == 422 and calls_after_bad == 0  # validation never touches the model
+    assert good.status_code == 503 and good.json()["error"]["code"] == "unavailable"
+    assert "not configured" in good.json()["error"]["message"]

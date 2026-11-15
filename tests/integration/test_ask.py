@@ -88,8 +88,8 @@ def test_nothing_valid_yet_answers_not_found_without_llm(pg, corpus):
 def client(pg, corpus, monkeypatch):
     monkeypatch.setattr(get_settings(), "corpus_repo_id", corpus)
     app.dependency_overrides[get_conn] = lambda: pg
-    app.dependency_overrides[embedder_dep] = lambda: EMB
-    app.dependency_overrides[llm_dep] = lambda: FakeLLM(port_reader)
+    app.dependency_overrides[embedder_dep] = lambda: lambda: EMB
+    app.dependency_overrides[llm_dep] = lambda: lambda: FakeLLM(port_reader)
     yield httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test")
     app.dependency_overrides.clear()
 

@@ -123,8 +123,8 @@ def api(pg, corpus_root, monkeypatch):
     monkeypatch.setattr(get_settings(), "admin_token", SecretStr("s3cret"))
     monkeypatch.setattr(ratelimit, "_bucket", TokenBucket(per_minute=1000))
     app.dependency_overrides[get_conn] = lambda: pg
-    app.dependency_overrides[embedder_dep] = lambda: EMB
-    app.dependency_overrides[llm_dep] = lambda: FakeLLM(responder)
+    app.dependency_overrides[embedder_dep] = lambda: lambda: EMB
+    app.dependency_overrides[llm_dep] = lambda: lambda: FakeLLM(responder)
     app.dependency_overrides[nli_dep] = lambda: lambda: KeywordNLI()
     yield httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t"), repo_id
     app.dependency_overrides.clear()
