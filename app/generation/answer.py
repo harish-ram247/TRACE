@@ -154,10 +154,19 @@ def generate_answer(
     temporal: bool,
     time_phrase: str | None = None,
     max_tokens: int = 400,
+    previous_answer: str | None = None,
+    feedback: str | None = None,
 ) -> Answer:
+    """Answer from the sources. With `previous_answer` and `feedback`, the model is asked once
+    more in the same conversation (used by claim verification to request a revision)."""
     if not hits:
         return Answer(NOT_FOUND, not_found=True, called_llm=False)
     messages = build_messages(question, hits, as_of, temporal, time_phrase)
+    if previous_answer is not None and feedback:
+        messages += [
+            {"role": "assistant", "content": previous_answer},
+            {"role": "user", "content": feedback},
+        ]
     reply = llm.complete(messages, max_tokens=max_tokens)
     not_found, cited, invalid, uncited = parse_answer(reply.text, hits)
     return Answer(

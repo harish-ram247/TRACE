@@ -3,6 +3,47 @@
 All numbers are from saved runs in `eval/runs/` and can be recomputed with
 `python -m scripts.run_eval --score-only --run-id <id>`. Values are mean [95% bootstrap CI] (n).
 
+## Run `dev-v1-verified` (2026-11-15), dev split: claim verification, uncalibrated
+
+All four variants on the 78 dev questions. Same generation as `dev-v1-answer-v3` (answers came from the
+cache); new: claim extraction (Gemini, JSON), entailment with `cross-encoder/nli-deberta-v3-xsmall`
+(ONNX, quantised), threshold 0.5 (not yet calibrated), one revision allowed.
+
+| Metric | Plain | Plain + verify | Temporal | Temporal + verify |
+|---|---|---|---|---|
+| Answer accuracy | 0.38 [0.27, 0.49] | 0.33 [0.23, 0.44] | **0.76 [0.65, 0.85]** | 0.60 [0.49, 0.71] |
+| False abstention rate (lower is better) | 0.69 | 0.79 | **0.23** | 0.44 |
+| Stale-answer rate (lower is better) | 0.11 | 0.07 | 0.07 | 0.07 |
+| Faithful-but-stale claims (lower is better) | 0.47 [0.28, 0.66] (30) | 0.65 [0.38, 0.89] (17) | **0.00 (70)** | **0.00 (47)** |
+| Unsupported claims (entailment < 0.5) | 0.37 [0.19, 0.58] (30) | 0.00 (17)\* | 0.39 [0.26, 0.52] (70) | 0.00 (47)\* |
+| Cited the gold version, when correct | 0.54 | 0.56 | 0.90 | 1.00 |
+| Verification actions | - | keep 10, revised 3, abstained 6 | - | keep 27, revised 6, dropped claims 1, abstained 13 |
+| Latency p50 (uncached) | - | ~10.0 s | - | ~9.6 s |
+
+\* By construction: verified variants only return claims that passed the check.
+
+### What this shows
+
+1. **A faithfulness check alone does not catch stale answers.** Almost half of plain RAG's claims (0.47)
+   are fully supported by their cited source, but that source was outdated on the question's date. Adding
+   entailment-only verification to plain RAG makes it worse (0.65 of the remaining claims), because it keeps
+   exactly the well-supported but outdated ones. Both temporal variants have 0.00. This is the project's
+   central claim, now measured: *faithful* and *current* are different properties.
+2. **With the current entailment model, verification hurts accuracy** (temporal 0.76 -> 0.60). The model
+   gives low scores to correct claims about markdown config entries: 24 of 59 claims in correct TRACE answers
+   scored below 0.5 (14 below 0.1), for example "The default value for `build.target` is `'modules'`" scored
+   0.04 against a source whose entry reads "Default: 'modules'". Verification then made 12 correct answers
+   abstain and fixed none.
+3. Claims in answers the checker marks wrong scored high (median 0.99); most of those are the known checker
+   false negatives (correct Node.js answers listing dropped versions).
+4. Verification roughly doubles latency (one extraction call, plus revision and re-extraction when needed).
+
+### Next (Week 8)
+
+Hand-label about 100 claims, measure the entailment model's precision and recall, calibrate the threshold on
+half and report on the other half, and compare a second model (`nli-deberta-v3-small`) and an LLM judge. The
+verification design stays; the scorer needs to be better before it can be trusted to drop answers.
+
 ## Run `dev-v1-answer-v3` (2026-11-14), dev split: current best
 
 Same setup as the first run below, with prompt `answer-v3`: for questions about one point in time, the

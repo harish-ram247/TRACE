@@ -51,6 +51,11 @@ class Scored:
     latency_ms: int
     generation_ms: int
     cached: bool
+    n_claims: int = 0
+    n_unsupported: int = 0
+    n_faithful_stale: int = 0
+    action: str | None = None
+    extraction_method: str | None = None
 
 
 def _in_range(when: datetime, start: str, end: str | None) -> bool:
@@ -85,7 +90,28 @@ def load_manual(path: Path) -> dict[tuple[str, str], bool]:
     return out
 
 
-def score_record(q: dict, rec: dict, manual: dict[tuple[str, str], bool]) -> Scored:
+def _claim_counts(q: dict, rec: dict, threshold: float) -> tuple[int, int, int]:
+    """(claims, unsupported, faithful but stale) for the answer as finally returned.
+
+    Validity is judged against the dataset's as-of date, not the parsed one, so every variant is
+    held to the same truth.
+    """
+    claims = rec.get("final_claims") or []
+    as_of = datetime.fromisoformat(q["as_of"])
+    unsupported = stale = 0
+    for c in claims:
+        if c["entailment"] < threshold:
+            unsupported += 1
+        elif c["best_valid_from"] and not _in_range(
+            as_of, c["best_valid_from"], c["best_valid_until"]
+        ):
+            stale += 1
+    return len(claims), unsupported, stale
+
+
+def score_record(
+    q: dict, rec: dict, manual: dict[tuple[str, str], bool], threshold: float = 0.5
+) -> Scored:
     answer = rec["answer"]
     auto = check_answer(answer, q["gold_tokens"], q["stale_tokens"], q["answerable"])
     key = (q["id"], rec["variant"])
@@ -118,6 +144,7 @@ def score_record(q: dict, rec: dict, manual: dict[tuple[str, str], bool]) -> Sco
         category = categorise(q, rec, stale, abstained, gold_retrieved, parse_ok)
 
     timings = rec.get("timings_ms") or {}
+    n_claims, n_unsupported, n_stale = _claim_counts(q, rec, threshold)
     return Scored(
         question_id=q["id"],
         variant=rec["variant"],
@@ -136,6 +163,11 @@ def score_record(q: dict, rec: dict, manual: dict[tuple[str, str], bool]) -> Sco
         latency_ms=sum(timings.values()),
         generation_ms=timings.get("generation", 0),
         cached=bool(rec.get("cached")),
+        n_claims=n_claims,
+        n_unsupported=n_unsupported,
+        n_faithful_stale=n_stale,
+        action=(rec.get("verification") or {}).get("action"),
+        extraction_method=(rec.get("verification") or {}).get("extraction_method"),
     )
 
 
@@ -188,6 +220,28 @@ def _pct(values: list[int], q: float) -> int | None:
     return ordered[min(len(ordered) - 1, int(q * len(ordered)))]
 
 
+def answerable_claims(items: list[Scored]) -> list[Scored]:
+    return [s for s in items if s.answerable and s.n_claims]
+
+
+def _ratio(items: list[Scored], field: str, rng: random.Random) -> dict:
+    """Pooled claim-level rate; bootstrap over questions (an answer's claims move together)."""
+    if not items:
+        return {"n": 0, "value": None, "ci": None}
+    num = [getattr(s, field) for s in items]
+    den = [s.n_claims for s in items]
+    n = len(items)
+    samples = []
+    for _ in range(BOOTSTRAP_SAMPLES):
+        idx = [rng.randrange(n) for _ in range(n)]
+        d = sum(den[i] for i in idx)
+        samples.append(sum(num[i] for i in idx) / d if d else 0.0)
+    samples.sort()
+    lo = samples[int(0.025 * BOOTSTRAP_SAMPLES)]
+    hi = samples[int(0.975 * BOOTSTRAP_SAMPLES) - 1]
+    return {"n": sum(den), "value": sum(num) / sum(den), "ci": [lo, hi]}
+
+
 def aggregate(scored: list[Scored]) -> dict:
     by_variant: dict[str, list[Scored]] = defaultdict(list)
     for s in scored:
@@ -227,6 +281,21 @@ def aggregate(scored: list[Scored]) -> dict:
                 "measured_on": len(live),
             },
             "manual_overrides": sum(s.manual for s in items),
+            "unsupported_claim_rate": _ratio(
+                [s for s in answerable_claims(items)], "n_unsupported", rng
+            ),
+            "faithful_but_stale_rate": _ratio(
+                [s for s in answerable_claims(items)], "n_faithful_stale", rng
+            ),
+            "claims_per_answer": (
+                round(
+                    sum(s.n_claims for s in items) / max(1, sum(1 for s in items if s.n_claims)), 2
+                )
+            ),
+            "verification_actions": dict(Counter(s.action for s in items if s.action)),
+            "extraction_fallbacks": sum(
+                1 for s in items if s.extraction_method == "sentence_fallback"
+            ),
             "failure_categories": dict(Counter(s.category for s in items if s.category)),
         }
 
@@ -255,7 +324,9 @@ def paired_difference(a: list[Scored], b: list[Scored]) -> dict:
 
 
 # ---------------------------------------------------------------------------- files
-def score_run(run_dir: Path, dataset: Path) -> tuple[list[Scored], dict]:
+def score_run(
+    run_dir: Path, dataset: Path, threshold: float | None = None
+) -> tuple[list[Scored], dict]:
     questions = {
         q["id"]: q
         for q in (json.loads(x) for x in dataset.read_text("utf-8").splitlines() if x.strip())
@@ -264,7 +335,10 @@ def score_run(run_dir: Path, dataset: Path) -> tuple[list[Scored], dict]:
     records = [
         json.loads(x) for x in (run_dir / "outputs.jsonl").read_text("utf-8").splitlines() if x
     ]
-    scored = [score_record(questions[r["question_id"]], r, manual) for r in records]
+    meta_path = run_dir / "meta.json"
+    meta = json.loads(meta_path.read_text("utf-8")) if meta_path.exists() else {}
+    t = threshold if threshold is not None else meta.get("threshold") or 0.5
+    scored = [score_record(questions[r["question_id"]], r, manual, t) for r in records]
     return scored, aggregate(scored)
 
 
@@ -347,6 +421,12 @@ def write_report(run_dir: Path, results: dict, meta: dict) -> Path:
          lambda v: f"{v['latency_ms']['p50']} / {v['latency_ms']['p95']} "
                    f"(n={v['latency_ms']['measured_on']})"),
         ("Manual overrides applied", lambda v: str(v["manual_overrides"])),
+        ("Unsupported claims (lower is better)", lambda v: fmt(v.get("unsupported_claim_rate"))),
+        ("Faithful but stale claims (lower is better)",
+         lambda v: fmt(v.get("faithful_but_stale_rate"))),
+        ("Claims per answer", lambda v: str(v.get("claims_per_answer"))),
+        ("Verification actions", lambda v: str(v.get("verification_actions") or "-")),
+        ("Claim extraction fallbacks", lambda v: str(v.get("extraction_fallbacks", 0))),
     ]  # fmt: skip
     for label, get in rows:
         lines.append(f"| {label} | " + " | ".join(get(variants[n]) for n in names) + " |")

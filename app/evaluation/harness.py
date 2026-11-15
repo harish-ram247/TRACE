@@ -27,6 +27,9 @@ from app.core.llm import LLMClient, LLMError
 from app.generation.answer import PROMPT_VERSION
 from app.pipeline import Variant, ask
 from app.retrieval.embeddings import Embedder
+from app.verification.claims import EXTRACT_VERSION, extract_claims
+from app.verification.nli import NLIModel
+from app.verification.verify import DEFAULT_THRESHOLD, verify_claims
 
 log = logging.getLogger(__name__)
 
@@ -42,6 +45,10 @@ class RunConfig:
     repo_id: str
     top_k: int = 5
     limit: int | None = None
+    threshold: float = DEFAULT_THRESHOLD
+    # Extract and check claims of non-verified variants too (analysis only: the answer is not
+    # changed), so claim-level metrics are comparable across all variants.
+    analyze_claims: bool = True
 
 
 def load_questions(path: Path, split: str = "all") -> list[dict]:
@@ -74,7 +81,22 @@ def _done_keys(path: Path) -> set[tuple[str, str]]:
     return keys
 
 
-def _record(q: dict, variant: str, result) -> dict:
+def _final_claims(result, analysis: list | None) -> list[dict]:
+    """Claims of the answer as finally returned, with their verdicts."""
+    v = result.verification
+    if v is None:
+        return [vars(x) for x in analysis or []]
+    if v.action == "keep":
+        return [vars(x) for x in v.verdicts]
+    if v.action == "revised":
+        return [vars(x) for x in v.revised_verdicts]
+    if v.action == "dropped_claims":
+        pool = v.revised_verdicts or v.verdicts
+        return [vars(x) for x in pool if x.label == "supported_current"]
+    return []
+
+
+def _record(q: dict, variant: str, result, analysis: list | None = None) -> dict:
     t = result.time
     return {
         "question_id": q["id"],
@@ -112,6 +134,8 @@ def _record(q: dict, variant: str, result) -> dict:
         "tokens_in": result.answer.tokens_in,
         "tokens_out": result.answer.tokens_out,
         "timings_ms": result.timings_ms,
+        "verification": result.verification.to_json() if result.verification else None,
+        "final_claims": _final_claims(result, analysis),
     }
 
 
@@ -121,6 +145,7 @@ def run(
     *,
     embedder: Embedder,
     llm: LLMClient,
+    nli: NLIModel | None = None,
     runs_dir: Path = RUNS_DIR,
     progress: Callable[[str], None] | None = None,
 ) -> Path:
@@ -141,6 +166,10 @@ def run(
             "embedding_model": embedder.name,
             "llm_model": llm.name,
             "prompt_version": PROMPT_VERSION,
+            "claims_version": EXTRACT_VERSION,
+            "nli_model": nli.name if nli else None,
+            "threshold": config.threshold,
+            "analyze_claims": config.analyze_claims,
             "git_commit": _git_commit(),
         }
         meta_path.write_text(json.dumps(meta, indent=1), "utf-8")
@@ -173,11 +202,22 @@ def run(
                     variant=variant,
                     now=datetime.fromisoformat(q["now"]),
                     top_k=config.top_k,
+                    nli=nli,
+                    threshold=config.threshold,
                 )
+                analysis = None
+                if (
+                    config.analyze_claims
+                    and nli is not None
+                    and result.verification is None
+                    and not result.answer.not_found
+                ):
+                    claims = extract_claims(llm, result.answer.text).claims
+                    analysis = verify_claims(claims, result.hits, nli, None, config.threshold)
             except LLMError as exc:
                 say(f"stopping at {i - 1}/{len(todo)}: {exc} (re-run the same command to resume)")
                 break
-            fh.write(json.dumps(_record(q, variant, result)) + "\n")
+            fh.write(json.dumps(_record(q, variant, result, analysis)) + "\n")
             fh.flush()
             if i % 10 == 0 or i == len(todo):
                 say(f"{i}/{len(todo)} done")

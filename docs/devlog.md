@@ -155,3 +155,16 @@ Short weekly notes: what worked, what broke, what changed.
   dev accuracy from 0.67 to 0.76 (paired vs plain +0.37 [+0.26, +0.49]); version-phrased questions went from
   2/18 to 10/18 correct. 3 of the 4 remaining "stale" failures are checker false negatives (correct Node.js
   answers that list dropped versions); flagged for the manual check rather than patched in the checker.
+
+## Week 7
+
+- Claim verification: Gemini extracts atomic claims (validated JSON, one retry, sentence fallback);
+  entailment with `cross-encoder/nli-deberta-v3-xsmall` via ONNX (87 MB, no PyTorch), scored per sentence
+  window; labels supported_current / supported_outdated / unsupported; policy keep / revise once / keep
+  supported claims / abstain. Four variants: plain, temporal, plain_verified, temporal_verified.
+- Run `dev-v1-verified` (312 answers): faithful-but-stale claims 0.47 for plain RAG, 0.65 after entailment-only
+  verification, 0.00 for both temporal variants: faithfulness checks do not catch outdated sources.
+- Uncalibrated verification (threshold 0.5) lowered TRACE accuracy 0.76 -> 0.60: the NLI model scores many
+  correct claims about markdown config entries very low (24 of 59 below 0.5), so 12 correct answers abstained.
+  Week 8 calibrates the threshold on hand-labelled claims and compares a larger model and an LLM judge.
+- Bug caught by tests: the sentence fallback left a space before the final period.

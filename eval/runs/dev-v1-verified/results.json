@@ -1,0 +1,575 @@
+{
+ "variants": {
+  "plain": {
+   "n": 78,
+   "accuracy": {
+    "n": 78,
+    "value": 0.38461538461538464,
+    "ci": [
+     0.2692307692307692,
+     0.48717948717948717
+    ]
+   },
+   "accuracy_by_type": {
+    "point_in_time": {
+     "n": 39,
+     "value": 0.02564102564102564,
+     "ci": [
+      0.0,
+      0.07692307692307693
+     ]
+    },
+    "current": {
+     "n": 16,
+     "value": 0.75,
+     "ci": [
+      0.5,
+      0.9375
+     ]
+    },
+    "unanswerable": {
+     "n": 17,
+     "value": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "change": {
+     "n": 6,
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "stale_answer_rate": {
+    "n": 55,
+    "value": 0.10909090909090909,
+    "ci": [
+     0.03636363636363636,
+     0.2
+    ]
+   },
+   "abstention_recall": {
+    "n": 17,
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "abstention_precision": {
+    "n": 59,
+    "value": 0.288135593220339,
+    "ci": [
+     0.1694915254237288,
+     0.4067796610169492
+    ]
+   },
+   "false_abstention_rate": {
+    "n": 61,
+    "value": 0.6885245901639344,
+    "ci": [
+     0.5737704918032787,
+     0.8032786885245902
+    ]
+   },
+   "retrieval_recall_at_k": {
+    "n": 55,
+    "value": 0.38181818181818183,
+    "ci": [
+     0.2545454545454545,
+     0.509090909090909
+    ]
+   },
+   "wrong_version_at_rank_1": {
+    "n": 55,
+    "value": 0.09090909090909091,
+    "ci": [
+     0.01818181818181818,
+     0.18181818181818182
+    ]
+   },
+   "cited_gold_when_correct": {
+    "n": 13,
+    "value": 0.5384615384615384,
+    "ci": [
+     0.3076923076923077,
+     0.7692307692307693
+    ]
+   },
+   "parse_agreement": {
+    "n": 0,
+    "value": null,
+    "ci": null
+   },
+   "latency_ms": {
+    "p50": null,
+    "p95": null,
+    "measured_on": 0
+   },
+   "manual_overrides": 0,
+   "unsupported_claim_rate": {
+    "n": 30,
+    "value": 0.36666666666666664,
+    "ci": [
+     0.1875,
+     0.5757575757575758
+    ]
+   },
+   "faithful_but_stale_rate": {
+    "n": 30,
+    "value": 0.4666666666666667,
+    "ci": [
+     0.27586206896551724,
+     0.6551724137931034
+    ]
+   },
+   "claims_per_answer": 1.58,
+   "verification_actions": {},
+   "extraction_fallbacks": 0,
+   "failure_categories": {
+    "F9 over-abstention, gold not retrieved": 24,
+    "F9 over-abstention despite gold retrieved": 18,
+    "F1 wrong version, answered with a stale value": 4,
+    "F2 mixed versions in context, answered with a stale value": 2
+   }
+  },
+  "plain_verified": {
+   "n": 78,
+   "accuracy": {
+    "n": 78,
+    "value": 0.3333333333333333,
+    "ci": [
+     0.23076923076923078,
+     0.4358974358974359
+    ]
+   },
+   "accuracy_by_type": {
+    "point_in_time": {
+     "n": 39,
+     "value": 0.02564102564102564,
+     "ci": [
+      0.0,
+      0.07692307692307693
+     ]
+    },
+    "current": {
+     "n": 16,
+     "value": 0.5,
+     "ci": [
+      0.25,
+      0.75
+     ]
+    },
+    "unanswerable": {
+     "n": 17,
+     "value": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "change": {
+     "n": 6,
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "stale_answer_rate": {
+    "n": 55,
+    "value": 0.07272727272727272,
+    "ci": [
+     0.01818181818181818,
+     0.14545454545454545
+    ]
+   },
+   "abstention_recall": {
+    "n": 17,
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "abstention_precision": {
+    "n": 65,
+    "value": 0.26153846153846155,
+    "ci": [
+     0.15384615384615385,
+     0.36923076923076925
+    ]
+   },
+   "false_abstention_rate": {
+    "n": 61,
+    "value": 0.7868852459016393,
+    "ci": [
+     0.6885245901639344,
+     0.8852459016393442
+    ]
+   },
+   "retrieval_recall_at_k": {
+    "n": 55,
+    "value": 0.38181818181818183,
+    "ci": [
+     0.2545454545454545,
+     0.509090909090909
+    ]
+   },
+   "wrong_version_at_rank_1": {
+    "n": 55,
+    "value": 0.09090909090909091,
+    "ci": [
+     0.01818181818181818,
+     0.16363636363636364
+    ]
+   },
+   "cited_gold_when_correct": {
+    "n": 9,
+    "value": 0.5555555555555556,
+    "ci": [
+     0.2222222222222222,
+     0.8888888888888888
+    ]
+   },
+   "parse_agreement": {
+    "n": 0,
+    "value": null,
+    "ci": null
+   },
+   "latency_ms": {
+    "p50": 10015,
+    "p95": 10782,
+    "measured_on": 9
+   },
+   "manual_overrides": 0,
+   "unsupported_claim_rate": {
+    "n": 17,
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "faithful_but_stale_rate": {
+    "n": 17,
+    "value": 0.6470588235294118,
+    "ci": [
+     0.375,
+     0.8947368421052632
+    ]
+   },
+   "claims_per_answer": 1.31,
+   "verification_actions": {
+    "nothing_to_verify": 59,
+    "keep": 10,
+    "abstained": 6,
+    "revised": 3
+   },
+   "extraction_fallbacks": 0,
+   "failure_categories": {
+    "F9 over-abstention, gold not retrieved": 27,
+    "F9 over-abstention despite gold retrieved": 21,
+    "F1 wrong version, answered with a stale value": 3,
+    "F2 mixed versions in context, answered with a stale value": 1
+   }
+  },
+  "temporal": {
+   "n": 78,
+   "accuracy": {
+    "n": 78,
+    "value": 0.7564102564102564,
+    "ci": [
+     0.6538461538461539,
+     0.8461538461538461
+    ]
+   },
+   "accuracy_by_type": {
+    "point_in_time": {
+     "n": 39,
+     "value": 0.717948717948718,
+     "ci": [
+      0.5641025641025641,
+      0.8461538461538461
+     ]
+    },
+    "current": {
+     "n": 16,
+     "value": 0.875,
+     "ci": [
+      0.6875,
+      1.0
+     ]
+    },
+    "unanswerable": {
+     "n": 17,
+     "value": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "change": {
+     "n": 6,
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "stale_answer_rate": {
+    "n": 55,
+    "value": 0.07272727272727272,
+    "ci": [
+     0.01818181818181818,
+     0.14545454545454545
+    ]
+   },
+   "abstention_recall": {
+    "n": 17,
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "abstention_precision": {
+    "n": 31,
+    "value": 0.5483870967741935,
+    "ci": [
+     0.3870967741935484,
+     0.7096774193548387
+    ]
+   },
+   "false_abstention_rate": {
+    "n": 61,
+    "value": 0.22950819672131148,
+    "ci": [
+     0.13114754098360656,
+     0.3442622950819672
+    ]
+   },
+   "retrieval_recall_at_k": {
+    "n": 55,
+    "value": 0.7818181818181819,
+    "ci": [
+     0.6727272727272727,
+     0.8909090909090909
+    ]
+   },
+   "wrong_version_at_rank_1": {
+    "n": 55,
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "cited_gold_when_correct": {
+    "n": 42,
+    "value": 0.9047619047619048,
+    "ci": [
+     0.8095238095238095,
+     0.9761904761904762
+    ]
+   },
+   "parse_agreement": {
+    "n": 78,
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "latency_ms": {
+    "p50": null,
+    "p95": null,
+    "measured_on": 0
+   },
+   "manual_overrides": 0,
+   "unsupported_claim_rate": {
+    "n": 70,
+    "value": 0.38571428571428573,
+    "ci": [
+     0.25757575757575757,
+     0.5205479452054794
+    ]
+   },
+   "faithful_but_stale_rate": {
+    "n": 70,
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "claims_per_answer": 1.49,
+   "verification_actions": {},
+   "extraction_fallbacks": 0,
+   "failure_categories": {
+    "F1 wrong version, answered with a stale value": 4,
+    "F9 over-abstention, gold not retrieved": 9,
+    "F5 generation error (gold retrieved, answer wrong or incomplete)": 1,
+    "F9 over-abstention despite gold retrieved": 5
+   }
+  },
+  "temporal_verified": {
+   "n": 78,
+   "accuracy": {
+    "n": 78,
+    "value": 0.6025641025641025,
+    "ci": [
+     0.48717948717948717,
+     0.7051282051282052
+    ]
+   },
+   "accuracy_by_type": {
+    "point_in_time": {
+     "n": 39,
+     "value": 0.5384615384615384,
+     "ci": [
+      0.38461538461538464,
+      0.6923076923076923
+     ]
+    },
+    "current": {
+     "n": 16,
+     "value": 0.5625,
+     "ci": [
+      0.3125,
+      0.8125
+     ]
+    },
+    "unanswerable": {
+     "n": 17,
+     "value": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "change": {
+     "n": 6,
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "stale_answer_rate": {
+    "n": 55,
+    "value": 0.07272727272727272,
+    "ci": [
+     0.01818181818181818,
+     0.14545454545454545
+    ]
+   },
+   "abstention_recall": {
+    "n": 17,
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "abstention_precision": {
+    "n": 44,
+    "value": 0.38636363636363635,
+    "ci": [
+     0.25,
+     0.5227272727272727
+    ]
+   },
+   "false_abstention_rate": {
+    "n": 61,
+    "value": 0.4426229508196721,
+    "ci": [
+     0.32786885245901637,
+     0.5737704918032787
+    ]
+   },
+   "retrieval_recall_at_k": {
+    "n": 55,
+    "value": 0.7818181818181819,
+    "ci": [
+     0.6727272727272727,
+     0.8909090909090909
+    ]
+   },
+   "wrong_version_at_rank_1": {
+    "n": 55,
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "cited_gold_when_correct": {
+    "n": 30,
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "parse_agreement": {
+    "n": 0,
+    "value": null,
+    "ci": null
+   },
+   "latency_ms": {
+    "p50": 9603,
+    "p95": 13389,
+    "measured_on": 20
+   },
+   "manual_overrides": 0,
+   "unsupported_claim_rate": {
+    "n": 47,
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "faithful_but_stale_rate": {
+    "n": 47,
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "claims_per_answer": 1.38,
+   "verification_actions": {
+    "keep": 27,
+    "abstained": 13,
+    "nothing_to_verify": 31,
+    "revised": 6,
+    "dropped_claims": 1
+   },
+   "extraction_fallbacks": 0,
+   "failure_categories": {
+    "F1 wrong version, answered with a stale value": 4,
+    "F9 over-abstention despite gold retrieved": 18,
+    "F9 over-abstention, gold not retrieved": 9
+   }
+  }
+ },
+ "paired": {
+  "n": 78,
+  "accuracy_difference": 0.3717948717948718,
+  "ci": [
+   0.2564102564102564,
+   0.48717948717948717
+  ],
+  "only_b_correct": 30,
+  "only_a_correct": 1
+ }
+}

@@ -1,0 +1,65 @@
+﻿question_id,variant,correct,note,auto_correct,question,as_of,gold_answer,answer
+q_820f431c77,plain,,,no,"In Vite 5, what did `json.stringify` default to?",2023-11-16,false,NOT_FOUND
+q_820f431c77,temporal,,,yes,"In Vite 5, what did `json.stringify` default to?",2023-11-16,false,The `json.stringify` option defaults to `false` [S1].
+q_820f431c77,plain_verified,,,no,"In Vite 5, what did `json.stringify` default to?",2023-11-16,false,NOT_FOUND
+q_820f431c77,temporal_verified,,,yes,"In Vite 5, what did `json.stringify` default to?",2023-11-16,false,The `json.stringify` option defaults to `false` [S1].
+q_d6d037d3a8,plain,,,no,Which default did `json.stringify` have before Vite 4?,2022-11-07,false,NOT_FOUND
+q_d6d037d3a8,temporal,,,yes,Which default did `json.stringify` have before Vite 4?,2022-11-07,false,The default value for `json.stringify` is `false` [S1].
+q_d6d037d3a8,plain_verified,,,no,Which default did `json.stringify` have before Vite 4?,2022-11-07,false,NOT_FOUND
+q_d6d037d3a8,temporal_verified,,,yes,Which default did `json.stringify` have before Vite 4?,2022-11-07,false,The default value for `json.stringify` is `false` [S1].
+q_c7a5a4f49b,plain,,,no,"On June 5, 2024, what did `css.preprocessorMaxWorkers` default to?",2024-06-05,0,NOT_FOUND
+q_c7a5a4f49b,temporal,,,yes,"On June 5, 2024, what did `css.preprocessorMaxWorkers` default to?",2024-06-05,0,"The `css.preprocessorMaxWorkers` option defaults to `0`, which means it does not create any workers and runs in the main thread [S1]."
+q_c7a5a4f49b,plain_verified,,,no,"On June 5, 2024, what did `css.preprocessorMaxWorkers` default to?",2024-06-05,0,NOT_FOUND
+q_c7a5a4f49b,temporal_verified,,,yes,"On June 5, 2024, what did `css.preprocessorMaxWorkers` default to?",2024-06-05,0,"The `css.preprocessorMaxWorkers` option defaults to `0`, which means it does not create any workers and runs in the main thread [S1]."
+q_53a41e54a9,plain,,,no,Which default did `server.fs.strict` have in Vite 8?,2026-03-12,true,NOT_FOUND
+q_53a41e54a9,temporal,,,yes,Which default did `server.fs.strict` have in Vite 8?,2026-03-12,true,"The default for `server.fs.strict` is `true`, as it has been enabled by default since Vite 2.7 [S1]."
+q_53a41e54a9,plain_verified,,,no,Which default did `server.fs.strict` have in Vite 8?,2026-03-12,true,NOT_FOUND
+q_53a41e54a9,temporal_verified,,,yes,Which default did `server.fs.strict` have in Vite 8?,2026-03-12,true,"The default for `server.fs.strict` is `true`, as it has been enabled by default since Vite 2.7 [S1]."
+q_0d4c934305,plain,,,no,"What was the default value of `server.fs.strict` on April 20, 2023?",2023-04-20,true,NOT_FOUND
+q_0d4c934305,temporal,,,yes,"What was the default value of `server.fs.strict` on April 20, 2023?",2023-04-20,true,"The default value of `server.fs.strict` is `true`, and it has been enabled by default since Vite 2.7 [S1]."
+q_0d4c934305,plain_verified,,,no,"What was the default value of `server.fs.strict` on April 20, 2023?",2023-04-20,true,NOT_FOUND
+q_0d4c934305,temporal_verified,,,yes,"What was the default value of `server.fs.strict` on April 20, 2023?",2023-04-20,true,"The default value of `server.fs.strict` is `true`, and it has been enabled by default since Vite 2.7 [S1]."
+q_3ebab4162e,plain,,,no,Which default did `css.preprocessorMaxWorkers` have as of July 2024?,2024-07-31,0,NOT_FOUND
+q_3ebab4162e,temporal,,,yes,Which default did `css.preprocessorMaxWorkers` have as of July 2024?,2024-07-31,0,"The default value for `css.preprocessorMaxWorkers` is `0`, which means it does not create any workers and runs in the main thread [S1]."
+q_3ebab4162e,plain_verified,,,no,Which default did `css.preprocessorMaxWorkers` have as of July 2024?,2024-07-31,0,NOT_FOUND
+q_3ebab4162e,temporal_verified,,,yes,Which default did `css.preprocessorMaxWorkers` have as of July 2024?,2024-07-31,0,"The default value for `css.preprocessorMaxWorkers` is `0`, which means it does not create any workers and runs in the main thread [S1]."
+q_baa86c64ca,plain,,,no,"On September 19, 2021, what did `server.fs.strict` default to?",2021-09-19,false,NOT_FOUND
+q_baa86c64ca,temporal,,,yes,"On September 19, 2021, what did `server.fs.strict` default to?",2021-09-19,false,"The `server.fs.strict` option defaulted to `false`, though this default is set to change to `true` in future versions [S1]."
+q_baa86c64ca,plain_verified,,,no,"On September 19, 2021, what did `server.fs.strict` default to?",2021-09-19,false,NOT_FOUND
+q_baa86c64ca,temporal_verified,,,yes,"On September 19, 2021, what did `server.fs.strict` default to?",2021-09-19,false,"The `server.fs.strict` option defaulted to `false`, though this default is set to change to `true` in future versions [S1]."
+q_21c462e9f9,plain,,,no,"On June 1, 2026, what did `css.preprocessorMaxWorkers` default to?",2026-06-01,true,"The default value for `css.preprocessorMaxWorkers` is `0`, which means it does not create any workers and runs in the main thread [S1, S4]."
+q_21c462e9f9,temporal,,,yes,"On June 1, 2026, what did `css.preprocessorMaxWorkers` default to?",2026-06-01,true,The `css.preprocessorMaxWorkers` option defaults to `true` [S1].
+q_21c462e9f9,plain_verified,,,no,"On June 1, 2026, what did `css.preprocessorMaxWorkers` default to?",2026-06-01,true,NOT_FOUND
+q_21c462e9f9,temporal_verified,,,yes,"On June 1, 2026, what did `css.preprocessorMaxWorkers` default to?",2026-06-01,true,The `css.preprocessorMaxWorkers` option defaults to `true` [S1].
+q_8509b1d869,plain,,,no,Which default did `css.preprocessorMaxWorkers` have before Vite 8?,2025-12-03,true,NOT_FOUND
+q_8509b1d869,temporal,,,yes,Which default did `css.preprocessorMaxWorkers` have before Vite 8?,2025-12-03,true,The default value for `css.preprocessorMaxWorkers` is `true` [S2].
+q_8509b1d869,plain_verified,,,no,Which default did `css.preprocessorMaxWorkers` have before Vite 8?,2025-12-03,true,NOT_FOUND
+q_8509b1d869,temporal_verified,,,no,Which default did `css.preprocessorMaxWorkers` have before Vite 8?,2025-12-03,true,NOT_FOUND
+q_827dcbf164,plain,,,no,What was the default value of `server.fs.strict` in August 2021?,2021-08-31,false,NOT_FOUND
+q_827dcbf164,temporal,,,yes,What was the default value of `server.fs.strict` in August 2021?,2021-08-31,false,The default value of `server.fs.strict` was `false` (though it was scheduled to change to `true` in future versions) [S1].
+q_827dcbf164,plain_verified,,,no,What was the default value of `server.fs.strict` in August 2021?,2021-08-31,false,NOT_FOUND
+q_827dcbf164,temporal_verified,,,yes,What was the default value of `server.fs.strict` in August 2021?,2021-08-31,false,The default value of `server.fs.strict` was `false` (though it was scheduled to change to `true` in future versions) [S1].
+q_1b24579df7,plain,,,yes,What is the default value of `server.fs.strict` now?,2026-11-13,true,"The default value of `server.fs.strict` is `true` (enabled by default since Vite 2.7) [S1, S2, S4]."
+q_1b24579df7,temporal,,,yes,What is the default value of `server.fs.strict` now?,2026-11-13,true,The default value of `server.fs.strict` is `true` (enabled by default since Vite 2.7) [S1].
+q_1b24579df7,plain_verified,,,yes,What is the default value of `server.fs.strict` now?,2026-11-13,true,"The default value of `server.fs.strict` is `true` (enabled by default since Vite 2.7) [S1, S2, S4]."
+q_1b24579df7,temporal_verified,,,yes,What is the default value of `server.fs.strict` now?,2026-11-13,true,The default value of `server.fs.strict` is `true` (enabled by default since Vite 2.7) [S1].
+q_e295adeb1f,plain,,,no,What does `css.preprocessorMaxWorkers` currently default to?,2026-11-13,true,"The `css.preprocessorMaxWorkers` option defaults to `0`, which means it does not create any workers and runs in the main thread [S2, S4]."
+q_e295adeb1f,temporal,,,yes,What does `css.preprocessorMaxWorkers` currently default to?,2026-11-13,true,`css.preprocessorMaxWorkers` defaults to `true` [S3].
+q_e295adeb1f,plain_verified,,,no,What does `css.preprocessorMaxWorkers` currently default to?,2026-11-13,true,"The default value for `css.preprocessorMaxWorkers` is `0` [S2, S4]."
+q_e295adeb1f,temporal_verified,,,no,What does `css.preprocessorMaxWorkers` currently default to?,2026-11-13,true,NOT_FOUND
+q_65bb6fc7bb,plain,,,yes,What does `build.emptyOutDir` currently default to?,2026-11-13,true,"`build.emptyOutDir` defaults to `true` if `outDir` is inside `root` [S3, S5]."
+q_65bb6fc7bb,temporal,,,yes,What does `build.emptyOutDir` currently default to?,2026-11-13,true,`build.emptyOutDir` defaults to `true` if `outDir` is inside the project root [S2].
+q_65bb6fc7bb,plain_verified,,,no,What does `build.emptyOutDir` currently default to?,2026-11-13,true,NOT_FOUND
+q_65bb6fc7bb,temporal_verified,,,no,What does `build.emptyOutDir` currently default to?,2026-11-13,true,NOT_FOUND
+q_f06ea893d3,plain,,,yes,What does `json.namedExports` currently default to?,2026-11-13,true,"The `json.namedExports` option defaults to `true` [S1, S2]."
+q_f06ea893d3,temporal,,,yes,What does `json.namedExports` currently default to?,2026-11-13,true,The `json.namedExports` option defaults to `true` [S1].
+q_f06ea893d3,plain_verified,,,yes,What does `json.namedExports` currently default to?,2026-11-13,true,"The `json.namedExports` option defaults to `true` [S1, S2]."
+q_f06ea893d3,temporal_verified,,,yes,What does `json.namedExports` currently default to?,2026-11-13,true,The `json.namedExports` option defaults to `true` [S1].
+q_1c06ac4e72,plain,,,yes,What does `build.manifest` currently default to?,2026-11-13,false,"The `build.manifest` option defaults to `false` [S3, S5]."
+q_1c06ac4e72,temporal,,,yes,What does `build.manifest` currently default to?,2026-11-13,false,The `build.manifest` option defaults to `false` [S2].
+q_1c06ac4e72,plain_verified,,,yes,What does `build.manifest` currently default to?,2026-11-13,false,"The `build.manifest` option defaults to `false` [S3, S5]."
+q_1c06ac4e72,temporal_verified,,,yes,What does `build.manifest` currently default to?,2026-11-13,false,The `build.manifest` option defaults to `false` [S2].
+q_e85efabf92,plain,,,yes,What is the default value of `build.copyPublicDir` now?,2026-11-13,true,The default value of `build.copyPublicDir` is `true`.
+q_e85efabf92,temporal,,,yes,What is the default value of `build.copyPublicDir` now?,2026-11-13,true,The default value of `build.copyPublicDir` is `true`.
+q_e85efabf92,plain_verified,,,yes,What is the default value of `build.copyPublicDir` now?,2026-11-13,true,The default value of `build.copyPublicDir` is `true` [S1].
+q_e85efabf92,temporal_verified,,,yes,What is the default value of `build.copyPublicDir` now?,2026-11-13,true,The default value of `build.copyPublicDir` is `true` [S1].
