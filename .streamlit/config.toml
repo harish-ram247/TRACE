@@ -1,0 +1,19 @@
+# Streamlit settings for the demo UI (read from the working directory: run streamlit from the repo root).
+
+[theme]
+base = "dark"
+primaryColor = "#F2B84B"            # amber, the hourglass
+backgroundColor = "#0B0F1A"
+secondaryBackgroundColor = "#151B2B"
+textColor = "#E6E8EF"
+borderColor = "#252D42"
+font = "Inter, system-ui, sans-serif"
+headingFont = "Space Grotesk, Inter, system-ui, sans-serif"
+codeFont = "JetBrains Mono, ui-monospace, monospace"
+baseRadius = "10px"
+
+[client]
+toolbarMode = "viewer"              # hides the developer "Deploy" button and menu entries
+
+[browser]
+gatherUsageStats = false

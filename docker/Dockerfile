@@ -22,6 +22,8 @@ RUN pip install --upgrade pip && pip install ".[ui]"
 COPY alembic.ini ./
 COPY migrations ./migrations
 COPY scripts ./scripts
+# Streamlit theme and settings for the demo UI (read from the working directory)
+COPY .streamlit ./.streamlit
 
 # Run as an unprivileged user; /srv/data holds model and LLM caches (a volume in production).
 RUN useradd --create-home --uid 10001 trace && mkdir -p /srv/data && chown -R trace /srv/data
