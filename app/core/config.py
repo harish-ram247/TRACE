@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://trace:trace@localhost:5433/trace"
     log_level: str = "INFO"
     rate_limit_per_min: int = 30
+    # Origins allowed to call the API from a browser, comma separated (e.g. the static web demo's
+    # host). Empty = no CORS headers; the bundled /demo page is same-origin and needs none.
+    cors_origins: str = ""
 
     embedding_model: str = "BAAI/bge-small-en-v1.5"
     # BGE models are trained with this instruction on the query side only.

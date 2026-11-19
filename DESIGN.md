@@ -22,21 +22,60 @@ typography:
     lineHeight: 0.82
     letterSpacing: "0.01em"
     fontVariation: "'wdth' 112"
+  display-md:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "3.2rem"
+    fontWeight: 800
+    lineHeight: 0.82
+    fontVariation: "'wdth' 112"
+  display-sm:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "2.6rem"
+    fontWeight: 800
+    lineHeight: 0.82
+    fontVariation: "'wdth' 112"
+  verdict:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.6rem"
+    fontWeight: 500
+    lineHeight: 1.32
+    fontVariation: "'wdth' 96"
+  verdict-md:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.32rem"
+    fontWeight: 500
+    lineHeight: 1.32
+    fontVariation: "'wdth' 96"
+  verdict-sm:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.04rem"
+    fontWeight: 500
+    lineHeight: 1.4
+    fontVariation: "'wdth' 96"
   answer:
     fontFamily: "Archivo, Arial, sans-serif"
     fontSize: "1.22rem"
     fontWeight: 500
     lineHeight: 1.42
+  strip-value:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.1rem"
+    fontWeight: 800
   title:
     fontFamily: "Archivo, Arial, sans-serif"
     fontSize: "1.05rem"
     fontWeight: 800
     lineHeight: 1.2
+  detail:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.98rem"
+    fontWeight: 700
+    lineHeight: 1.3
   body:
     fontFamily: "Archivo, Arial, sans-serif"
     fontSize: "0.9rem"
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.5
     fontFeature: "'tnum' 1"
   label:
     fontFamily: "Archivo, Arial, sans-serif"
@@ -44,19 +83,33 @@ typography:
     fontWeight: 700
     letterSpacing: "0.04em"
     fontVariation: "'wdth' 72"
+  caption:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.78rem"
+    fontWeight: 400
+    lineHeight: 1.4
   code:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
+    fontFamily: "JetBrains Mono, ui-monospace, Consolas, monospace"
     fontSize: "0.86em"
     fontWeight: 400
+  document:
+    fontFamily: "JetBrains Mono, ui-monospace, Consolas, monospace"
+    fontSize: "0.86rem"
+    fontWeight: 400
+    lineHeight: 1.6
 rounded:
   none: "0px"
 spacing:
-  cell-gap: "1.4rem"
-  row-y: "1.05rem"
   page-x: "2.5rem"
   page-x-sm: "1rem"
+  field-gap: "1.2rem"
+  panel-x: "2rem"
+  panel-y: "1.4rem"
+  column-gap: "2rem"
   section: "2rem"
   section-lg: "3rem"
+  cell-gap: "1.4rem"
+  row-y: "1.05rem"
 components:
   button-primary:
     backgroundColor: "{colors.timetable-blue}"
@@ -66,11 +119,74 @@ components:
     width: "8.5rem"
   button-primary-hover:
     backgroundColor: "{colors.timetable-blue-deep}"
+  button-primary-busy:
+    backgroundColor: "{colors.ink-3}"
+  input:
+    backgroundColor: "{colors.paper-2}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    height: "2.75rem"
+    padding: "0 0.85rem"
+  input-focus:
+    backgroundColor: "{colors.paper}"
+  checkbox:
+    backgroundColor: "{colors.paper}"
+    rounded: "{rounded.none}"
+    size: "1rem"
+  checkbox-checked:
+    backgroundColor: "{colors.timetable-blue}"
   validity-strip:
     backgroundColor: "{colors.signal-yellow}"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
-    padding: "0.75rem 1.1rem"
+    padding: "0.7rem 1rem"
+  stale-chip:
+    backgroundColor: "{colors.red-tint}"
+    textColor: "{colors.ink}"
+    padding: "0.05rem 0.4rem"
+  verdict-answer:
+    textColor: "{colors.ink}"
+    typography: "{typography.verdict}"
+    width: "34rem"
+  verdict-call-ok:
+    textColor: "{colors.timetable-blue}"
+    typography: "{typography.detail}"
+  verdict-call-bad:
+    textColor: "{colors.stale-red}"
+    typography: "{typography.detail}"
+  verdict-call-na:
+    textColor: "{colors.ink-2}"
+    typography: "{typography.detail}"
+  citation-id:
+    backgroundColor: "{colors.blue-tint}"
+    textColor: "{colors.timetable-blue}"
+    rounded: "{rounded.none}"
+    padding: "0 0.35em"
+  citation-id-stale:
+    backgroundColor: "{colors.red-tint}"
+    textColor: "{colors.stale-red}"
+  cited-by-ok:
+    backgroundColor: "{colors.blue-tint}"
+    textColor: "{colors.timetable-blue}"
+    typography: "{typography.caption}"
+    padding: "0.08rem 0.4rem"
+  cited-by-bad:
+    backgroundColor: "{colors.red-tint}"
+    textColor: "{colors.stale-red}"
+    typography: "{typography.caption}"
+    padding: "0.08rem 0.4rem"
+  source-row-current:
+    backgroundColor: "{colors.blue-tint}"
+    padding: "0.65rem 0.5rem"
+  document-line-hit:
+    backgroundColor: "{colors.blue-tint}"
+    textColor: "{colors.ink}"
+    typography: "{typography.document}"
+  log-current:
+    backgroundColor: "{colors.paper-2}"
+  log-date-asked:
+    backgroundColor: "{colors.signal-yellow}"
+    textColor: "{colors.ink}"
   status-valid:
     backgroundColor: "{colors.blue-tint}"
     textColor: "{colors.timetable-blue}"
@@ -84,15 +200,6 @@ components:
     backgroundColor: "{colors.paper-2}"
     textColor: "{colors.ink-2}"
     padding: "0.1rem 0.4rem"
-  citation-id:
-    backgroundColor: "{colors.blue-tint}"
-    textColor: "{colors.timetable-blue}"
-    rounded: "{rounded.none}"
-    padding: "0 0.32em"
-  input:
-    backgroundColor: "{colors.paper-2}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
 ---
 
 # Design System: TRACE
@@ -101,16 +208,16 @@ components:
 
 **Creative North Star: "The Timetable Page"**
 
-TRACE's answers are set like a printed railway timetable: a heavy masthead over a thick blue rule, a yellow header stating the period the answer is valid for, and every system as a row in one ruled grid under a single set of column heads. The page reads as a public information document, not a chat product. Nothing floats; everything sits on a rule.
+TRACE's answers are set like a printed railway timetable: a heavy masthead over a thick blue rule, a yellow band stating the date asked and the period each answer's source is valid for, and the systems compared under ruled heads. The page reads as a public information document, not a chat product. Nothing floats; everything sits on a rule.
 
-Density is that of a working timetable: tabular figures throughout, condensed uppercase column heads, compact cells, and one deliberately large element per row (the answer sentence). Color is functional signage with three fixed meanings: blue for structure and action, yellow for "the date you asked", red for "not valid on that date". White paper and black ink carry everything else.
+Density is that of a working timetable: tabular figures throughout, condensed uppercase column heads, compact cells, and one deliberately large element per system (the answer sentence). Color is functional signage with three fixed meanings: blue for structure, action and "valid", yellow for "the date you asked", red for "not valid on that date". White paper and black ink carry everything else.
 
-The world refuses the AI-search defaults of chat bubbles, soft cards, gradients and drop shadows. Depth is never simulated; hierarchy comes from rule weight (5px, 3px, 1px), type weight and width, and the three signal colors.
+The world refuses the AI-search defaults of chat bubbles, soft cards, gradients and drop shadows. Depth is never simulated; hierarchy comes from rule weight (5px, 3px, 1px), type weight and width, and the three signal colors. The web demo (`web/`) is the primary surface; the Streamlit page (`ui/app.py`, `ui/style.css`) is the older surface on the same tokens.
 
 **Key Characteristics:**
-- White paper, black ink, square corners everywhere (0px radius, including Streamlit widgets).
-- Rules, not containers: a 5px blue masthead rule, 3px ink rules opening each grid or section, 1px ink under column heads, 1px grey between rows.
-- Archivo throughout at variable width: expanded (112%) for the masthead, condensed (72%) for column heads and labels.
+- White paper, black ink, square corners on every surface, field, button and chip (0px radius).
+- Rules, not containers: a 5px blue masthead rule, 3px ink rules opening each verdict panel and the evidence, 1px ink under column heads, 1px grey between rows.
+- Archivo throughout at variable width: expanded (112%) for the masthead, condensed (72%) for column heads and labels, slightly condensed (96%) for the verdict answer.
 - Tabular figures on the whole page; dates are the primary data.
 - Three signal colors, each with exactly one meaning.
 
@@ -119,128 +226,138 @@ The world refuses the AI-search defaults of chat bubbles, soft cards, gradients 
 A public-transport palette: paper and ink, one institutional blue, one signal yellow, one alarm red.
 
 ### Primary
-- **Timetable Blue** (timetable-blue): the masthead rule, primary action (Ask), focus outlines, caret, links, "valid" status text, the TRACE row's role label, citation ids, and valid segments on the validity timeline. Also the Streamlit `primaryColor`, so toggles, checked radios, checkboxes and the slider track inherit it.
+- **Timetable Blue** (timetable-blue): the masthead rule, the Ask button, checked checkboxes, focus outlines, caret, links, the "Why?" control, valid verdict lines and their icons, TRACE's role tag, citation ids, cited-by tags and commit dots for valid versions. Also the Streamlit `primaryColor`.
 - **Deep Timetable Blue** (timetable-blue-deep): hover state of the primary button only.
-- **Blue Tint** (blue-tint): background of "valid" status chips and citation ids.
+- **Blue Tint** (blue-tint): background of citation ids, valid cited-by tags, the selected cited version, and the highlighted lines in the document view.
 
 ### Secondary
-- **Signal Yellow** (signal-yellow): the validity strip under the masthead, the slider's date-value tag, the date-asked marker cap on the timeline, and text selection. It always means "the date being asked about / the period this answer holds for".
+- **Signal Yellow** (signal-yellow): the "As of" strip above the verdict, the "Date asked" row in the commit history, the skip link and text selection. It always means "the date being asked about / the period this answer holds for".
 
 ### Tertiary
-- **Stale Red** (stale-red): only for sources not valid on the asked date: red date ranges, "Not yet written"/"Superseded" chips, the dagger footnote and its note, invalid timeline segments.
-- **Red Tint** (red-tint): background of invalid status chips.
+- **Stale Red** (stale-red): only for sources not valid on the asked date: the dagger (†) on stale citation ids and in the strip, the "Cites a version not valid on…" verdict line and its icon, red cited-by tags, "Not yet written"/"Superseded" status, red commit dots, form errors.
+- **Red Tint** (red-tint): background of stale citation ids, red cited-by tags and, on the yellow strip, the stale date chip.
 
 ### Neutral
-- **Ink** (ink): body text, row names, heavy 3px section rules and 1px column-head rules, the timeline's date mark.
-- **Ink 2** (ink-2): column heads, field labels, secondary prose (description, "when" lines, timeline key).
-- **Ink 3** (ink-3): muted text (file paths, "not checked", footer, axis years), the baseline row's role label and its 3px column rule, unselected radio rings (meets 3:1 on white).
-- **Rule Grey** (rule): 1px rules between rows, under expanders and above the footer; Streamlit `borderColor`.
-- **Paper** (paper): page ground.
-- **Paper 2** (paper-2): input fields, inline code, neutral status chips, empty timeline tracks; Streamlit `secondaryBackgroundColor`.
+- **Ink** (ink): body text, headings, heavy 3px rules and 1px column-head rules, the date-asked node in the history.
+- **Ink 2** (ink-2): column heads and field labels, verdict sub-lines, the claims line, the "not judged" verdict line.
+- **Ink 3** (ink-3): muted text (hints, file paths and commit meta, line numbers, footer), the baseline's role tag and its 3px panel rule, unchecked checkbox border, the busy Ask button.
+- **Rule Grey** (rule): 1px rules between rows, around the question bar and verdict panels, the panel divider, the history's vertical line, field borders.
+- **Paper** (paper): page ground, focused fields.
+- **Paper 2** (paper-2): fields at rest, inline code, the current version in the history, hover on cited versions.
 
 ### Named Rules
-**The One Meaning Rule.** Each signal color has a single meaning across the page: blue = structure/action/valid, yellow = the date asked, red = not valid on that date. Red never decorates, yellow never highlights anything except the date or validity period.
+**The One Meaning Rule.** Each signal color has a single meaning across the page: blue = structure/action/valid, yellow = the date asked, red = not valid on that date. Red never decorates, yellow never highlights anything except the date asked or a validity period.
 
-**The Paper and Ink Rule.** Surfaces are white or Paper 2. There are no tinted panels, gradients, or colored section backgrounds other than the yellow validity strip.
+**The Paper and Ink Rule.** Surfaces are white or Paper 2. There are no tinted panels, gradients, or colored section backgrounds other than the yellow strip and the date-asked row; Blue Tint and Red Tint appear only on chips, tags, the selected source and highlighted document lines.
+
+**The Ink-on-Yellow Rule.** Nothing red sits directly on Signal Yellow: red text on yellow fails contrast. A stale date in the strip is ink inside a Red Tint chip, led by a red dagger.
 
 ## Typography
 
 **Display Font:** Archivo (with Arial, sans-serif), variable width 62–125, weights 400–800
 **Body Font:** Archivo (same family)
-**Label/Mono Font:** JetBrains Mono (with ui-monospace) for inline code only
+**Label/Mono Font:** JetBrains Mono (with ui-monospace, Consolas) for inline code, file paths and the document view
 
-**Character:** One grotesque used at different widths does all the work, the way transit signage does: wide and black for the name, condensed and capitalized for column heads, regular for reading. Mono appears only where the docs themselves quote code.
+**Character:** One grotesque used at different widths does all the work, the way transit signage does: wide and black for the name, condensed and capitalized for column heads, regular for reading. Mono appears only where the docs themselves are quoted.
 
 ### Hierarchy
-- **Display** (800, 4.25rem; 3.2rem at ≤760px, 2.6rem at ≤480px; line-height 0.82; width 112%): the TRACE masthead only.
-- **Answer** (500, 1.22rem / 1.42; 1.32rem with a 38rem measure in the per-system detail; 1.1rem ≤760px, 1.04rem ≤480px): the answer sentence, the one large element in each grid row.
-- **Title** (800, 1.05rem / 1.2): system names in the grid. Detail-column heads sit one step below (700, 0.98rem); the section-history head steps up to 1.3rem.
-- **Body** (400, 0.86–0.95rem / 1.4): cells, table text, description, "when" lines. The masthead expansion is 500 at 1.05rem with its initial letters in blue 800.
-- **Label** (700, 0.78rem, 0.04em tracking, uppercase, width 72%, Ink 2): column heads, field labels, validity-strip keys, table section labels ("Cited sources", "Claim check"), and the role tag beside a system name (blue for TRACE, Ink 3 for the baseline).
+- **Display** (800, 4.25rem; 3.2rem at ≤760px; 2.6rem at ≤480px; line-height 0.82; width 112%): the TRACE masthead only.
+- **Verdict** (500, 1.6rem / 1.32, width 96%, 34rem measure; 1.32rem at ≤760px; 1.04rem / 1.4 at ≤480px): the answer sentence in each verdict panel, the largest text after the masthead. Values in it may be 800.
+- **Answer** (500, 1.22rem): a declined or empty answer, set muted in Ink 3; also the Streamlit grid's answer sentence.
+- **Strip value** (800, 1.1rem): the date asked in the "As of" strip.
+- **Title** (800, 1.05rem / 1.2): system names heading each verdict panel; the masthead expansion sits at 500 1.05rem with its initials in blue 800.
+- **Detail** (700, 0.98rem): verdict lines (at 600), the "Why?" control, cited-version names.
+- **Body** (400, 0.9rem / 1.5): fields, sub-lines, claims table, history dates (700), "How it works".
+- **Label** (700, 0.78rem, 0.04em tracking, uppercase, width 72%, Ink 2): field labels, column and section heads, strip keys, the role tag beside a system name, the "Date asked" key.
+- **Caption** (400–500, 0.78rem, sentence case): hints, file path and date meta, cited-by tags, commit meta, document note, footer. Never uppercase.
+- **Document** (JetBrains Mono 400, 0.86rem / 1.6): the line-numbered section text.
 
 ### Named Rules
 **The Tabular Figures Rule.** `font-variant-numeric: tabular-nums` is set on the root; dates and scores must align in columns.
 
-**The Width-Not-Size Rule.** Labels are distinguished by condensed width, weight and capitals, not by shrinking further. Option text (toggle, checkbox) is sentence case at 0.9rem/500 and is never styled as a label.
+**The Width-Not-Size Rule.** Labels are distinguished by condensed width, weight and capitals, not by shrinking below 0.78rem. Option text (checkboxes) is sentence case at 0.9rem/500 and is never styled as a label; captions share the label's size but never its capitals.
 
 ## Layout
 
-A single 1280px-max column with 2.5rem side padding (1rem at ≤760px). The page runs top to bottom as one document: masthead (name | expansion + description | source link, aligned to the baseline, closed by the blue rule), yellow validity strip, the ask form as a ruled row (1px ink top rule, no card), the comparison grid, per-system detail in two columns, "How it works" table, footer.
+A single column, 75rem max, with 2.5rem side padding (1rem at ≤760px). The web page runs top to bottom as one document:
 
-The comparison grid is a five-column CSS grid (11.75rem system | flexible answer | 12.5rem cited source | 9.5rem status | 8rem claims) with 1.4rem column gap and rows padded ~1.05rem/1.15rem. Rows align to start.
+1. **Masthead:** three columns aligned to the baseline (name | expansion + one-line description | "Source on GitHub"), closed by the 5px blue rule.
+2. **Question bar:** one ruled row, no card: Question (flexible) | Example select (19rem) | As of ISO text field with its range hint (10.5rem) | Ask (8.5rem), 1.2rem column gap, with the two square checkboxes on a line beneath; closed by a 1px grey rule.
+3. **Verdict:** the yellow "As of" strip, then two verdict panels side by side (1fr 1fr) split by a 1px grey vertical rule, each opened by a 3px rule (Ink for TRACE, Ink 3 for the baseline) and padded 1.4rem / 2rem; the "Why?" control beneath.
+4. **Evidence (on "Why?"):** opened by a 3px ink rule; three columns (17rem cited versions and claim check | flexible document view | 17rem history), 2rem gap.
+5. **How it works:** 3rem above, opened by a 1px ink rule, a numbered list at 60rem measure.
+6. **Footer:** 2rem above, 1px grey rule, caption text.
 
 Responsive behavior:
-- **≤1080px:** the column-head row hides; each row puts system and answer across the full width with the three facts in three columns beneath, each fact carrying its own condensed label. The two detail columns stack; the Ask button wraps to its own line.
-- **≤760px:** the comparison grid moves above the form so the first screen shows both answers; facts sit in two columns; the masthead stacks; secondary table columns (section name, file path) hide.
-- **≤480px:** the masthead description hides and the masthead and strip tighten so both answer rows fit the first screen.
-
-Vertical rhythm: 1.4rem between strip and form, ~2.2rem before the detail, 2rem before section history and footer, 3rem before "How it works".
+- **≤1080px:** the question bar becomes two columns with the question full width; the evidence keeps sources (15rem) and document side by side and drops the history to full width beneath.
+- **≤760px:** the masthead stacks; panels stack, the second gaining a 1px grey top rule; the evidence is one column. Order changes so the verdict comes first: strip (now also stating the question), both panels, "Why?", then the question bar opened by a 3px ink rule.
+- **≤480px:** the masthead description hides and the masthead and strip tighten; the strip drops its source and corpus pairs; verdict lines and sub-lines step down to body and caption.
 
 ## Elevation & Depth
 
-Flat. No box shadows anywhere. Depth and grouping come from rule weight and from the yellow strip as the only filled band.
+Flat. No box shadows anywhere. Depth and grouping come from rule weight and from the two yellow fills (the strip and the date-asked row) as the only filled bands.
 
 ### Named Rules
-**The Rule-Weight Rule.** Hierarchy of separation is expressed in line weight: 5px Timetable Blue closes the masthead; 3px Ink opens a grid or section (Ink 3 for the baseline's detail column); 1px Ink sits under column heads and above the form and "How it works"; 1px Rule Grey separates rows.
+**The Rule-Weight Rule.** Hierarchy of separation is expressed in line weight: 5px Timetable Blue closes the masthead; 3px Ink opens a verdict panel, the evidence, or (on phones) the question bar, with Ink 3 for the baseline's panel; 1px Ink sits under column heads and above "How it works"; 1px Rule Grey separates rows and panels.
 
 ## Shapes
 
-Square everywhere: 0px radius on inputs, selects, buttons, alerts, expanders, code, chips and the form, enforced through both `config.toml` (`baseRadius`, `buttonRadius`) and stylesheet overrides. The only non-rectangular marks are the native radio and toggle controls. The validity timeline is drawn to scale from flat bars (0.5rem tracks), a 3px ink date mark capped by a small yellow tab outlined in ink, and an axis with tick marks.
+Square everywhere: 0px radius on fields, the select, buttons, checkboxes, chips, tags, the strip and every region. The round marks are drawings, not containers: the authored verdict icons (a 1.4rem outlined circle carrying a check, cross or dash, 1.75px stroke), the commit nodes on the history line (0.55rem rings, filled blue or red when cited; the date-asked node is a square ink block), and the loading ring. The chevron on the select and "Why?" is an authored 1.75px stroke and turns 180° when open.
 
 ## Components
 
 ### Buttons
 - **Shape:** square (0px), 2.75rem tall, min 8.5rem wide.
-- **Primary (Ask):** Timetable Blue fill, white 700 text with 0.02em tracking, search icon from Streamlit's icon set.
-- **Hover / Focus:** background shifts to Deep Timetable Blue over 120ms ease-out; focus is a 2px blue outline at 2px offset (global).
-- **Secondary:** square, 600 weight, Streamlit's bordered secondary style.
-
-### Chips (status)
-- **Style:** inline block, 700 at 0.78rem, 0.1rem 0.4rem padding, no radius, tint background with matching text: Valid/Supported (Blue Tint + blue), Not yet written/Superseded/Outdated source/Unsupported (Red Tint + red), no date or unknown verdict (Paper 2 + Ink 2).
-
-### Citation ID
-- Inline tag (S1, S3) at 0.68em, 800, width 90%, Blue Tint + blue, set slightly raised in the answer text; in the source cell it leads the date range.
-
-### Cards / Containers
-- None. The form, grid, detail columns and history are ruled regions, not cards: no background, no border box, no radius, no shadow.
+- **Primary (Ask):** Timetable Blue fill, white 700 text at 0.9rem with 0.02em tracking, no icon.
+- **Hover / Focus:** background shifts to Deep Timetable Blue over 120ms ease-out; focus is a 2px blue outline at 2px offset (global). Busy: Ink 3 fill with a progress cursor.
+- **"Why?" control:** text-only, Detail type in blue with a chevron; underlines on hover; the chevron rotates 180° over 200ms when the evidence is open.
 
 ### Inputs / Fields
-- **Style:** Paper 2 fill, square, Streamlit's widget border in Rule Grey; labels in the Label role above.
-- **Focus:** blue border/outline from `primaryColor` plus the global 2px blue focus ring; caret blue.
-- **Slider:** blue track and thumb; the value tag is Signal Yellow with ink 700 text (the date asked).
-- **Radio:** unselected ring 1.5px Ink 3; selected filled blue.
-
-### Navigation
-- None beyond the masthead's "Source on GitHub" link: blue, 600, underline offset 3px, thicker underline on hover.
+- **Style:** Paper 2 fill, 1px Rule Grey border, square, 2.75rem tall, 500 0.9rem; labels in the Label role 0.4rem above.
+- **Hover / Focus:** border darkens to Ink 3; on focus a 2px blue outline inset 1px and the fill turns Paper. Disabled: dashed border on Paper, Ink 3 text.
+- **As of:** a plain ISO text field (YYYY-MM-DD) with tabular figures, 0.02em tracking, and a caption hint stating the valid range; no date picker.
+- **Example select:** the same field with native appearance removed and an authored chevron at the right.
+- **Checkboxes:** 1rem square box, 1.5px Ink 3 border on Paper; checked fills blue with a white tick; hover darkens the border to Ink; option text sentence case 0.9rem/500.
 
 ### Validity Strip (signature)
-Full-width Signal Yellow band directly under the masthead rule: label/value pairs ("Asked for", "Source valid", "Corpus") with condensed uppercase keys and 800 values, wrapping with 2.6rem column gap. `role="status"`.
+Full-width Signal Yellow band opening the verdict: label/value pairs ("As of" with the date in Strip value and a note on where the date came from; "TRACE source"; "Plain RAG source"; "Corpus"), wrapping with a 1.8rem column gap. A stale period appears as ink in a Red Tint chip led by a red †. On phones it also states the question asked.
 
-### Timetable Grid (signature)
-Column-head row between a 3px ink rule and a 1px ink rule; each system is one row: name (Title) with role tag, answer sentence (Answer), cited source dates (red and bold when invalid), status chip, claims summary. Invalid citations get a red dagger in the answer and a red footnote line under it.
+### Verdict Panels (signature)
+Two ruled panels, TRACE and Plain RAG, each a Title heading with a condensed role tag beside it (blue "time-aware", Ink 3 "baseline, no dates"). Under it, the answer sentence in Verdict type, then one verdict line: an authored circle icon with Detail text in blue ("Source valid on …"), red ("† Cites a version not valid on …") or Ink 2 ("Declined rather than guess"), with a body sub-line in Ink 2 naming the source and its dates. TRACE adds a claims line ("2 of 2 claims supported…"). Answers and verdict lines rise 6px into place over 420ms on arrival, the second panel 90ms later.
 
-### Sources and Claims Tables
-Borderless tables with condensed uppercase heads over a 1px ink rule and 1px grey row rules; ids in 800; file paths as a muted second line; dates never wrap.
+### Citation ID
+Inline tag (S1, S3) at 0.5em, 800, width 90%, raised in the answer: Blue Tint + blue, or Red Tint + red with a trailing † when the cited version was not valid on the date asked.
 
-### Validity Timeline
-Per-source rows on a 2.2rem label column: Paper 2 track, blue or red segment drawn to scale (scaleX in over 520ms, cubic-bezier(0.16, 1, 0.3, 1); no animation under reduced motion), ink date mark with yellow cap, ruled year axis and a small key.
+### Cited-by Tags
+Caption-size square tags naming who cited a version ("**S1** TRACE"): Blue Tint + blue when that version was valid on the date asked, Red Tint + red when not. Used on cited versions and history rows.
 
-### Expanders
-Rows of the timetable: no box, 1px grey bottom rule, 600 summary at 0.88rem that turns blue on hover.
+### Evidence View (signature)
+- **Cited versions:** a list under a 1px ink rule; each row is a button (Detail section name, caption file and dates, cited-by tags, a "Valid / Not yet written on …" status in blue or red). Hover Paper 2; selected Blue Tint. Below it the TRACE claim check: a borderless table with label heads over a 1px ink rule, verdict word in blue or red, scores right-aligned.
+- **Document view:** a head line (mono caption path › section, "Cited by …" and the version's dates in 700) over a 1px ink rule, then the section text in Document type with a 2.6rem line-number gutter in Ink 3. Lines containing values from the answer are highlighted in Blue Tint with a blue 700 line number. A caption note says what the highlight means.
+- **History of this section:** a merged commit log under a 1px ink rule, a 1px grey vertical line with a node per version; each row shows the date range (700), cited-by tags, any file move, and the commit id in caption mono. The current version sits on Paper 2. The "Date asked" row, in Signal Yellow with a square ink node, is placed between the versions where the asked date falls.
+
+### Navigation
+None beyond the masthead's "Source on GitHub" link (blue, 600, underline offset 3px, thicker underline on hover) and a yellow skip link to the answer.
+
+### Streamlit Surface (older)
+`ui/app.py` keeps the earlier layout on the same tokens: a yellow validity strip, a five-column comparison grid (11.75rem system | answer | 12.5rem cited source | 9.5rem status | 8rem claims, 1.4rem cell gap, ~1.05rem row padding) with the answer in the Answer step, status chips, borderless sources and claims tables, a to-scale validity timeline (Paper 2 tracks, blue or red segments drawn in over 520ms, an ink date mark with a yellow cap) and ruled expanders. Square corners there are enforced through `config.toml` and `ui/style.css`.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** keep every corner square (0px) and every region bounded by rules, not boxes.
-- **Do** state the validity period in the yellow strip whenever an answer is shown, with the date asked first.
-- **Do** use red only for a source not valid on the date asked, and pair it with text ("Not yet written", a dated footnote), never color alone.
-- **Do** set column heads and field labels in Archivo 700, 0.78rem, uppercase, width 72%, Ink 2.
-- **Do** keep the answer sentence the largest text in each grid row.
+- **Do** state the date asked in the yellow strip whenever an answer is shown, with the date first.
+- **Do** use red only for a source not valid on the date asked, and pair it with text and the † mark ("Not yet written", "Cites a version not valid on…"), never color alone.
+- **Do** set field labels, column and section heads in Archivo 700, 0.78rem, uppercase, width 72%, Ink 2.
+- **Do** keep the verdict answer the largest text below the masthead.
 - **Do** keep tabular figures on, and keep dates unwrapped.
+- **Do** draw icons as authored inline SVG strokes in the signal color of their meaning.
 
 ### Don't:
 - **Don't** use chat bubbles, soft cards, drop shadows, gradients or rounded corners.
-- **Don't** use yellow for emphasis, warnings or buttons; it belongs to the date asked and the validity strip.
-- **Don't** add tinted panels or colored section backgrounds beyond the validity strip and status/citation tints.
-- **Don't** put a condensed uppercase label above a heading as an eyebrow; labels name columns, fields, and tables only.
-- **Don't** show inline code in Streamlit's default green; code is ink on Paper 2 in JetBrains Mono.
+- **Don't** use yellow for emphasis, warnings or buttons; it belongs to the date asked.
+- **Don't** put red text directly on Signal Yellow; use ink in a Red Tint chip.
+- **Don't** add tinted panels or colored section backgrounds beyond the yellow strip, the date-asked row and the chip, tag and highlight tints.
+- **Don't** put a condensed uppercase label above a heading as an eyebrow; labels name fields, columns, tables and sections only.
+- **Don't** set captions in capitals; uppercase belongs to labels.
+- **Don't** show inline code in a framework's default color; code is ink on Paper 2 in JetBrains Mono.

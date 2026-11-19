@@ -17,6 +17,7 @@ WORKDIR /srv
 COPY pyproject.toml README.md ./
 COPY app ./app
 COPY ui ./ui
+COPY web ./web
 RUN pip install --upgrade pip && pip install ".[ui]"
 
 COPY alembic.ini ./
