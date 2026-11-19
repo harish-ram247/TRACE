@@ -35,3 +35,6 @@ Thumbs.db
 # Terraform (stretch)
 infra/.terraform/
 *.tfstate*
+
+# Local design references (third-party media, never committed)
+.impeccable/reference/

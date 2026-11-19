@@ -1,363 +1,443 @@
 ---
 name: TRACE
-description: Temporal Retrieval with Attributed Claim Evidence; answers set as a printed timetable page with a stated validity period.
+description: Temporal Retrieval with Attributed Claim Evidence; a dark circuit board where signals run along traces to the claim they support.
 colors:
-  ink: "#111111"
-  ink-2: "#4a4a48"
-  ink-3: "#6b6b67"
-  rule: "#cfcfcb"
-  paper: "#ffffff"
-  paper-2: "#f3f3f1"
-  timetable-blue: "#003082"
-  timetable-blue-deep: "#00256a"
-  blue-tint: "#e8edf6"
-  signal-yellow: "#ffc917"
-  stale-red: "#c8102e"
-  red-tint: "#fbe9ec"
+  board: "#14040e"
+  board-2: "#1c0614"
+  trace: "#4a1239"
+  trace-hi: "#7a1f5e"
+  magenta: "#ff3da5"
+  magenta-wash: "rgba(255, 61, 165, 0.14)"
+  magenta-edge: "rgba(255, 61, 165, 0.55)"
+  magenta-pale: "#ffb4dc"
+  chip-deep: "#3a0b2a"
+  chip-dark: "#1a0613"
+  ground: "#0b0f12"
+  well: "rgba(8, 11, 14, 0.55)"
+  glass: "rgba(13, 18, 22, 0.66)"
+  glass-2: "rgba(22, 30, 36, 0.62)"
+  veil: "rgba(255, 255, 255, 0.04)"
+  line: "rgba(255, 255, 255, 0.09)"
+  line-2: "rgba(255, 255, 255, 0.18)"
+  shade: "rgba(0, 0, 0, 0.55)"
+  text: "#f2f4f6"
+  text-2: "#a9b2ba"
+  text-3: "#76818b"
+  line-number: "#4b5660"
+  white: "#ffffff"
+  disabled: "#39424a"
+  blue: "#2f5bff"
+  blue-hover: "#1f47e6"
+  blue-wash: "rgba(47, 91, 255, 0.22)"
+  blue-pale: "#c9d6ff"
+  mint: "#5fe3b3"
+  mint-wash: "rgba(95, 227, 179, 0.13)"
+  coral: "#ff6b4a"
+  coral-wash: "rgba(255, 107, 74, 0.14)"
+  coral-pale: "#ffd0c4"
+  json-key: "#f39bd2"
+  json-number: "#ffc46b"
+  json-string: "#cbd5df"
 typography:
+  display-intro:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "clamp(6rem, 21vw, 17rem)"
+    fontWeight: 400
+    lineHeight: 0.82
+    letterSpacing: "0.04em"
   display:
-    fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "4.25rem"
-    fontWeight: 800
-    lineHeight: 0.82
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "clamp(3.4rem, 7.2vw, 6.6rem)"
+    fontWeight: 400
+    lineHeight: 0.9
     letterSpacing: "0.01em"
-    fontVariation: "'wdth' 112"
-  display-md:
-    fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "3.2rem"
-    fontWeight: 800
-    lineHeight: 0.82
-    fontVariation: "'wdth' 112"
-  display-sm:
-    fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "2.6rem"
-    fontWeight: 800
-    lineHeight: 0.82
-    fontVariation: "'wdth' 112"
-  verdict:
-    fontFamily: "Archivo, Arial, sans-serif"
+  display-phone:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "clamp(3rem, 15vw, 4.4rem)"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "0.01em"
+  section-title:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "2.2rem"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.03em"
+  numeral:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "1.8rem"
+    fontWeight: 400
+    lineHeight: 1
+  brand:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
     fontSize: "1.6rem"
-    fontWeight: 500
-    lineHeight: 1.32
-    fontVariation: "'wdth' 96"
-  verdict-md:
-    fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "1.32rem"
-    fontWeight: 500
-    lineHeight: 1.32
-    fontVariation: "'wdth' 96"
-  verdict-sm:
-    fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "1.04rem"
-    fontWeight: 500
-    lineHeight: 1.4
-    fontVariation: "'wdth' 96"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.06em"
+  panel-title:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "1.5rem"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.04em"
+  date-value:
+    fontFamily: "League Gothic, Arial Narrow, sans-serif"
+    fontSize: "1.35rem"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.04em"
   answer:
     fontFamily: "Archivo, Arial, sans-serif"
     fontSize: "1.22rem"
     fontWeight: 500
-    lineHeight: 1.42
-  strip-value:
-    fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "1.1rem"
-    fontWeight: 800
+    lineHeight: 1.45
   title:
     fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "1.05rem"
-    fontWeight: 800
+    fontSize: "1.15rem"
+    fontWeight: 600
     lineHeight: 1.2
-  detail:
+  lead:
     fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "0.98rem"
-    fontWeight: 700
-    lineHeight: 1.3
+    fontSize: "1.02rem"
+    fontWeight: 500
+    letterSpacing: "0.01em"
   body:
     fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "0.9rem"
+    fontSize: "0.95rem"
     fontWeight: 400
-    lineHeight: 1.5
+    lineHeight: 1.55
     fontFeature: "'tnum' 1"
+  body-sm:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.88rem"
+    fontWeight: 400
+    lineHeight: 1.55
+  small:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.82rem"
+    fontWeight: 400
+    lineHeight: 1.4
   label:
     fontFamily: "Archivo, Arial, sans-serif"
     fontSize: "0.78rem"
     fontWeight: 700
-    letterSpacing: "0.04em"
-    fontVariation: "'wdth' 72"
-  caption:
+    lineHeight: 1
+    letterSpacing: "0.1em"
+  label-sm:
     fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.72rem"
+    fontWeight: 600
+    letterSpacing: "0.12em"
+  data-head:
+    fontFamily: "JetBrains Mono, ui-monospace, Consolas, monospace"
+    fontSize: "0.78rem"
+    fontWeight: 500
+    lineHeight: 1.2
+  json:
+    fontFamily: "JetBrains Mono, ui-monospace, Consolas, monospace"
     fontSize: "0.78rem"
     fontWeight: 400
-    lineHeight: 1.4
-  code:
-    fontFamily: "JetBrains Mono, ui-monospace, Consolas, monospace"
-    fontSize: "0.86em"
-    fontWeight: 400
+    lineHeight: 1.55
   document:
     fontFamily: "JetBrains Mono, ui-monospace, Consolas, monospace"
-    fontSize: "0.86rem"
+    fontSize: "0.82rem"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.65
 rounded:
-  none: "0px"
+  node: "2px"
+  mark: "4px"
+  tag: "5px"
+  frame: "6px"
+  control: "8px"
+  field: "10px"
+  panel: "12px"
+  glass: "14px"
+  pill: "999px"
 spacing:
-  page-x: "2.5rem"
-  page-x-sm: "1rem"
-  field-gap: "1.2rem"
-  panel-x: "2rem"
-  panel-y: "1.4rem"
-  column-gap: "2rem"
-  section: "2rem"
-  section-lg: "3rem"
-  cell-gap: "1.4rem"
-  row-y: "1.05rem"
+  frame-x: "3rem"
+  frame-x-md: "1.8rem"
+  frame-x-sm: "1rem"
+  frame-y: "2.2rem"
+  section: "2.2rem"
+  section-lg: "2.6rem"
+  gap: "1rem"
+  cell: "1rem 1.1rem"
+  panel: "1.1rem 1.3rem 1.3rem"
+  glass-section: "1.6rem"
 components:
   button-primary:
-    backgroundColor: "{colors.timetable-blue}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.none}"
-    height: "2.75rem"
-    width: "8.5rem"
+    backgroundColor: "{colors.blue}"
+    textColor: "{colors.white}"
+    rounded: "{rounded.pill}"
+    height: "2.8rem"
+    padding: "0 1.4rem"
   button-primary-hover:
-    backgroundColor: "{colors.timetable-blue-deep}"
+    backgroundColor: "{colors.blue-hover}"
   button-primary-busy:
-    backgroundColor: "{colors.ink-3}"
+    backgroundColor: "{colors.disabled}"
+  button-small:
+    backgroundColor: "{colors.blue}"
+    textColor: "{colors.white}"
+    rounded: "{rounded.pill}"
+    height: "2.3rem"
+    padding: "0 1.1rem"
+  glass-section:
+    backgroundColor: "{colors.glass}"
+    rounded: "{rounded.glass}"
+    padding: "{spacing.glass-section}"
+  panel:
+    backgroundColor: "{colors.glass-2}"
+    rounded: "{rounded.panel}"
+    padding: "{spacing.panel}"
   input:
-    backgroundColor: "{colors.paper-2}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    height: "2.75rem"
-    padding: "0 0.85rem"
-  input-focus:
-    backgroundColor: "{colors.paper}"
-  checkbox:
-    backgroundColor: "{colors.paper}"
-    rounded: "{rounded.none}"
-    size: "1rem"
+    backgroundColor: "{colors.veil}"
+    textColor: "{colors.text}"
+    rounded: "{rounded.field}"
+    height: "2.9rem"
+    padding: "0 1rem"
   checkbox-checked:
-    backgroundColor: "{colors.timetable-blue}"
-  validity-strip:
-    backgroundColor: "{colors.signal-yellow}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "0.7rem 1rem"
-  stale-chip:
-    backgroundColor: "{colors.red-tint}"
-    textColor: "{colors.ink}"
-    padding: "0.05rem 0.4rem"
-  verdict-answer:
-    textColor: "{colors.ink}"
-    typography: "{typography.verdict}"
-    width: "34rem"
-  verdict-call-ok:
-    textColor: "{colors.timetable-blue}"
-    typography: "{typography.detail}"
-  verdict-call-bad:
-    textColor: "{colors.stale-red}"
-    typography: "{typography.detail}"
-  verdict-call-na:
-    textColor: "{colors.ink-2}"
-    typography: "{typography.detail}"
+    backgroundColor: "{colors.magenta}"
+    rounded: "{rounded.mark}"
+    size: "1.05rem"
+  data-head:
+    textColor: "{colors.text-2}"
+    typography: "{typography.data-head}"
+  date-asked-tag:
+    backgroundColor: "{colors.magenta-wash}"
+    textColor: "{colors.magenta}"
+    rounded: "{rounded.tag}"
+    typography: "{typography.data-head}"
+  asked-band:
+    backgroundColor: "{colors.magenta-wash}"
+    textColor: "{colors.text}"
+    rounded: "{rounded.field}"
+    padding: "0.75rem 1rem"
+  as-of-chip:
+    backgroundColor: "{colors.chip-deep}"
+    textColor: "{colors.white}"
+    rounded: "{rounded.panel}"
+    typography: "{typography.date-value}"
   citation-id:
-    backgroundColor: "{colors.blue-tint}"
-    textColor: "{colors.timetable-blue}"
-    rounded: "{rounded.none}"
-    padding: "0 0.35em"
+    backgroundColor: "{colors.blue-wash}"
+    textColor: "{colors.blue-pale}"
+    rounded: "{rounded.mark}"
+    padding: "0 0.4em"
   citation-id-stale:
-    backgroundColor: "{colors.red-tint}"
-    textColor: "{colors.stale-red}"
+    backgroundColor: "{colors.coral-wash}"
+    textColor: "{colors.coral-pale}"
+    rounded: "{rounded.mark}"
+    padding: "0 0.4em"
   cited-by-ok:
-    backgroundColor: "{colors.blue-tint}"
-    textColor: "{colors.timetable-blue}"
-    typography: "{typography.caption}"
-    padding: "0.08rem 0.4rem"
+    backgroundColor: "{colors.mint-wash}"
+    textColor: "{colors.mint}"
+    rounded: "{rounded.tag}"
+    padding: "0.1rem 0.45rem"
   cited-by-bad:
-    backgroundColor: "{colors.red-tint}"
-    textColor: "{colors.stale-red}"
-    typography: "{typography.caption}"
-    padding: "0.08rem 0.4rem"
-  source-row-current:
-    backgroundColor: "{colors.blue-tint}"
-    padding: "0.65rem 0.5rem"
+    backgroundColor: "{colors.coral-wash}"
+    textColor: "{colors.coral}"
+    rounded: "{rounded.tag}"
+    padding: "0.1rem 0.45rem"
+  verdict-call-ok:
+    textColor: "{colors.mint}"
+  verdict-call-bad:
+    textColor: "{colors.coral}"
+  verdict-call-na:
+    textColor: "{colors.text-2}"
   document-line-hit:
-    backgroundColor: "{colors.blue-tint}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.magenta-wash}"
+    textColor: "{colors.text}"
     typography: "{typography.document}"
-  log-current:
-    backgroundColor: "{colors.paper-2}"
   log-date-asked:
-    backgroundColor: "{colors.signal-yellow}"
-    textColor: "{colors.ink}"
-  status-valid:
-    backgroundColor: "{colors.blue-tint}"
-    textColor: "{colors.timetable-blue}"
-    typography: "{typography.label}"
-    padding: "0.1rem 0.4rem"
-  status-invalid:
-    backgroundColor: "{colors.red-tint}"
-    textColor: "{colors.stale-red}"
-    padding: "0.1rem 0.4rem"
-  status-neutral:
-    backgroundColor: "{colors.paper-2}"
-    textColor: "{colors.ink-2}"
-    padding: "0.1rem 0.4rem"
+    backgroundColor: "{colors.magenta-wash}"
+    textColor: "{colors.text}"
+    rounded: "{rounded.control}"
 ---
 
 # Design System: TRACE
 
 ## Overview
 
-**Creative North Star: "The Timetable Page"**
+**Creative North Star: "The Lit Trace"**
 
-TRACE's answers are set like a printed railway timetable: a heavy masthead over a thick blue rule, a yellow band stating the date asked and the period each answer's source is valid for, and the systems compared under ruled heads. The page reads as a public information document, not a chat product. Nothing floats; everything sits on a rule.
+TRACE is drawn as a circuit board, and the name is literal: magenta signals travel along dim plum traces to the claim they support. A deep plum board fills the window; the app sits on it as one near-black slate frame, and inside the frame the content floats on translucent glass. The world is pinned to the user's reference video (dark board, glowing magenta signal, tall white condensed capitals) and to a dataset-table screenshot for the claims.
 
-Density is that of a working timetable: tabular figures throughout, condensed uppercase column heads, compact cells, and one deliberately large element per system (the answer sentence). Color is functional signage with three fixed meanings: blue for structure, action and "valid", yellow for "the date you asked", red for "not valid on that date". White paper and black ink carry everything else.
+Light is the only ornament, and light means signal. The magenta glow lives where a signal is: the pulses running along the backdrop traces, the "As of" chip in the hero, the emblem's hot node, the date asked. Everything else is quiet slate, hairline borders and three type voices: League Gothic capitals to announce, Archivo to explain, JetBrains Mono for anything that is data (column heads, JSON scores, documents, commit ids, dates in tags).
 
-The world refuses the AI-search defaults of chat bubbles, soft cards, gradients and drop shadows. Depth is never simulated; hierarchy comes from rule weight (5px, 3px, 1px), type weight and width, and the three signal colors. The web demo (`web/`) is the primary surface; the Streamlit page (`ui/app.py`, `ui/style.css`) is the older surface on the same tokens.
+Color is semantic, not decorative. Mint means "valid on the date asked", coral means "not valid on that date", magenta means "the date asked" and the brand, and electric blue means "you can act here". The page refuses light SaaS cards and chat transcripts; claims are a dataset, and the verdict and evidence open in place under the row.
 
 **Key Characteristics:**
-- White paper, black ink, square corners on every surface, field, button and chip (0px radius).
-- Rules, not containers: a 5px blue masthead rule, 3px ink rules opening each verdict panel and the evidence, 1px ink under column heads, 1px grey between rows.
-- Archivo throughout at variable width: expanded (112%) for the masthead, condensed (72%) for column heads and labels, slightly condensed (96%) for the verdict answer.
-- Tabular figures on the whole page; dates are the primary data.
-- Three signal colors, each with exactly one meaning.
+- A plum circuit board behind a near-black slate frame (6px corners), glass sections and panels inside it.
+- Zero-offset magenta glows on signal points only; traveling pulses on the backdrop traces and the chip traces.
+- Venetian-blind stripe masks (6px period) on display type in motion; striped pins on the chip.
+- League Gothic for display capitals, Archivo for UI, JetBrains Mono for data.
+- Four meaning colors: mint valid, coral not valid, magenta the date asked, blue action.
+- Minimal hover: a border brightens and a panel lifts 2px.
 
 ## Colors
 
-A public-transport palette: paper and ink, one institutional blue, one signal yellow, one alarm red.
+A dark plum-and-slate palette lit by one neon magenta, with mint, coral and electric blue each held to one meaning.
 
 ### Primary
-- **Timetable Blue** (timetable-blue): the masthead rule, the Ask button, checked checkboxes, focus outlines, caret, links, the "Why?" control, valid verdict lines and their icons, TRACE's role tag, citation ids, cited-by tags and commit dots for valid versions. Also the Streamlit `primaryColor`.
-- **Deep Timetable Blue** (timetable-blue-deep): hover state of the primary button only.
-- **Blue Tint** (blue-tint): background of citation ids, valid cited-by tags, the selected cited version, and the highlighted lines in the document view.
+- **Signal Magenta** (magenta): the brand and the date asked. Backdrop and chip pulses, the emblem and brand hot node, the TRACE initials in the full form, the "as of" date tag in each row, the asked band, the date-asked row in the history, highlighted document lines (with a 2px inset left bar), the counter bar, the How-it-works numerals, checked checkboxes, focus outlines, caret, selection, link hover underlines and the "Why?" chevron.
+- **Magenta Wash** (magenta-wash) and **Magenta Edge** (magenta-edge): the translucent fill and border of every magenta-marked surface (date tag, asked band, open row, selected source, date-asked row, document hit); the edge also rims the chip.
+- **Magenta Pale** (magenta-pale): small uppercase keys on magenta surfaces ("As of", "Date asked", the chip's labels).
+- **Chip Deep / Chip Dark** (chip-deep, chip-dark): the hero chip's 160° fill, the one place the board's plum comes forward.
 
 ### Secondary
-- **Signal Yellow** (signal-yellow): the "As of" strip above the verdict, the "Date asked" row in the commit history, the skip link and text selection. It always means "the date being asked about / the period this answer holds for".
+- **Action Blue** (blue): the "Ask a question" and "Ask" pill buttons. **Action Blue Hover** (blue-hover) is darker, not lighter, so white text keeps AA contrast. **Busy** (disabled) replaces it while a question is in flight.
 
 ### Tertiary
-- **Stale Red** (stale-red): only for sources not valid on the asked date: the dagger (†) on stale citation ids and in the strip, the "Cites a version not valid on…" verdict line and its icon, red cited-by tags, "Not yet written"/"Superseded" status, red commit dots, form errors.
-- **Red Tint** (red-tint): background of stale citation ids, red cited-by tags and, on the yellow strip, the stale date chip.
+- **Valid Mint** (mint, mint-wash): "valid on the date asked". Valid verdict lines and icons, the "time-aware" role tag, valid cited-by tags and status words, `true` in the JSON, valid commit nodes.
+- **Stale Coral** (coral, coral-wash, coral-pale): "not valid on the date asked". The † verdict line and icon, stale cited-by tags and status words ("Not yet written", "Superseded"), `false` in the JSON, stale commit nodes, form errors. Coral Pale is the text tone inside coral-washed chips (stale citation ids, the stale period in the asked band).
 
 ### Neutral
-- **Ink** (ink): body text, headings, heavy 3px rules and 1px column-head rules, the date-asked node in the history.
-- **Ink 2** (ink-2): column heads and field labels, verdict sub-lines, the claims line, the "not judged" verdict line.
-- **Ink 3** (ink-3): muted text (hints, file paths and commit meta, line numbers, footer), the baseline's role tag and its 3px panel rule, unchecked checkbox border, the busy Ask button.
-- **Rule Grey** (rule): 1px rules between rows, around the question bar and verdict panels, the panel divider, the history's vertical line, field borders.
-- **Paper** (paper): page ground, focused fields.
-- **Paper 2** (paper-2): fields at rest, inline code, the current version in the history, hover on cited versions.
+- **Board / Board 2** (board, board-2): the window ground, a radial glow from Board 2 at the center to Board at the edges.
+- **Trace / Trace Hi** (trace, trace-hi): the backdrop traces (every fifth trace and the pad rings in Trace Hi), the chip traces, the history log's vertical line.
+- **Ground** (ground): the slate inside the frame and intro panel (at 0.9–0.94 opacity), the skip-link text, unlit log nodes.
+- **Glass / Glass 2** (glass, glass-2): glass sections (claims, ask, how-it-works cards) and verdict panels; **Well** (well) under an opened row's detail; **Veil** (veil) on fields, the open button and the current log row.
+- **Line / Line 2** (line, line-2): every 1px hairline; Line 2 is the hover and emphasis state.
+- **Text / Text 2 / Text 3** (text, text-2, text-3): primary text, secondary text and labels, muted meta. **Line Number** (line-number) is the document gutter only.
+- **Shade** (shade): the frame's and intro panel's neutral drop shadow.
+- **JSON tones** (json-key, json-number, json-string): orchid keys, amber numbers and claim scores, cool grey strings; nulls and comments in Text 3 italic.
 
 ### Named Rules
-**The One Meaning Rule.** Each signal color has a single meaning across the page: blue = structure/action/valid, yellow = the date asked, red = not valid on that date. Red never decorates, yellow never highlights anything except the date asked or a validity period.
+**The Four Meanings Rule.** Mint is valid on the date asked, coral is not valid on the date asked, magenta is the date asked (and the brand), blue is an action. A color never borrows another's meaning; coral is never decoration and mint is never a success toast.
 
-**The Paper and Ink Rule.** Surfaces are white or Paper 2. There are no tinted panels, gradients, or colored section backgrounds other than the yellow strip and the date-asked row; Blue Tint and Red Tint appear only on chips, tags, the selected source and highlighted document lines.
+**The Blue Is for Action Rule.** Electric blue fills things you press: the pill buttons. It never marks state or validity. (Citation ids and the "Your question" tag still carry blue in the build; see Components.)
 
-**The Ink-on-Yellow Rule.** Nothing red sits directly on Signal Yellow: red text on yellow fails contrast. A stale date in the strip is ink inside a Red Tint chip, led by a red dagger.
+**The Dagger Rule.** Coral never travels alone: every not-valid mark pairs it with a † or words ("Cites a version not valid on…", "Not yet written", "Superseded").
 
 ## Typography
 
-**Display Font:** Archivo (with Arial, sans-serif), variable width 62–125, weights 400–800
-**Body Font:** Archivo (same family)
-**Label/Mono Font:** JetBrains Mono (with ui-monospace, Consolas) for inline code, file paths and the document view
+**Display Font:** League Gothic (with Arial Narrow, sans-serif), 400, always uppercase
+**Body Font:** Archivo (with Arial, sans-serif), variable weight 400–800
+**Label/Mono Font:** JetBrains Mono (with ui-monospace, Consolas) for data
 
-**Character:** One grotesque used at different widths does all the work, the way transit signage does: wide and black for the name, condensed and capitalized for column heads, regular for reading. Mono appears only where the docs themselves are quoted.
+**Character:** Tall condensed capitals announce, like the title cards in the reference video; a plain grotesque explains; mono marks anything that is data, so a reader can tell at a glance what is prose and what is a record.
 
 ### Hierarchy
-- **Display** (800, 4.25rem; 3.2rem at ≤760px; 2.6rem at ≤480px; line-height 0.82; width 112%): the TRACE masthead only.
-- **Verdict** (500, 1.6rem / 1.32, width 96%, 34rem measure; 1.32rem at ≤760px; 1.04rem / 1.4 at ≤480px): the answer sentence in each verdict panel, the largest text after the masthead. Values in it may be 800.
-- **Answer** (500, 1.22rem): a declined or empty answer, set muted in Ink 3; also the Streamlit grid's answer sentence.
-- **Strip value** (800, 1.1rem): the date asked in the "As of" strip.
-- **Title** (800, 1.05rem / 1.2): system names heading each verdict panel; the masthead expansion sits at 500 1.05rem with its initials in blue 800.
-- **Detail** (700, 0.98rem): verdict lines (at 600), the "Why?" control, cited-version names.
-- **Body** (400, 0.9rem / 1.5): fields, sub-lines, claims table, history dates (700), "How it works".
-- **Label** (700, 0.78rem, 0.04em tracking, uppercase, width 72%, Ink 2): field labels, column and section heads, strip keys, the role tag beside a system name, the "Date asked" key.
-- **Caption** (400–500, 0.78rem, sentence case): hints, file path and date meta, cited-by tags, commit meta, document note, footer. Never uppercase.
-- **Document** (JetBrains Mono 400, 0.86rem / 1.6): the line-numbered section text.
+- **Display intro** (League Gothic, clamp(6rem, 21vw, 17rem), 0.82): the TRACE word in the intro only.
+- **Display** (League Gothic, clamp(3.4rem, 7.2vw, 6.6rem), 0.9, uppercase, 11ch measure, balanced): the rotating hero headline; **Display phone** (clamp(3rem, 15vw, 4.4rem)) at ≤760px.
+- **Section title** (League Gothic, 2.2rem): "Ask your own question", "How it works". **Numeral** (1.8rem, magenta): the 01/02/03 steps. **Brand** (1.6rem, 0.06em): the top-bar wordmark. **Panel title** (1.5rem, uppercase): TRACE / Plain RAG. **Date value** (1.35rem): the date in the asked band; the chip date uses clamp(1.1rem, 1.8vw, 1.6rem).
+- **Answer** (Archivo 500, 1.22rem / 1.45, pretty wrap): the answer sentence in each verdict panel; muted declines step to 1.05rem in Text 3.
+- **Title** (Archivo 600, 1.15rem): the "TRACE › Claims" crumbs.
+- **Lead** (Archivo 500, 1.02rem): the full-form line, initials in magenta 800.
+- **Body** (Archivo 400, 0.95rem / 1.55): page text, fields, verdict lines (600). **Body small** (0.88rem): table answers, options, loading text. **Small** (0.82rem; 0.8rem for hints and notes): notes, hints, meta, small buttons.
+- **Label** (Archivo 700, 0.78rem, 0.1em, uppercase): role tags beside panel titles, keys on magenta surfaces (0.7rem in the asked band). **Label small** (600, 0.72rem, 0.12em, uppercase): the vertical side rail. The intro full form is 600 clamp(0.8rem, 1.4vw, 1.05rem) at 0.16em.
+- **Data head** (JetBrains Mono 500, 0.78rem, Text 2): column heads written as dataset keys ("question · as of", "trace_answer", "eval_scores", "trace_claim_check"), field labels, row date tags; 0.72rem in the claim-check table, 0.7rem as phone card keys.
+- **JSON** (JetBrains Mono 400, 0.78rem / 1.55): the eval_scores cell. **Document** (JetBrains Mono 400, 0.82rem / 1.65): the line-numbered section text.
 
 ### Named Rules
-**The Tabular Figures Rule.** `font-variant-numeric: tabular-nums` is set on the root; dates and scores must align in columns.
+**The Three Voices Rule.** League Gothic announces, Archivo explains, JetBrains Mono records. Prose never goes mono; data (keys, dates in tags, JSON, commit ids, file paths, documents) never goes Archivo.
 
-**The Width-Not-Size Rule.** Labels are distinguished by condensed width, weight and capitals, not by shrinking below 0.78rem. Option text (checkboxes) is sentence case at 0.9rem/500 and is never styled as a label; captions share the label's size but never its capitals.
+**The Dataset Key Rule.** Table heads and field labels read like a dataset's keys: mono, lowercase or snake_case, Text 2. Uppercase tracked Archivo is reserved for tags and keys beside a value, never stacked above a heading.
 
 ## Layout
 
-A single column, 75rem max, with 2.5rem side padding (1rem at ≤760px). The web page runs top to bottom as one document:
+The window is the board; the app is one slate frame, 86rem max, inset 2.2rem from the top and centered, padded 0 3rem 2.5rem. Inside it, top to bottom:
 
-1. **Masthead:** three columns aligned to the baseline (name | expansion + one-line description | "Source on GitHub"), closed by the 5px blue rule.
-2. **Question bar:** one ruled row, no card: Question (flexible) | Example select (19rem) | As of ISO text field with its range hint (10.5rem) | Ask (8.5rem), 1.2rem column gap, with the two square checkboxes on a line beneath; closed by a 1px grey rule.
-3. **Verdict:** the yellow "As of" strip, then two verdict panels side by side (1fr 1fr) split by a 1px grey vertical rule, each opened by a 3px rule (Ink for TRACE, Ink 3 for the baseline) and padded 1.4rem / 2rem; the "Why?" control beneath.
-4. **Evidence (on "Why?"):** opened by a 3px ink rule; three columns (17rem cited versions and claim check | flexible document view | 17rem history), 2rem gap.
-5. **How it works:** 3rem above, opened by a 1px ink rule, a numbered list at 60rem measure.
-6. **Footer:** 2rem above, 1px grey rule, caption text.
+1. **Top bar:** wordmark left; section links (Claims, Ask, How it works, GitHub) and a small blue pill right; closed by a 1px Line.
+2. **Hero:** two columns (1.05fr | 1fr), min(78vh, 46rem) tall: the rotating headline, full form, description (34rem) and the "01 —— 03" counter left; the chip on its traces with the rotating ring badge right; a vertical side rail of corpus facts at the right edge.
+3. **Claims dataset:** a glass section with crumbs and a note, then a hairline-bordered table: question · as of | trace_answer | plain_rag_answer | eval_scores (1.05fr | 1.2fr | 1.2fr | 1.05fr) and a 3.4rem open column, cells padded 1rem 1.1rem with hairline column rules. The opened row's detail is inserted directly under it.
+4. **Detail:** the asked band, two verdict panels (1fr 1fr, 1rem gap), "Why?", then the evidence in three columns (16rem cited versions and claim check | document | 16rem history, 1.6rem gap).
+5. **Ask:** a glass section; question (1fr) | as of (11rem) | Ask (9rem), checkboxes beneath.
+6. **How it works:** three glass cards (1rem gap). **Footer:** 1px Line, Small text in Text 3.
 
 Responsive behavior:
-- **≤1080px:** the question bar becomes two columns with the question full width; the evidence keeps sources (15rem) and document side by side and drops the history to full width beneath.
-- **≤760px:** the masthead stacks; panels stack, the second gaining a 1px grey top rule; the evidence is one column. Order changes so the verdict comes first: strip (now also stating the question), both panels, "Why?", then the question bar opened by a 3px ink rule.
-- **≤480px:** the masthead description hides and the masthead and strip tighten; the strip drops its source and corpus pairs; verdict lines and sub-lines step down to body and caption.
+- **≤1080px:** frame margin 1.2rem, padding 0 1.8rem; the hero stacks with the art centered at 30rem max; the side rail hides; the table drops the eval_scores column (four columns); the evidence keeps 15rem sources beside the document and drops the history to full width.
+- **≤760px:** the frame goes full-bleed with no side borders, padded 1rem; section links hide; each row becomes its own bordered card (12px) with the question and open button on top and mono keys above the answers and scores; panels, evidence, ask and how-it-works go to one column; the asked band also states the question.
 
 ## Elevation & Depth
 
-Flat. No box shadows anywhere. Depth and grouping come from rule weight and from the two yellow fills (the strip and the date-asked row) as the only filled bands.
+Depth comes from translucency and light, not from stacked shadows. Three planes: the lit board, the slate frame on it (one soft neutral shadow), and glass inside the frame (blur, no shadow). Colored light is a signal, emitted from a point with no offset.
+
+### Shadow Vocabulary
+- **Frame lift** (`box-shadow: 0 30px 80px rgba(0,0,0,0.55)`; 0.6 on the intro panel): the only neutral shadow, separating the frame from the board.
+- **Chip glow** (`0 0 0 1px rgba(255,61,165,0.15), 0 0 32px rgba(255,61,165,0.45), inset 0 0 18px rgba(255,61,165,0.25)`, breathing to 46px / 0.6 over 3.4s): the hero chip.
+- **Signal glow** (`filter: drop-shadow(0 0 3px #ff3da5)`, 4px on chip traces, 6px on the emblem node; `text-shadow: 0 0 12px rgba(255,61,165,0.9)` on the chip date): pulses and signal points.
+- **Node glow** (`box-shadow: 0 0 8px` in mint or coral; `0 0 10px` magenta on the date-asked node): commit nodes in the history.
+- **Hit bar** (`box-shadow: inset 2px 0 0 #ff3da5`): highlighted document lines.
+- **Button hover** (`0 8px 24px rgba(47,91,255,0.35)` with a 1px lift): the blue pill.
+
+### Glass
+`background: rgba(13,18,22,0.66); border: 1px solid rgba(255,255,255,0.09); backdrop-filter: blur(14px) saturate(125%)` on glass sections; verdict panels use Glass 2 with the same hairline.
 
 ### Named Rules
-**The Rule-Weight Rule.** Hierarchy of separation is expressed in line weight: 5px Timetable Blue closes the masthead; 3px Ink opens a verdict panel, the evidence, or (on phones) the question bar, with Ink 3 for the baseline's panel; 1px Ink sits under column heads and above "How it works"; 1px Rule Grey separates rows and panels.
+**The Zero-Offset Glow Rule.** Glows have no offset: they radiate from a signal point (a pulse, the chip, a hot node, a commit node) in that point's meaning color. Glow is how the board says "signal here"; it is never put on prose, panels or headings.
+
+**The Minimal Hover Rule.** On glass, hover changes two things only: the border brightens from Line to Line 2 and the card lifts 2px (200ms, ease-out). No scale, no glow, no color fill.
 
 ## Shapes
 
-Square everywhere: 0px radius on fields, the select, buttons, checkboxes, chips, tags, the strip and every region. The round marks are drawings, not containers: the authored verdict icons (a 1.4rem outlined circle carrying a check, cross or dash, 1.75px stroke), the commit nodes on the history line (0.55rem rings, filled blue or red when cited; the date-asked node is a square ink block), and the loading ring. The chevron on the select and "Why?" is an authored 1.75px stroke and turns 180° when open.
+A soft-cornered scale that tightens as things get smaller: 14px glass sections, 12px verdict panels, the chip and phone row cards, 10px the table, fields, sources, document and asked band, 8px the open button and log rows, 6px the frame and intro panel, 5px tags, 4px citation ids, inline code, checkboxes and the focus ring, 2px the date-asked node (square among round nodes). Buttons and the skip-intro control are full pills (999px). Commit nodes and pad rings are circles.
+
+The board's geometry is orthogonal-and-45°: traces run on a 20px grid and turn only by 45°, ending in a 3.2px pad ring. The hero chip carries two rows of pins as a repeating stripe (3px pin, 6px gap) above and below.
+
+### Named Rules
+**The Six-Pixel Stripe Rule.** Stripes are a mask, not a pattern fill: repeating-linear-gradient bands on a 6px period that thin out or thicken to move display type (the headline morph, the intro outline reveal), and fixed 3px-on-9px stripes as the chip's pins. Nowhere else.
 
 ## Components
 
 ### Buttons
-- **Shape:** square (0px), 2.75rem tall, min 8.5rem wide.
-- **Primary (Ask):** Timetable Blue fill, white 700 text at 0.9rem with 0.02em tracking, no icon.
-- **Hover / Focus:** background shifts to Deep Timetable Blue over 120ms ease-out; focus is a 2px blue outline at 2px offset (global). Busy: Ink 3 fill with a progress cursor.
-- **"Why?" control:** text-only, Detail type in blue with a chevron; underlines on hover; the chevron rotates 180° over 200ms when the evidence is open.
+- **Shape:** full pill (999px), 2.8rem tall, padding 0 1.4rem; small 2.3rem with 0.82rem text; in the ask form 2.9rem and full width.
+- **Primary:** Action Blue, white Archivo 700 0.9rem, 0.02em tracking.
+- **Hover / Focus:** Action Blue Hover, 1px lift and the blue hover shadow over 160ms; focus is a 2px magenta outline at 3px offset. Busy: Busy grey, no lift, progress cursor, label "Asking…".
+- **Skip intro:** a veiled pill (rgba white 0.05, hairline), Text 2, bottom right.
 
 ### Inputs / Fields
-- **Style:** Paper 2 fill, 1px Rule Grey border, square, 2.75rem tall, 500 0.9rem; labels in the Label role 0.4rem above.
-- **Hover / Focus:** border darkens to Ink 3; on focus a 2px blue outline inset 1px and the fill turns Paper. Disabled: dashed border on Paper, Ink 3 text.
-- **As of:** a plain ISO text field (YYYY-MM-DD) with tabular figures, 0.02em tracking, and a caption hint stating the valid range; no date picker.
-- **Example select:** the same field with native appearance removed and an authored chevron at the right.
-- **Checkboxes:** 1rem square box, 1.5px Ink 3 border on Paper; checked fills blue with a white tick; hover darkens the border to Ink; option text sentence case 0.9rem/500.
-
-### Validity Strip (signature)
-Full-width Signal Yellow band opening the verdict: label/value pairs ("As of" with the date in Strip value and a note on where the date came from; "TRACE source"; "Plain RAG source"; "Corpus"), wrapping with a 1.8rem column gap. A stale period appears as ink in a Red Tint chip led by a red †. On phones it also states the question asked.
-
-### Verdict Panels (signature)
-Two ruled panels, TRACE and Plain RAG, each a Title heading with a condensed role tag beside it (blue "time-aware", Ink 3 "baseline, no dates"). Under it, the answer sentence in Verdict type, then one verdict line: an authored circle icon with Detail text in blue ("Source valid on …"), red ("† Cites a version not valid on …") or Ink 2 ("Declined rather than guess"), with a body sub-line in Ink 2 naming the source and its dates. TRACE adds a claims line ("2 of 2 claims supported…"). Answers and verdict lines rise 6px into place over 420ms on arrival, the second panel 90ms later.
-
-### Citation ID
-Inline tag (S1, S3) at 0.5em, 800, width 90%, raised in the answer: Blue Tint + blue, or Red Tint + red with a trailing † when the cited version was not valid on the date asked.
-
-### Cited-by Tags
-Caption-size square tags naming who cited a version ("**S1** TRACE"): Blue Tint + blue when that version was valid on the date asked, Red Tint + red when not. Used on cited versions and history rows.
-
-### Evidence View (signature)
-- **Cited versions:** a list under a 1px ink rule; each row is a button (Detail section name, caption file and dates, cited-by tags, a "Valid / Not yet written on …" status in blue or red). Hover Paper 2; selected Blue Tint. Below it the TRACE claim check: a borderless table with label heads over a 1px ink rule, verdict word in blue or red, scores right-aligned.
-- **Document view:** a head line (mono caption path › section, "Cited by …" and the version's dates in 700) over a 1px ink rule, then the section text in Document type with a 2.6rem line-number gutter in Ink 3. Lines containing values from the answer are highlighted in Blue Tint with a blue 700 line number. A caption note says what the highlight means.
-- **History of this section:** a merged commit log under a 1px ink rule, a 1px grey vertical line with a node per version; each row shows the date range (700), cited-by tags, any file move, and the commit id in caption mono. The current version sits on Paper 2. The "Date asked" row, in Signal Yellow with a square ink node, is placed between the versions where the asked date falls.
+- **Style:** Veil fill, 1px Line, 10px corners, 2.9rem tall, Archivo 500 0.95rem; mono Data head label 0.45rem above; hints in Text 3.
+- **Hover / Focus:** border to Line 2; on focus the border turns magenta, the fill warms to a 0.05 magenta tint and a 3px magenta ring (0.15) appears. Disabled: dashed border, Text 3.
+- **Checkboxes:** 1.05rem box, 4px corners, 1.5px Text 3 border; checked fills magenta with a white tick.
 
 ### Navigation
-None beyond the masthead's "Source on GitHub" link (blue, 600, underline offset 3px, thicker underline on hover) and a yellow skip link to the answer.
+Top-bar links in Archivo 600 0.84rem, Text 2; on hover the text whitens and a 1px magenta underline draws in from the left over 260ms. Hidden at ≤760px, where only the wordmark and the small pill remain. A magenta skip link jumps to the claims.
 
-### Streamlit Surface (older)
-`ui/app.py` keeps the earlier layout on the same tokens: a yellow validity strip, a five-column comparison grid (11.75rem system | answer | 12.5rem cited source | 9.5rem status | 8rem claims, 1.4rem cell gap, ~1.05rem row padding) with the answer in the Answer step, status chips, borderless sources and claims tables, a to-scale validity timeline (Paper 2 tracks, blue or red segments drawn in over 520ms, an ink date mark with a yellow cap) and ruled expanders. Square corners there are enforced through `config.toml` and `ui/style.css`.
+### Hero Chip (signature)
+A square chip (19.2% of the art, 32% on phones) on six orthogonal traces, three of them carrying magenta pulses. Chip Deep to Chip Dark fill, Magenta Edge rim, the breathing chip glow, striped pins top and bottom; inside, "As of" and "source valid" in Magenta Pale label caps around the date in League Gothic with a magenta text glow. The date follows the open row. A ring badge of circular text (Text 2, 0.18em) rotates once per 26s around the emblem beside it.
+
+### Claims Dataset (signature)
+A hairline table read like a dataset. Each row: the question in quotes with a magenta-washed mono date tag ("as of 2022-01-01"; live questions add a "Your question" tag above); both answers clamped to four lines with citation ids; the eval_scores cell as pretty-printed JSON (`{ 2 items`, orchid keys, mint `true`, coral `false`, amber numbers); a 2rem open button whose plus rotates 45° to a cross when open. Hover tints the row white at 0.035; the open row is magenta at 0.06.
+
+### Citation IDs
+Inline tags (S1, S3) at 0.62em Archivo 700, 4px corners, raised 0.25em: Blue Pale on Blue Wash by default; Coral Pale on Coral Wash with a trailing † when the cited version was not valid on the date asked. Known drift, not a rule: the default id's blue tint and the solid-blue "Your question" tag on live rows predate the Blue Is for Action Rule; a neutral tone (Veil and Text) for the default id and a magenta or neutral tag would bring them in line.
+
+### Verdict (signature)
+- **Asked band:** magenta wash with a magenta-edge hairline, 10px; "As of" key and the date in Date value, a note on where the date came from, TRACE's source period, and Plain RAG's stale period as a coral-washed chip led by a coral †.
+- **Panels:** Glass 2, 12px, hairline; Panel title with a role tag (mint "time-aware", Text 3 "baseline, no dates"); the answer; one verdict line, an authored 1.3rem circle icon (check, cross or dash, 1.75px stroke) with text in mint, coral or Text 2 and a Text 2 sub-line; TRACE adds "2 of 2 claims supported…". Answers rise 8px into place over 420ms.
+- **"Why?" control:** text-only Archivo 700 0.92rem; a magenta underline draws in on hover; the magenta chevron turns 180° when open.
+
+### Evidence (signature)
+- **Cited versions:** veiled 10px buttons with section name, mono file and dates, mint or coral cited-by tags and a status word; selected is magenta-washed with a magenta edge. Below, the trace_claim_check table with mono heads, mint or coral verdict words and amber scores.
+- **Document:** mono path head, then the section text in a dark 10px well with a 2.8rem Line Number gutter; lines holding values from the answer get the magenta wash and inset bar, their number in magenta 700.
+- **History of this section:** a commit log on a Trace Hi line; each version is a button with its mono date range, cited-by tags and commit id; nodes light mint or coral with a glow when cited; the current version sits on Veil; the "Date asked" row is a magenta-washed band with a square magenta node placed where the date falls.
+
+### Motion
+- **Intro (signature):** plays once per session (sessionStorage `trace-intro`), never under reduced motion; `?intro=1` forces it, `?intro=0` skips it. The board's traces draw in (1400ms, staggered up to 0.7s, pads pop 1100ms later) while a slate panel settles in (600ms); the emblem draws itself (900ms, strokes staggered 0/180/320/420ms, nodes pop at 900ms); the outlined TRACE scans in through the 6px stripe mask (700ms at 900ms); the full form rises (600ms at 1600ms); the fill wipes across the outline (700ms at 2100ms). At 3100ms, or on any click, key or "Skip intro", the panel wipes away to the right (650ms) while the frame wipes in from the left (750ms, 120ms later).
+- **Tagline morph:** every 5.2s the headline cycles "Know what was true, and when." → "Answers as of any date." → "Every claim, traced to its source." The old line's 6px stripes thin to nothing as it drifts up 3px while the new line's stripes thicken as it settles from 3px below (760ms, ease-in-out); the counter's magenta bar fills over the same 5.2s.
+- **Pulses:** a 3-unit dash on every ninth backdrop trace runs its length in 5–11s, linear, from random phases; chip-trace pulses run every 3.4s.
+- **Reduced motion:** all animation and transition off, pulses removed, no intro, the headline holds its first tagline.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep every corner square (0px) and every region bounded by rules, not boxes.
-- **Do** state the date asked in the yellow strip whenever an answer is shown, with the date first.
-- **Do** use red only for a source not valid on the date asked, and pair it with text and the † mark ("Not yet written", "Cites a version not valid on…"), never color alone.
-- **Do** set field labels, column and section heads in Archivo 700, 0.78rem, uppercase, width 72%, Ink 2.
-- **Do** keep the verdict answer the largest text below the masthead.
-- **Do** keep tabular figures on, and keep dates unwrapped.
-- **Do** draw icons as authored inline SVG strokes in the signal color of their meaning.
+- **Do** keep the four meanings fixed: mint valid, coral not valid, magenta the date asked and brand, blue action.
+- **Do** put glow only on signal points, with zero offset, in the point's meaning color.
+- **Do** set display text in League Gothic capitals, explanation in Archivo, and every key, date tag, JSON value, path and document in JetBrains Mono.
+- **Do** write column heads and field labels as dataset keys in mono (trace_answer, eval_scores, question · as of).
+- **Do** use glass (Glass, 1px Line, 14px blur) for sections and panels, and limit hover to a Line 2 border and a 2px lift.
+- **Do** pair coral with a † or words every time.
+- **Do** use the darker Action Blue Hover on button hover so white text keeps AA contrast.
+- **Do** honor reduced motion and the once-per-session intro with a visible skip.
 
 ### Don't:
-- **Don't** use chat bubbles, soft cards, drop shadows, gradients or rounded corners.
-- **Don't** use yellow for emphasis, warnings or buttons; it belongs to the date asked.
-- **Don't** put red text directly on Signal Yellow; use ink in a Red Tint chip.
-- **Don't** add tinted panels or colored section backgrounds beyond the yellow strip, the date-asked row and the chip, tag and highlight tints.
-- **Don't** put a condensed uppercase label above a heading as an eyebrow; labels name fields, columns, tables and sections only.
-- **Don't** set captions in capitals; uppercase belongs to labels.
-- **Don't** show inline code in a framework's default color; code is ink on Paper 2 in JetBrains Mono.
+- **Don't** use light surfaces, white cards or chat bubbles; the ground is always the board and the slate frame.
+- **Don't** use blue for state, validity or decoration.
+- **Don't** add offset colored shadows or glows on text blocks, panels or headings.
+- **Don't** use stripe masks beyond display type in motion and the chip's pins.
+- **Don't** stack an uppercase tracked label above a heading as an eyebrow.
+- **Don't** add a fourth typeface or set prose in mono.
+- **Don't** scale, recolor or glow glass on hover.
+
+## Streamlit surface (older)
+
+`ui/app.py` (with `ui/style.css`) still uses the earlier light Timetable look, not this world: white paper with black ink, square corners throughout, Archivo at variable widths (expanded for the masthead, condensed uppercase column heads), timetable blue #003082 for structure, actions and "valid", signal yellow #FFC917 for the "As of" strip and the date asked, red #C8102E (with a †) for sources not valid on that date. Its layout is a yellow validity strip over a five-column comparison grid, status chips, ruled tables and a to-scale validity timeline, separated by rule weights (5px, 3px, 1px) with no shadows. Its tokens are not carried in this file's frontmatter.

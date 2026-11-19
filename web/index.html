@@ -3,94 +3,178 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TRACE · answers from the Vite docs as of any date</title>
+<title>TRACE · know what was true, and when</title>
 <meta name="description" content="TRACE answers questions from the Vite documentation as it was on any date, cites the version valid then, and checks every claim. Compare it with plain RAG.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23003082'/%3E%3Crect x='6' y='22' width='20' height='4' fill='%23ffc917'/%3E%3Cpath d='M9 8h14v4h-5v8h-4v-8H9z' fill='%23fff'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b0f12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0f12'/%3E%3Cpath d='M7 10h18M16 10v13' stroke='%23ff3da5' stroke-width='2.5' fill='none'/%3E%3Ccircle cx='7' cy='10' r='2.5' fill='%23ff3da5'/%3E%3Ccircle cx='25' cy='10' r='2.5' fill='%23ff3da5'/%3E%3Ccircle cx='16' cy='24' r='2.5' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>
+  // Decide before first paint whether the intro plays (once per session; never under reduced motion).
+  (function () {
+    var force = /[?&]intro=1/.test(location.search), skip = /[?&]intro=0/.test(location.search);
+    var seen = false; try { seen = sessionStorage.getItem("trace-intro") === "seen"; } catch (e) {}
+    var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (force || (!seen && !skip && !calm)) document.documentElement.classList.add("intro-on");
+  })();
+</script>
 </head>
 <body>
-<a class="skip" href="#verdict">Skip to the answer</a>
+<svg class="circuit" id="circuit" aria-hidden="true" preserveAspectRatio="xMidYMid slice"></svg>
 
-<header class="mast">
-  <h1 class="mast-name">TRACE</h1>
-  <div class="mast-text">
-    <p class="mast-exp"><b>T</b>emporal <b>R</b>etrieval with <b>A</b>ttributed <b>C</b>laim <b>E</b>vidence</p>
-    <p class="mast-desc">Ask the Vite documentation a question as of any date. TRACE answers only from the version of the docs that was valid then, cites it, and checks every claim.</p>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-panel">
+    <svg class="emblem" viewBox="0 0 120 120">
+      <path class="draw" pathLength="1" d="M14 36H106"/>
+      <path class="draw" pathLength="1" d="M60 36V70L76 86V100"/>
+      <path class="draw" pathLength="1" d="M30 36V52L20 62V80"/>
+      <path class="draw" pathLength="1" d="M90 36V48L100 58V74"/>
+      <circle class="node" cx="14" cy="36" r="4"/><circle class="node" cx="106" cy="36" r="4"/>
+      <circle class="node hot" cx="76" cy="104" r="5"/><circle class="node" cx="20" cy="84" r="4"/><circle class="node" cx="100" cy="78" r="4"/>
+    </svg>
+    <div class="intro-word"><span class="ow-outline">TRACE</span><span class="ow-fill">TRACE</span></div>
+    <p class="intro-full"><b>T</b>emporal <b>R</b>etrieval with <b>A</b>ttributed <b>C</b>laim <b>E</b>vidence</p>
   </div>
-  <a class="mast-link" href="https://github.com/harish-ram247/TRACE" target="_blank" rel="noopener">Source on GitHub</a>
+  <button type="button" class="intro-skip" id="intro-skip" tabindex="-1">Skip intro</button>
+</div>
+
+<div class="frame">
+<a class="skip" href="#claims">Skip to the claims</a>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="TRACE home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 10h22M16 10v13" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="5" cy="10" r="2.6"/><circle cx="27" cy="10" r="2.6"/><circle class="hot" cx="16" cy="24.5" r="2.8"/></svg>
+    <span>TRACE</span>
+  </a>
+  <nav class="links" aria-label="Sections">
+    <a href="#claims">Claims</a><a href="#ask">Ask</a><a href="#how">How it works</a>
+    <a href="https://github.com/harish-ram247/TRACE" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+  <a class="btn btn-sm" href="#ask">Ask a question</a>
 </header>
 
-<main>
-  <form class="ask" id="ask" novalidate>
-    <div class="field f-q">
-      <label for="q">Question</label>
-      <input id="q" name="q" type="text" maxlength="500" autocomplete="off"
-             placeholder="What port does vite preview use by default?">
+<main id="top">
+  <section class="hero" aria-labelledby="headline">
+    <div class="hero-text">
+      <h1 class="headline" id="headline" aria-label="Know what was true, and when.">
+        <span class="hl hl-a" aria-hidden="true">Know what was true, and when.</span>
+        <span class="hl hl-b" aria-hidden="true"></span>
+      </h1>
+      <p class="fullform"><b>T</b>emporal <b>R</b>etrieval with <b>A</b>ttributed <b>C</b>laim <b>E</b>vidence</p>
+      <p class="desc">Ask the Vite documentation a question as of any date. TRACE answers only from the version that was valid then, cites it, and checks every claim. Plain RAG, which searches every version at once, sits beside it for comparison.</p>
+      <div class="counter" aria-hidden="true"><span id="ctr">01</span><i><b id="ctr-bar"></b></i><span>03</span></div>
     </div>
-    <div class="field f-ex">
-      <label for="ex">Example</label>
-      <div class="select"><select id="ex"><option value="">Choose an example</option></select>
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.75"/></svg></div>
-    </div>
-    <div class="field f-date">
-      <label for="date">As of</label>
-      <input id="date" name="date" type="text" inputmode="numeric" maxlength="10" autocomplete="off"
-             placeholder="YYYY-MM-DD" value="2022-01-01" aria-describedby="date-hint">
-      <span class="hint" id="date-hint">2021-01-01 to 2026-11-13</span>
-    </div>
-    <div class="field f-go">
-      <span class="label-spacer" aria-hidden="true">&nbsp;</span>
-      <button type="submit" id="go" class="btn">Ask</button>
-    </div>
-    <div class="opts">
-      <label class="check"><input id="from-q" type="checkbox"><span class="box" aria-hidden="true"></span>Read the date from the question</label>
-      <label class="check"><input id="verify" type="checkbox" checked><span class="box" aria-hidden="true"></span>Check every claim</label>
-    </div>
-    <p class="form-msg" id="form-msg" role="alert" hidden></p>
-  </form>
 
-  <section class="verdict" id="verdict" aria-live="polite" aria-busy="false">
-    <div class="asked" id="asked"></div>
-    <div class="panels">
-      <article class="panel" id="p-trace" aria-labelledby="h-trace">
-        <header class="p-head"><h2 id="h-trace">TRACE</h2><span class="p-role">time-aware</span></header>
-        <div class="p-body"></div>
-      </article>
-      <article class="panel" id="p-plain" aria-labelledby="h-plain">
-        <header class="p-head"><h2 id="h-plain">Plain RAG</h2><span class="p-role p-role-2">baseline, no dates</span></header>
-        <div class="p-body"></div>
-      </article>
+    <div class="hero-art" aria-hidden="true">
+      <svg class="chip-traces" viewBox="0 0 520 440">
+        <path d="M0 120H120L150 150H210"/><path d="M0 300H90L130 260H210"/>
+        <path d="M520 90H420L380 130H310"/><path d="M520 330H440L400 290H310"/>
+        <path d="M260 0V70L240 90V140"/><path d="M260 440V380L280 360V300"/>
+        <path class="sig" pathLength="100" d="M0 120H120L150 150H210"/>
+        <path class="sig s2" pathLength="100" d="M520 330H440L400 290H310"/>
+        <path class="sig s3" pathLength="100" d="M260 0V70L240 90V140"/>
+      </svg>
+      <div class="chip">
+        <span class="chip-k">As of</span>
+        <span class="chip-v" id="chip-date">2022-01-01</span>
+        <span class="chip-s">source valid</span>
+      </div>
+      <svg class="ring" viewBox="0 0 200 200">
+        <defs><path id="ring-path" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1 -156 0"/></defs>
+        <text><textPath href="#ring-path">TEMPORAL RETRIEVAL · ATTRIBUTED CLAIM EVIDENCE · VITE DOCS 2020–2026 ·</textPath></text>
+        <path class="ring-mark" d="M70 92h60M100 92v26" /><circle class="ring-dot" cx="100" cy="122" r="4"/>
+      </svg>
     </div>
-    <button type="button" class="why" id="why" aria-expanded="false" aria-controls="evidence" hidden>
-      <span>Why? Show the evidence</span>
-      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
-    </button>
+
+    <ul class="side" aria-hidden="true"><li>Vite docs</li><li>2020 — 2026</li><li>3,142 versions</li></ul>
   </section>
 
-  <section class="evidence" id="evidence" hidden aria-label="Evidence">
-    <div class="ev-grid">
-      <div class="ev-sources">
-        <h3 class="th">Cited versions</h3>
-        <ol class="src-list" id="src-list"></ol>
-        <div id="claims"></div>
+  <section class="dataset glass" id="claims" aria-labelledby="h-claims">
+    <div class="ds-head">
+      <h2 class="crumbs" id="h-claims"><span>TRACE</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5l4.5 4.5L6 12.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Claims</span></h2>
+      <p class="ds-note">Each row asks the same question of both systems on a past date. Open a row for the verdict and the evidence.</p>
+    </div>
+    <div class="table" role="table" aria-label="Claims answered by TRACE and plain RAG">
+      <div class="tr th-row" role="row">
+        <span role="columnheader">question · as of</span>
+        <span role="columnheader">trace_answer</span>
+        <span role="columnheader">plain_rag_answer</span>
+        <span role="columnheader">eval_scores</span>
+        <span role="columnheader" class="sr-only">Open</span>
       </div>
-      <div class="ev-doc" id="ev-doc"></div>
-      <div class="ev-history">
-        <h3 class="th">History of this section</h3>
-        <ol class="log" id="log"></ol>
-      </div>
+      <div id="rows" role="rowgroup"></div>
+    </div>
+
+    <!-- Detail of the open row: moved under that row by app.js -->
+    <div class="detail" id="detail" hidden>
+      <section class="verdict" id="verdict" aria-live="polite" aria-busy="false">
+        <div class="asked" id="asked"></div>
+        <div class="panels">
+          <article class="panel" id="p-trace" aria-labelledby="h-trace">
+            <header class="p-head"><h3 id="h-trace">TRACE</h3><span class="p-role">time-aware</span></header>
+            <div class="p-body"></div>
+          </article>
+          <article class="panel" id="p-plain" aria-labelledby="h-plain">
+            <header class="p-head"><h3 id="h-plain">Plain RAG</h3><span class="p-role p-role-2">baseline, no dates</span></header>
+            <div class="p-body"></div>
+          </article>
+        </div>
+        <button type="button" class="why" id="why" aria-expanded="false" aria-controls="evidence" hidden>
+          <span>Why? Show the evidence</span>
+          <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
+        </button>
+      </section>
+      <section class="evidence" id="evidence" hidden aria-label="Evidence">
+        <div class="ev-grid">
+          <div class="ev-sources">
+            <h4 class="th">Cited versions</h4>
+            <ol class="src-list" id="src-list"></ol>
+            <div id="claims-check"></div>
+          </div>
+          <div class="ev-doc" id="ev-doc"></div>
+          <div class="ev-history">
+            <h4 class="th">History of this section</h4>
+            <ol class="log" id="log"></ol>
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 
-  <section class="how" aria-labelledby="h-how">
-    <h2 class="th" id="h-how">How it works</h2>
+  <section class="ask-sec glass" id="ask" aria-labelledby="h-ask">
+    <h2 class="sec-title" id="h-ask">Ask your own question</h2>
+    <form class="ask" id="ask-form" novalidate>
+      <div class="field f-q">
+        <label for="q">Question</label>
+        <input id="q" name="q" type="text" maxlength="500" autocomplete="off" placeholder="What port does vite preview use by default?">
+      </div>
+      <div class="field f-date">
+        <label for="date">As of</label>
+        <input id="date" name="date" type="text" inputmode="numeric" maxlength="10" autocomplete="off"
+               placeholder="YYYY-MM-DD" value="2022-01-01" aria-describedby="date-hint">
+        <span class="hint" id="date-hint">2021-01-01 to 2026-11-13</span>
+      </div>
+      <div class="field f-go">
+        <span class="label-spacer" aria-hidden="true">&nbsp;</span>
+        <button type="submit" id="go" class="btn">Ask</button>
+      </div>
+      <div class="opts">
+        <label class="check"><input id="from-q" type="checkbox"><span class="box" aria-hidden="true"></span>Read the date from the question</label>
+        <label class="check"><input id="verify" type="checkbox" checked><span class="box" aria-hidden="true"></span>Check every claim</label>
+      </div>
+      <p class="form-msg" id="form-msg" role="alert" hidden></p>
+    </form>
+    <p class="ask-note">Your question is answered live by both systems and added to the top of the claims table. Answers usually take 3 to 10 seconds.</p>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="h-how">
+    <h2 class="sec-title" id="h-how">How it works</h2>
     <ol class="how-list">
-      <li><b>Resolve the date.</b> From the date field, or from the question: “before Vite 3”, “in March 2022”.</li>
-      <li><b>Retrieve what was valid then.</b> Every section of the docs is versioned from git history with the dates it was valid; search only sees versions valid on that date.</li>
-      <li><b>Verify each claim.</b> An entailment model checks every claim in the answer against the cited source, and that the source was valid on that date.</li>
+      <li class="glass"><span class="n">01</span><b>Resolve the date</b><span>From the date field, or from the question: “before Vite 3”, “in March 2022”.</span></li>
+      <li class="glass"><span class="n">02</span><b>Retrieve what was valid then</b><span>Every section of the docs is versioned from git history with the dates it was valid; search only sees versions valid on that date.</span></li>
+      <li class="glass"><span class="n">03</span><b>Verify each claim</b><span>An entailment model checks every claim against the cited source, and that the source was valid on that date.</span></li>
     </ol>
   </section>
 </main>
@@ -99,6 +183,7 @@
   Corpus: Vite documentation (MIT License, © VoidZero Inc. and Vite contributors), git history up to 2026-11-13.
   Answers are generated by an LLM and may be wrong; check the cited sources.
 </footer>
+</div>
 
 <script src="config.js"></script>
 <script src="app.js"></script>

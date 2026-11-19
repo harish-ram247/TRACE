@@ -21,7 +21,7 @@ async def test_demo_page_is_served():
         redirect = await c.get("/demo")
     assert page.status_code == 200
     assert "text/html" in page.headers["content-type"]
-    assert '<h1 class="mast-name">TRACE</h1>' in page.text and "app.js" in page.text
+    assert 'id="headline"' in page.text and 'id="claims"' in page.text and "app.js" in page.text
     assert script.status_code == 200
     assert redirect.status_code in (307, 308) and redirect.headers["location"].endswith("/demo/")
 
