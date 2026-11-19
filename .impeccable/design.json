@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T00:00:00Z",
+  "title": "Design System: TRACE",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#111111", "tonalRamp": ["#111111", "#2a2a29", "#4a4a48", "#6b6b67", "#8e8e8a", "#b3b3ae", "#d6d6d2", "#f3f3f1"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "#4a4a48", "tonalRamp": ["#1c1c1b", "#2f2f2e", "#4a4a48", "#62625f", "#7c7c78", "#a2a29d", "#cacac5", "#efefec"] },
+      "ink-3": { "role": "neutral", "displayName": "Ink 3", "canonical": "#6b6b67", "tonalRamp": ["#232321", "#3a3a38", "#52524f", "#6b6b67", "#8a8a85", "#aaaaa5", "#cfcfcb", "#f1f1ef"] },
+      "rule": { "role": "neutral", "displayName": "Rule Grey", "canonical": "#cfcfcb", "tonalRamp": ["#2a2a28", "#4b4b48", "#6e6e6a", "#929290", "#b2b2ae", "#cfcfcb", "#e3e3e0", "#f6f6f4"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#ffffff", "tonalRamp": ["#262626", "#4d4d4d", "#737373", "#999999", "#bfbfbf", "#e0e0e0", "#f5f5f5", "#ffffff"] },
+      "paper-2": { "role": "neutral", "displayName": "Paper 2", "canonical": "#f3f3f1", "tonalRamp": ["#262625", "#4b4b49", "#71716e", "#979794", "#bcbcb9", "#dcdcd9", "#f3f3f1", "#fbfbfa"] },
+      "timetable-blue": { "role": "primary", "displayName": "Timetable Blue", "canonical": "#003082", "tonalRamp": ["#001233", "#00256a", "#003082", "#2a55a3", "#5a7dbd", "#93a9d4", "#c7d3ea", "#e8edf6"] },
+      "timetable-blue-deep": { "role": "primary", "displayName": "Deep Timetable Blue", "canonical": "#00256a", "tonalRamp": ["#000d26", "#001a4a", "#00256a", "#1f468c", "#4b6eaa", "#869dc9", "#bfcce5", "#e6ebf4"] },
+      "blue-tint": { "role": "primary", "displayName": "Blue Tint", "canonical": "#e8edf6", "tonalRamp": ["#001233", "#00256a", "#003082", "#2a55a3", "#5a7dbd", "#93a9d4", "#c7d3ea", "#e8edf6"] },
+      "signal-yellow": { "role": "secondary", "displayName": "Signal Yellow", "canonical": "#ffc917", "tonalRamp": ["#3d2e00", "#6b5000", "#a07800", "#d6a200", "#ffc917", "#ffd85a", "#ffe89c", "#fff6d6"] },
+      "stale-red": { "role": "tertiary", "displayName": "Stale Red", "canonical": "#c8102e", "tonalRamp": ["#36040c", "#64091a", "#960c24", "#c8102e", "#dc4a60", "#e98593", "#f4bfc7", "#fbe9ec"] },
+      "red-tint": { "role": "tertiary", "displayName": "Red Tint", "canonical": "#fbe9ec", "tonalRamp": ["#36040c", "#64091a", "#960c24", "#c8102e", "#dc4a60", "#e98593", "#f4bfc7", "#fbe9ec"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The TRACE masthead only; 3.2rem at 760px and below, 2.6rem at 480px and below." },
+      "answer": { "displayName": "Answer", "purpose": "The answer sentence, the one large element per grid row; 1.32rem with a 38rem measure in per-system detail." },
+      "title": { "displayName": "Title", "purpose": "System names in the grid; detail heads one step below at 700 0.98rem." },
+      "body": { "displayName": "Body", "purpose": "Cells, tables, description and 'when' lines; tabular figures on the root." },
+      "label": { "displayName": "Label", "purpose": "Uppercase condensed column heads, field labels, strip keys, table section labels and role tags. Never an eyebrow above a heading." },
+      "code": { "displayName": "Code", "purpose": "Inline code quoted from the docs: ink on Paper 2, square." }
+    },
+    "shadows": [],
+    "rules": [
+      { "name": "masthead-rule", "value": "5px solid #003082", "purpose": "Closes the masthead." },
+      { "name": "section-rule", "value": "3px solid #111111", "purpose": "Opens the grid, each detail column (Ink 3 for the baseline) and section history." },
+      { "name": "head-rule", "value": "1px solid #111111", "purpose": "Under column heads; above the form and 'How it works'." },
+      { "name": "row-rule", "value": "1px solid #cfcfcb", "purpose": "Between rows, under expanders, above the footer." },
+      { "name": "focus-ring", "value": "outline: 2px solid #003082; outline-offset: 2px", "purpose": "Global :focus-visible." }
+    ],
+    "motion": [
+      { "name": "button-bg", "value": "background-color 120ms ease-out", "purpose": "Primary button hover." },
+      { "name": "timeline-draw", "value": "520ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Validity segments scale in from the left; disabled under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "stack", "value": "1080px", "purpose": "Grid rows reflow (facts under the answer), detail columns stack, Ask wraps." },
+      { "name": "phone", "value": "760px", "purpose": "Grid moves above the form; masthead stacks; secondary table columns hide." },
+      { "name": "narrow", "value": "480px", "purpose": "Masthead description hides; masthead and strip tighten so both rows fit the first screen." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (Ask)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single primary action: square, Timetable Blue, deepens on hover.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg>Ask</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-width: 8.5rem; height: 2.75rem; padding: 0 1.25rem; border: 0; border-radius: 0; background: #003082; color: #ffffff; font: 700 1rem Archivo, Arial, sans-serif; letter-spacing: 0.02em; cursor: pointer; transition: background-color 120ms ease-out; } .ds-btn-primary:hover { background: #00256a; } .ds-btn-primary:focus-visible { outline: 2px solid #003082; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square Paper 2 field under a condensed uppercase label.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Question</span><input class=\"ds-input\" value=\"What port does vite preview use by default?\"></label>",
+      "css": ".ds-field { display: grid; gap: 0.4rem; font-family: Archivo, Arial, sans-serif; } .ds-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-stretch: 72%; color: #4a4a48; } .ds-input { height: 2.5rem; padding: 0 0.8rem; border: 1px solid #cfcfcb; border-radius: 0; background: #f3f3f1; color: #111111; font: 400 0.9rem Archivo, Arial, sans-serif; caret-color: #003082; } .ds-input:hover { border-color: #6b6b67; } .ds-input:focus-visible { outline: 2px solid #003082; outline-offset: 2px; border-color: #003082; }"
+    },
+    {
+      "name": "Masthead Link",
+      "kind": "nav",
+      "description": "The only navigation: a blue underlined link that thickens on hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">Source on GitHub</a>",
+      "css": ".ds-link { font: 600 0.9rem Archivo, Arial, sans-serif; color: #003082; text-underline-offset: 3px; white-space: nowrap; } .ds-link:hover { text-decoration-thickness: 2px; } .ds-link:focus-visible { outline: 2px solid #003082; outline-offset: 2px; }"
+    },
+    {
+      "name": "Status Chips",
+      "kind": "chip",
+      "refersTo": "status-valid",
+      "description": "Square tinted chips: blue for valid/supported, red for not valid on the date asked, neutral otherwise.",
+      "html": "<span class=\"ds-st ds-ok\">Valid</span> <span class=\"ds-st ds-bad\">Not yet written</span> <span class=\"ds-st ds-na\">—</span>",
+      "css": ".ds-st { display: inline-block; font: 700 0.78rem Archivo, Arial, sans-serif; padding: 0.1rem 0.4rem; white-space: nowrap; border-radius: 0; } .ds-ok { background: #e8edf6; color: #003082; } .ds-bad { background: #fbe9ec; color: #c8102e; } .ds-na { background: #f3f3f1; color: #4a4a48; }"
+    },
+    {
+      "name": "Validity Strip",
+      "kind": "custom",
+      "refersTo": "validity-strip",
+      "description": "Signature yellow band under the masthead rule stating the date asked and the period the cited source was valid.",
+      "html": "<div class=\"ds-mastrule\"></div><div class=\"ds-strip\" role=\"status\"><span><span class=\"ds-k\">Asked for</span><b>2022-01-01</b></span><span><span class=\"ds-k\">Source valid</span><b>2021-11-06 – 2022-01-16</b></span><span><span class=\"ds-k\">Corpus</span>Vite docs, 2020-12 – 2026-11-13</span></div>",
+      "css": ".ds-mastrule { border-bottom: 5px solid #003082; } .ds-strip { display: flex; flex-wrap: wrap; gap: 0.4rem 2.6rem; align-items: baseline; background: #ffc917; color: #111111; padding: 0.75rem 1.1rem; font: 400 0.95rem Archivo, Arial, sans-serif; font-variant-numeric: tabular-nums; } .ds-strip b { font-weight: 800; } .ds-k { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-stretch: 72%; margin-right: 0.45rem; }"
+    },
+    {
+      "name": "Timetable Row",
+      "kind": "custom",
+      "description": "Signature comparison grid: one header, each system a ruled row with the answer sentence set large.",
+      "html": "<div class=\"ds-grid\"><div class=\"ds-head\"><span>System</span><span>Answer</span><span>Cited source valid</span><span>On 2022-01-01</span></div><div class=\"ds-row\"><div><span class=\"ds-name\">TRACE + claim check</span><span class=\"ds-role\">Time-aware</span></div><div class=\"ds-ans\">Vite preview uses port 5000 by default <span class=\"ds-cid\">S1</span>.</div><div class=\"ds-cell\"><span class=\"ds-cid\">S1</span> 2021-11-06 – 2022-01-16</div><div class=\"ds-cell\"><span class=\"ds-st\">Valid</span></div></div><div class=\"ds-row\"><div><span class=\"ds-name\">Plain RAG</span><span class=\"ds-role ds-base\">Baseline</span></div><div class=\"ds-ans\">The default port is 4173 <span class=\"ds-cid\">S1</span>.<sup class=\"ds-x\">†</sup></div><div class=\"ds-cell\"><span class=\"ds-cid\">S1</span> <span class=\"ds-bad\">2022-05-23 – 2022-12-04</span></div><div class=\"ds-cell\"><span class=\"ds-st ds-st-bad\">Not yet written</span></div></div></div>",
+      "css": ".ds-grid { font-family: Archivo, Arial, sans-serif; color: #111111; font-variant-numeric: tabular-nums; } .ds-head, .ds-row { display: grid; grid-template-columns: 10rem minmax(0, 1fr) 11rem 8rem; column-gap: 1.4rem; } .ds-head { border-top: 3px solid #111111; border-bottom: 1px solid #111111; padding: 0.55rem 0 0.45rem; } .ds-head span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-stretch: 72%; color: #4a4a48; } .ds-row { border-bottom: 1px solid #cfcfcb; padding: 1.05rem 0 1.15rem; align-items: start; } .ds-name { display: block; font-size: 1.05rem; font-weight: 800; line-height: 1.2; } .ds-role { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-stretch: 72%; color: #003082; margin-top: 0.15rem; } .ds-role.ds-base { color: #6b6b67; } .ds-ans { font-size: 1.22rem; line-height: 1.42; font-weight: 500; } .ds-cell { font-size: 0.9rem; white-space: nowrap; } .ds-cid { display: inline-block; font-weight: 800; font-size: 0.72rem; font-stretch: 90%; color: #003082; background: #e8edf6; padding: 0 0.32em; } .ds-bad { color: #c8102e; font-weight: 700; } .ds-x { color: #c8102e; font-weight: 800; } .ds-st { display: inline-block; font-weight: 700; font-size: 0.78rem; padding: 0.1rem 0.4rem; background: #e8edf6; color: #003082; } .ds-st-bad { background: #fbe9ec; color: #c8102e; }"
+    },
+    {
+      "name": "Validity Timeline",
+      "kind": "custom",
+      "description": "Source validity drawn to scale: blue valid, red invalid, ink date mark with a yellow cap.",
+      "html": "<div class=\"ds-tl\"><div class=\"ds-tl-row\"><span class=\"ds-lbl\">S1</span><div class=\"ds-track\"><div class=\"ds-seg ds-seg-bad\" style=\"left:24%;width:9%\"></div><div class=\"ds-mark\" style=\"left:17%\"></div></div></div><div class=\"ds-tl-row\"><span class=\"ds-lbl\">S3</span><div class=\"ds-track\"><div class=\"ds-seg ds-seg-ok\" style=\"left:15%;width:3%\"></div><div class=\"ds-mark\" style=\"left:17%\"></div></div></div></div>",
+      "css": ".ds-tl { font-family: Archivo, Arial, sans-serif; } .ds-tl-row { display: grid; grid-template-columns: 2.2rem 1fr; align-items: center; height: 1.25rem; } .ds-lbl { font-weight: 800; font-size: 0.78rem; } .ds-track { position: relative; height: 0.5rem; background: #f3f3f1; } .ds-seg { position: absolute; top: 0; bottom: 0; transform-origin: left center; animation: ds-draw 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .ds-seg-ok { background: #003082; } .ds-seg-bad { background: #c8102e; } .ds-mark { position: absolute; top: -0.35rem; bottom: -0.35rem; width: 3px; background: #111111; } .ds-mark::after { content: \"\"; position: absolute; top: -0.2rem; left: -0.25rem; width: 0.55rem; height: 0.3rem; background: #ffc917; outline: 1px solid #111111; } @keyframes ds-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } } @media (prefers-reduced-motion: reduce) { .ds-seg { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Timetable Page",
+    "overview": "TRACE's answers are set like a printed railway timetable: a heavy masthead over a thick blue rule, a yellow header stating the period the answer is valid for, and every system as a row in one ruled grid under a single set of column heads. The page reads as a public information document, not a chat product. Nothing floats; everything sits on a rule.\n\nDensity is that of a working timetable: tabular figures throughout, condensed uppercase column heads, compact cells, and one deliberately large element per row (the answer sentence). Color is functional signage with three fixed meanings: blue for structure and action, yellow for \"the date you asked\", red for \"not valid on that date\". White paper and black ink carry everything else.\n\nThe world refuses the AI-search defaults of chat bubbles, soft cards, gradients and drop shadows. Depth is never simulated; hierarchy comes from rule weight (5px, 3px, 1px), type weight and width, and the three signal colors.",
+    "keyCharacteristics": [
+      "White paper, black ink, square corners everywhere (0px radius, including Streamlit widgets).",
+      "Rules, not containers: a 5px blue masthead rule, 3px ink rules opening each grid or section, 1px ink under column heads, 1px grey between rows.",
+      "Archivo throughout at variable width: expanded (112%) for the masthead, condensed (72%) for column heads and labels.",
+      "Tabular figures on the whole page; dates are the primary data.",
+      "Three signal colors, each with exactly one meaning."
+    ],
+    "rules": [
+      { "name": "The One Meaning Rule", "body": "Each signal color has a single meaning across the page: blue = structure/action/valid, yellow = the date asked, red = not valid on that date. Red never decorates, yellow never highlights anything except the date or validity period.", "section": "colors" },
+      { "name": "The Paper and Ink Rule", "body": "Surfaces are white or Paper 2. There are no tinted panels, gradients, or colored section backgrounds other than the yellow validity strip.", "section": "colors" },
+      { "name": "The Tabular Figures Rule", "body": "`font-variant-numeric: tabular-nums` is set on the root; dates and scores must align in columns.", "section": "typography" },
+      { "name": "The Width-Not-Size Rule", "body": "Labels are distinguished by condensed width, weight and capitals, not by shrinking further. Option text (toggle, checkbox) is sentence case at 0.9rem/500 and is never styled as a label.", "section": "typography" },
+      { "name": "The Rule-Weight Rule", "body": "Hierarchy of separation is expressed in line weight: 5px Timetable Blue closes the masthead; 3px Ink opens a grid or section (Ink 3 for the baseline's detail column); 1px Ink sits under column heads and above the form and \"How it works\"; 1px Rule Grey separates rows.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** keep every corner square (0px) and every region bounded by rules, not boxes.",
+      "**Do** state the validity period in the yellow strip whenever an answer is shown, with the date asked first.",
+      "**Do** use red only for a source not valid on the date asked, and pair it with text (\"Not yet written\", a dated footnote), never color alone.",
+      "**Do** set column heads and field labels in Archivo 700, 0.78rem, uppercase, width 72%, Ink 2.",
+      "**Do** keep the answer sentence the largest text in each grid row.",
+      "**Do** keep tabular figures on, and keep dates unwrapped."
+    ],
+    "donts": [
+      "**Don't** use chat bubbles, soft cards, drop shadows, gradients or rounded corners.",
+      "**Don't** use yellow for emphasis, warnings or buttons; it belongs to the date asked and the validity strip.",
+      "**Don't** add tinted panels or colored section backgrounds beyond the validity strip and status/citation tints.",
+      "**Don't** put a condensed uppercase label above a heading as an eyebrow; labels name columns, fields, and tables only.",
+      "**Don't** show inline code in Streamlit's default green; code is ink on Paper 2 in JetBrains Mono."
+    ]
+  }
+}
